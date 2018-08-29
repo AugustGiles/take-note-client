@@ -1,0 +1,18 @@
+export const practiceAmounts = [
+  {key: 1, value: 1800, text: '30m'},
+  {key: 2, value: 3600, text: '1h 00m'},
+  {key: 3, value: 5400, text: '1h 30m'},
+  {key: 4, value: 7200, text: '2h 00m'},
+  {key: 5, value: 9000, text: '2h 30m'},
+  {key: 6, value: 10800, text: '3h 00m'},
+  {key: 7, value: 12600, text: '3h 30m'},
+  {key: 8, value: 14400, text: '4h 00m'},
+  {key: 9, value: 16200, text: '4h 30m'},
+  {key: 10, value: 18000, text: '5h 00m'},
+  {key: 11, value: 19800, text: '5h 30m'},
+  {key: 12, value: 21600, text: '6h 00m'},
+  {key: 13, value: 23400, text: '6h 30m'},
+  {key: 14, value: 25200, text: '7h 00m'},
+  {key: 15, value: 27000, text: '7h 30m'},
+  {key: 16, value: 28800, text: '8h 00m'},
+]
