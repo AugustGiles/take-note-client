@@ -5,12 +5,22 @@ import '../styles/Dashboard.css'
 
 export default class Dashboard extends Component {
 
+  componentDidMount() {
+    this.props.fetchUser()
+  }
+
   handlePracticeRoute = () => {
     this.props.history.push('/practice')
   }
 
   handleStudentShowRoute = (id) => {
     this.props.history.push(`/students/${id}`)
+  }
+
+  handleLogoutButton = () => {
+    this.props.handleLogout()
+    localStorage.clear()
+    this.props.history.push('/')
   }
 
   render () {
@@ -31,11 +41,15 @@ export default class Dashboard extends Component {
             time={time}
             items={this.props.items}
             handlePracticeRoute={this.handlePracticeRoute}
+            handleLogout={this.props.handleLogout}
+            fetchUser={this.props.fetchUser}
           /> :
           <TeacherDashboard
             students={students}
             user={user}
             handleStudentShowRoute={this.handleStudentShowRoute}
+            handleLogout={this.handleLogoutButton}
+            fetchUser={this.props.fetchUser}
           />
         )}
       </React.Fragment>

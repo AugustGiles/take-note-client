@@ -38,7 +38,8 @@ export default class Practice extends Component {
       mode: "cors",
       headers: {
         'Accept': 'application/json',
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`
       },
       body: JSON.stringify(data)
     })
@@ -55,7 +56,7 @@ export default class Practice extends Component {
       this.props.recentAssignment['assignment_text'] : ''
 
     return (
-      <div className='teacher'>
+      <div className='setup'>
         <Stopwatch
           isPaused={this.state.isPaused}
           time={this.state.time}

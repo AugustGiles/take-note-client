@@ -4,14 +4,26 @@ import '../styles/App.css'
 
 
 export default class TeacherDashboard extends Component {
+
   render () {
 
     return (
-      <div className='teacher' >
-        <Header style={{color: 'white', fontSize: '5vh'}}>{this.props.user.username}</Header>
+      <div className='setup' >
+        <div >
+          <Header
+            style={{color: 'white', fontSize: '5vh', display: "inline-block"}}
+          >
+          {this.props.user.username}
+          </Header>
+          <Button inverted content='Logout'
+            onClick={this.props.handleLogout}
+            style={{display: 'inline-block', float:'right'}}
+          />
+        </div>
         <Divider inverted/>
         <Header style={{color: 'white', fontSize: '3vh'}} >Students:</Header>
-        {this.props.students.map(student => {
+
+        {this.props.students && this.props.students.map(student => {
           return (
             <Button
               key={student.id}

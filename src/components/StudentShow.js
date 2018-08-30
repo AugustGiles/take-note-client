@@ -10,7 +10,13 @@ export default class StudentShow extends Component {
   }
 
   componentDidMount() {
-    fetch(`http://localhost:3000/users/${this.props.match.params.student}`)
+    fetch(`http://localhost:3000/users/${this.props.match.params.student}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`
+      }
+    })
       .then(resp => resp.json())
       .then(student => {
         let assignment = this.props.findMostRecentAssignment(student.givenAssignments)
@@ -26,7 +32,7 @@ export default class StudentShow extends Component {
 
 
     return (
-      <div className='teacher'>
+      <div className='setup'>
         <Header
           style={{color: 'white', fontSize: '5vh'}}>
           {student && student.username}
@@ -41,7 +47,7 @@ export default class StudentShow extends Component {
 
         <Divider inverted/>
         <span style={{display: 'inline-block'}}>
-          <Header style={{color: 'white', marginBottom: '5%'}} as='h5'>Assigned: {lastAssignment && lastAssignment['created_at']}</Header>
+          <Header style={{color: 'white', marginBottom: '5%'}} as='h3'>Assigned: {lastAssignment && lastAssignment['created_at']}</Header>
         </span>
 
         <p style={{color: 'white'}} >
@@ -50,14 +56,14 @@ export default class StudentShow extends Component {
 
         <div >
           <Button
-            inverted style={{topMargin: '3%'}}
+            inverted style={{marginTop: '3%', marginRight: '1%'}}
             size='big'
             onClick={() => this.props.history.push('/dashboard')}
           >
             Back
           </Button>
           <Button
-            inverted style={{margin: '3%'}}
+            inverted style={{marginTop: '3%'}}
             size='big'
             onClick={() => this.props.history.push(`/createassignment`)}
           >
