@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import Stopwatch from '../components/Stopwatch'
+import '../styles/App.css'
+import { Button, Message } from 'semantic-ui-react'
 
 export default class Practice extends Component {
 
@@ -41,35 +43,45 @@ export default class Practice extends Component {
       body: JSON.stringify(data)
     })
       .then(resp => resp.json())
-      .then(user => {
-        return this.props.handleAddTime(
-          user.givenAssignments[user.givenAssignments.length - 1]['current_practice_time']
-        )
+      .then(assignment => {
+        this.props.handleAddTime(assignment)
+        return assignment
       })
       .then(this.props.history.push('/dashboard'))
   }
 
   render () {
-
     const assignmentText = this.props.recentAssignment ?
       this.props.recentAssignment['assignment_text'] : ''
 
-
     return (
-      <React.Fragment>
+      <div className='teacher'>
         <Stopwatch
           isPaused={this.state.isPaused}
           time={this.state.time}
+          styling={'practice-stopwatch'}
+          context={'practice'}
         />
-        <p>{assignmentText}</p>
-        <button onClick={this.handlePause} >
-          {this.state.isPaused? 'Continue' : 'Pause'}
-        </button>
-        <button onClick={this.handleEnd} >
-          End
-        </button>
+        <Message floating>
+          <p >{assignmentText}</p>
+        </Message>
 
-      </React.Fragment>
+        <div style={{textAlign: 'center'}}>
+          <Button inverted
+            size="huge"
+            content={this.state.isPaused? 'Continue' : 'Pause'}
+            onClick={this.handlePause}
+            style={{margin: '2%'}}
+          />
+          <Button inverted
+            size="huge"
+            content='End'
+            onClick={this.handleEnd}
+            style={{margin: '2%'}}
+          />
+        </div>
+
+      </div>
     )
   }
 }
