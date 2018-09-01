@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
-import { Button, Statistic } from 'semantic-ui-react'
+import { connect } from 'react-redux'
+import { Statistic } from 'semantic-ui-react'
 import '../styles/App.css'
 
-
-export default class Stopwatch extends Component {
+class Stopwatch extends Component {
 
   render () {
-    const time = this.props.time
+    const time = this.props.context === 'dashboard' ?
+      (this.props.goalPracticeTime - this.props.currentPracticeTime) : this.props.time
     const hours = Math.floor(time / 3600)
     const minutes = Math.floor(time / 60) % 60
     const seconds = time % 60
@@ -26,12 +27,19 @@ export default class Stopwatch extends Component {
             {this.props.text && this.props.text}
           </Statistic.Label>
         </Statistic>
-        {(this.props.context === 'dashboard') ? <Button inverted fluid
-          size="huge"
-          content='Start Practice!'
-          onClick={this.props.routeToPractice}
-        /> : null}
       </div>
     )
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    username: state.user.username,
+    recentAssignment: state.user.recentAssignment,
+    currentPracticeTime: state.user.currentPracticeTime,
+    goalPracticeTime: state.user.goalPracticeTime,
+    time: state.stopwatch.time,
+  }
+}
+
+export default connect(mapStateToProps)(Stopwatch)

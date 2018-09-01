@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
 import { Button, Form, Input, Header } from 'semantic-ui-react'
 import '../styles/App.css'
+import { handleLogin, handleSignUp, fetchUser } from '../redux/actions/fetchActions'
+import { connect } from 'react-redux'
 
 
-export default class AuthForm extends Component {
+class AuthForm extends Component {
 
   state = {
     username: '',
@@ -14,8 +16,21 @@ export default class AuthForm extends Component {
   handleSubmit = (e) => {
     e.preventDefault()
     if (this.validate()) {
-      this.props.handleSubmit(this.state)
-      this.props.history.push('/dashboard')
+      if (this.props.context === 'login') {
+        this.props.handleLogin(this.state)
+          .then(user => {
+            this.props.fetchUser()
+            return (user['teacher_id'] ? 'student' : 'teacher')
+          })
+          .then(user => this.props.history.push(`/${user}dashboard`))
+      } else {
+        this.props.handleSignUp(this.state)
+          .then(user => {
+            this.props.fetchUser()
+            return (user['teacher_id'] ? 'student' : 'teacher')
+          })
+          .then(user => this.props.history.push(`/${user}dashboard`))
+      }
     }
   }
 
@@ -94,3 +109,5 @@ export default class AuthForm extends Component {
     )
   }
 }
+
+export default connect(null, { handleLogin, handleSignUp, fetchUser })(AuthForm)

@@ -1,76 +1,72 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { Header, Divider, Statistic, Button } from 'semantic-ui-react'
 import '../styles/App.css'
+import { findStudent } from '../redux/actions/fetchActions'
+import { clearSelectedStudent } from '../redux/actions/selectedStudentActions'
 
-export default class StudentShow extends Component {
-
-  state = {
-    student: null,
-    lastAssignment: null
-  }
+class StudentShow extends Component {
 
   componentDidMount() {
-    fetch(`http://localhost:3000/users/${this.props.match.params.student}`, {
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: `Bearer ${localStorage.getItem("token")}`
-      }
-    })
-      .then(resp => resp.json())
-      .then(student => {
-        let assignment = this.props.findMostRecentAssignment(student.givenAssignments)
-        this.setState({student: student, lastAssignment: assignment})
-      })
+    this.props.findStudent(this.props.match.params.student)
+  }
+
+  componentWillUnmount() {
+    this.props.clearSelectedStudent()
   }
 
   render () {
-    const student = this.state.student
-    const lastAssignment = this.state.lastAssignment
-    const stat = lastAssignment &&
-        Math.floor((lastAssignment['current_practice_time']/lastAssignment['practice_goal'])*100)
-
+    const stat =  Math.floor((this.props.currentPracticeTime/this.props.goalPracticeTime)*100)
 
     return (
       <div className='setup'>
         <Header
           style={{color: 'white', fontSize: '5vh'}}>
-          {student && student.username}
+          {this.props.username}
         </Header>
 
         <Divider inverted/>
 
         <Statistic horizontal inverted>
-          <Statistic.Value>{lastAssignment && stat}%</Statistic.Value>
+          <Statistic.Value>{stat}%</Statistic.Value>
           <Statistic.Label>Practice Completion</Statistic.Label>
         </Statistic>
 
         <Divider inverted/>
-        <span style={{display: 'inline-block'}}>
-          <Header style={{color: 'white', marginBottom: '5%'}} as='h3'>Assigned: {lastAssignment && lastAssignment['created_at']}</Header>
-        </span>
 
-        <p style={{color: 'white'}} >
-          {lastAssignment && lastAssignment["assignment_text"]}
-        </p>
+        <Header style={{color: 'white', marginBottom: '5%'}} as='h3'>
+          Assigned: {this.props.assignmentCreated}
+        </Header>
+
+        <p style={{color: 'white'}} >{this.props.assignmentText}</p>
 
         <div >
           <Button
-            inverted style={{marginTop: '3%', marginRight: '1%'}}
-            size='big'
-            onClick={() => this.props.history.push('/dashboard')}
-          >
-            Back
-          </Button>
+            inverted size='big'
+            style={{marginTop: '3%', marginRight: '1%'}}
+            onClick={() => this.props.history.push('/teacherDashboard')}
+            content='Back'
+          />
           <Button
-            inverted style={{marginTop: '3%'}}
-            size='big'
+            inverted style={{marginTop: '3%'}} size='big'
             onClick={() => this.props.history.push(`/createassignment`)}
-          >
-            New Assignment
-          </Button>
+            content='NewAssignment'
+          />
         </div>
       </div>
     )
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    username: state.selectedStudent.username,
+    recentAssignment: state.selectedStudent.recentAssignment,
+    assignmentCreated: state.selectedStudent.assignmentCreated,
+    assignmentText: state.selectedStudent.assignmentText,
+    currentPracticeTime: state.selectedStudent.currentPracticeTime,
+    goalPracticeTime: state.selectedStudent.goalPracticeTime,
+  }
+}
+
+export default connect(mapStateToProps, { findStudent, clearSelectedStudent })(StudentShow)

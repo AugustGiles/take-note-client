@@ -1,54 +1,32 @@
 import React, { Component } from 'react'
-import Stopwatch from '../components/Stopwatch'
-import '../styles/App.css'
+import { connect } from 'react-redux'
 import { Button, Message } from 'semantic-ui-react'
 
-export default class Practice extends Component {
+import '../styles/App.css'
+import Stopwatch from '../components/Stopwatch'
+import { patchCurrentPracticeTime } from '../redux/actions/fetchActions'
+import { incrementTime, togglePause, clearStopwatch } from '../redux/actions/stopwatchActions'
 
-  state = {
-    isPaused: false,
-    time: 0,
-    active: true,
-  }
+
+class Practice extends Component {
 
   componentDidMount() {
     this.interval = setInterval(() => {
-      if (!this.state.isPaused) {
-        this.setState({
-          time: this.state.time + 1
-        })
+      if (!this.props.isPaused) {
+        this.props.incrementTime()
       }
     }, 1000)
   }
 
   componentWillUnmount() {
     clearInterval(this.interval)
-  }
-
-  handlePause = () => {
-    this.setState({isPaused: !this.state.isPaused})
+    this.props.clearStopwatch()
   }
 
   handleEnd = () => {
-    this.state.isPaused ? this.setState({ active: false }) :
-            this.setState({ active: false, isPaused:true })
-    let data = {"current_practice_time": this.state.time}
-    fetch(`http://localhost:3000/assignments/currentpractice/${this.props.recentAssignment.id}`, {
-      method: "PATCH",
-      mode: "cors",
-      headers: {
-        'Accept': 'application/json',
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("token")}`
-      },
-      body: JSON.stringify(data)
-    })
-      .then(resp => resp.json())
-      .then(assignment => {
-        this.props.handleAddTime(assignment)
-        return assignment
-      })
-      .then(this.props.history.push('/dashboard'))
+    let data = {"current_practice_time": this.props.time}
+    this.props.patchCurrentPracticeTime(this.props.recentAssignment.id, data)
+      .then(this.props.history.push(`/${this.props.role}dashboard`))
   }
 
   render () {
@@ -57,26 +35,17 @@ export default class Practice extends Component {
 
     return (
       <div className='setup'>
-        <Stopwatch
-          isPaused={this.state.isPaused}
-          time={this.state.time}
-          styling={'practice-stopwatch'}
-          context={'practice'}
-        />
-        <Message floating>
-          <p >{assignmentText}</p>
-        </Message>
+        <Stopwatch context={'practice'}/>
+        
+        <Message floating><p >{assignmentText}</p></Message>
 
         <div style={{textAlign: 'center'}}>
-          <Button inverted
-            size="huge"
-            content={this.state.isPaused? 'Continue' : 'Pause'}
-            onClick={this.handlePause}
+          <Button inverted size="huge"
+            content={this.props.isPaused? 'Continue' : 'Pause'}
+            onClick={() => this.props.togglePause()}
             style={{margin: '2%'}}
           />
-          <Button inverted
-            size="huge"
-            content='End'
+          <Button inverted size="huge" content='End'
             onClick={this.handleEnd}
             style={{margin: '2%'}}
           />
@@ -86,3 +55,14 @@ export default class Practice extends Component {
     )
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    recentAssignment: state.user.recentAssignment,
+    role: state.user.role,
+    time: state.stopwatch.time,
+    isPaused: state.stopwatch.isPaused,
+  }
+}
+
+export default connect(mapStateToProps, { patchCurrentPracticeTime, incrementTime, togglePause, clearStopwatch })(Practice)
