@@ -1,6 +1,15 @@
+@import url('https://fonts.googleapis.com/css?family=BioRhyme');
+
 .App {
   height: 100vh;
   width: 100vw;
+}
+
+.auth {
+  background-color: #2f4f4f;
+  padding: 5vh;
+  height: 100%;
+  width: 100%;
 }
 
 .setup {
@@ -8,4 +17,8 @@
   padding: 5vh;
   height: 100%;
   width: 100%;
+}
+
+.featureText {
+  font-family: 'BioRhyme', serif;
 }

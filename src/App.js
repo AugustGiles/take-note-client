@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import { Route } from 'react-router';
 
 import './styles/App.css'
+// import Navigation from './components/Navigation'
 import Practice from './containers/Practice'
 import StudentDashboard from './components/StudentDashboard'
 import TeacherDashboard from './components/TeacherDashboard'
 import CreateAssignment from './containers/CreateAssignment'
 import StudentShow from './components/StudentShow'
 import AuthForm from './components/AuthForm'
+import CreateStudent from './components/CreateStudent'
 import { fetchUser } from './redux/actions/fetchActions'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
@@ -17,8 +19,6 @@ class App extends Component {
   componentDidMount() {
     if (localStorage.token){
       this.props.fetchUser()
-    } else {
-      // this.props.history.push('/')
     }
   }
 
@@ -26,9 +26,11 @@ class App extends Component {
 
     return (
       <div className='App'>
+
+
         <Route
-          exact path='/'
-          render={(props) => <AuthForm {...props} context={'login'}/> }
+          exact path='/login'
+          render={(props) => <AuthForm {...props} context={'login'} /> }
         />
 
         <Route
@@ -52,6 +54,11 @@ class App extends Component {
         />
 
         <Route
+          exact path='/createstudent'
+          render={(props) => <CreateStudent {...props} /> }
+        />
+
+        <Route
           exact path="/practice"
           render={(props) => <Practice {...props} /> }
         />
@@ -67,3 +74,9 @@ class App extends Component {
 }
 
 export default withRouter(connect(null, { fetchUser })(App));
+
+
+        // {localStorage.token ?
+        //   <Route path='/' className='setup' render={(props) => <Navigation {...props} /> } /> :
+        //     null
+        // }

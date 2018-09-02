@@ -3,13 +3,15 @@ import { Header, Button, Divider } from 'semantic-ui-react'
 import '../styles/App.css'
 import { connect } from 'react-redux'
 import { removeUser } from '../redux/actions/userActions'
+import Navigation from './Navigation'
+
 
 
 class TeacherDashboard extends Component {
 
   componentDidMount() {
     if (!localStorage.token) {
-      this.props.history.push('/')
+      this.props.history.push('/login')
     } else if (localStorage.role !== 'teacher') {
       this.props.history.goBack()
     }
@@ -18,26 +20,30 @@ class TeacherDashboard extends Component {
   handleLogoutButton = () => {
     localStorage.clear()
     this.props.removeUser()
-    this.props.history.push('/')
+    this.props.history.push('/login')
   }
 
   render () {
 
     return (
       <div className='setup' >
-        <div >
+        <div style={{width: '100%'}}>
           <Header
             style={{color: 'white', fontSize: '5vh', display: "inline-block"}}
-          >
-          {this.props.username}
-          </Header>
-          <Button inverted content='Logout'
-            onClick={this.handleLogoutButton}
-            style={{display: 'inline-block', float:'right'}}
+            content={this.props.username}
           />
+          <Navigation />
+
         </div>
         <Divider inverted/>
-        <Header style={{color: 'white', fontSize: '3vh'}} >Students:</Header>
+        <div style={{width: '100%'}}>
+          <Header style={{color: 'white', fontSize: '4vh', display:'inline-block'}} >Students:</Header>
+          <Button
+            icon='plus square' style={{display:'inline-block', float: 'right'}} inverted
+            onClick={() => this.props.history.push(`/createstudent`)}
+          />
+        </div>
+
 
         {this.props.students && this.props.students.map(student => {
           return (
@@ -63,3 +69,8 @@ const mapStateToProps = state => {
 }
 
 export default connect(mapStateToProps, { removeUser })(TeacherDashboard)
+
+// <Button inverted content='Logout'
+//   onClick={this.handleLogoutButton}
+//   style={{display: 'inline-block', float:'right'}}
+// />

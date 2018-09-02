@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, Form, Input, Header } from 'semantic-ui-react'
+import { Button, Input, Header, Divider, Form } from 'semantic-ui-react'
 import '../styles/App.css'
 import { handleLogin, handleSignUp, fetchUser } from '../redux/actions/fetchActions'
 import { connect } from 'react-redux'
@@ -68,50 +68,58 @@ class AuthForm extends Component {
 
   render() {
     return (
-      <div className="setup">
+      <div className="auth" style={{padding: '13%', paddingTop: '12%'}}>
+        <h1 className='featureText' style={{color: 'white', fontSize: '36px'}}>Take Note .</h1>
+        <Header
+          size='huge'
+          style={{color: 'white'}}
+          content={this.props.context === 'signup' ? 'Create Studio Account' : 'Login'}
+        />
         <Form>
-          <Header
-            size='huge'
-            style={{color: 'white', textAlign: 'center'}}
-            content='Welcome'
+          <Input
+            placeholder='Username'
+            value={this.state.username}
+            size='huge' fluid
+            style={{paddingTop: '2%'}}
+            onChange={(e) => this.setState({username: e.target.value})}
           />
-          <Form.Field inline style={{textAlign: 'center'}}>
-            <Input
-              placeholder='Username'
-              value={this.state.username}
-              onChange={(e) => this.setState({username: e.target.value})}
-            />
-          </Form.Field>
-          <Form.Field inline style={{textAlign: 'center'}}>
-            <Input
-              placeholder='Password'
-              type="password"
-              value={this.state.password}
-              onChange={(e) => this.setState({password: e.target.value})}
-            />
-          </Form.Field>
+          <Input
+            placeholder='Password'
+            type="password"
+            size='huge' fluid
+            style={{paddingTop: '2%'}}
+            value={this.state.password}
+            onChange={(e) => this.setState({password: e.target.value})}
+          />
           {this.props.context === 'signup' &&
-              <Form.Field inline style={{textAlign: 'center'}}>
-                <Input
-                  placeholder='Password Confirmation'
-                  type="password"
-                  value={this.state.passwordConfimation}
-                  onChange={(e) => this.setState({passwordConfirmation: e.target.value})}
-                />
-              </Form.Field>
-          }
-          <Form.Field inline style={{textAlign: 'center'}}>
-            <Button
-              inverted
-              content='Submit'
-              onClick={(e) => this.handleSubmit(e)}
+            <Input
+              placeholder='Password Confirmation'
+              type="password"
+              size='huge' fluid
+              style={{paddingTop: '2%'}}
+              value={this.state.passwordConfimation}
+              onChange={(e) => this.setState({passwordConfirmation: e.target.value})}
             />
-          </Form.Field>
+          }
+          <Button
+            inverted fluid
+            content='Submit'
+            size='large'
+            style={{marginTop:'2%', marginBottom: '5%'}}
+            onClick={(e) => this.handleSubmit(e)}
+          />
         </Form>
+        <Divider inverted />
 
         {this.props.context === 'signup' ?
-          <Button inverted content='Login' onClick={() => this.props.history.push('/')} /> :
-            <Button inverted content='SignUp' onClick={() => this.props.history.push('/signup')} />
+          <div style={{marginTop: '15%'}}>
+            <Header as='h3' style={{color:'white'}} content='Already have an account?' />
+            <Button inverted content='Login' onClick={() => this.props.history.push('/')} />
+          </div> :
+            <div style={{marginTop: '15%'}}>
+              <Header as='h3' style={{color:'white'}} content='Become a participating teacher...' />
+              <Button inverted content='SignUp' onClick={() => this.props.history.push('/signup')} />
+            </div>
         }
       </div>
     )
