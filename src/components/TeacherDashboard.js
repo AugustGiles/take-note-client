@@ -7,6 +7,14 @@ import { removeUser } from '../redux/actions/userActions'
 
 class TeacherDashboard extends Component {
 
+  componentDidMount() {
+    if (!localStorage.token) {
+      this.props.history.push('/')
+    } else if (localStorage.role !== 'teacher') {
+      this.props.history.goBack()
+    }
+  }
+
   handleLogoutButton = () => {
     localStorage.clear()
     this.props.removeUser()
@@ -50,7 +58,7 @@ class TeacherDashboard extends Component {
 const mapStateToProps = state => {
   return {
     username: state.user.username,
-    students: state.user.students
+    students: state.user.students,
   }
 }
 

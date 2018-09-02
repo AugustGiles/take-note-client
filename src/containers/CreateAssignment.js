@@ -13,6 +13,14 @@ class CreateAssignment extends Component {
     practiceAmount: 0,
   }
 
+  componentDidMount() {
+    if (!localStorage.token) {
+      this.props.history.push('/')
+    } else if (localStorage.role !== 'teacher') {
+      this.props.history.goBack()
+    }
+  }
+
   studentOptions = () => {
     return this.props.students.map(student => {
       return {key: student.id, value: student.id, text: student.username}
@@ -68,7 +76,7 @@ class CreateAssignment extends Component {
           />
           <TextArea
             placeholder='Assignment Text'
-            style={{ minHeight: '65vh' }}
+            style={{ minHeight: '60vh' }}
             onChange={(e) => this.handleTextArea(e)}
           />
           <Button

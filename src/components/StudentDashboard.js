@@ -6,6 +6,14 @@ import { removeUser } from '../redux/actions/userActions'
 
 class StudentDashboard extends Component {
 
+  componentDidMount() {
+    if (!localStorage.token) {
+      this.props.history.push('/')
+    } else if (localStorage.role !== 'student') {
+      this.props.history.goBack()
+    }
+  }
+
   handleLogoutButton = () => {
     localStorage.clear()
     this.props.removeUser()

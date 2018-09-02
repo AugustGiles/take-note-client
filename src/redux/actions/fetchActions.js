@@ -37,6 +37,9 @@ export function handleLogin(userInfo) {
         .then(json => {
           if (json.success) {
             localStorage.setItem('token', json.token)
+            json.user['teacher_id'] ?
+              localStorage.setItem('role', 'student') :
+                localStorage.setItem('role', 'teacher')
             resolve(json.user)
           } else {
             console.log("Login Failed")

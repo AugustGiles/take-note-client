@@ -11,11 +11,17 @@ import { incrementTime, togglePause, clearStopwatch } from '../redux/actions/sto
 class Practice extends Component {
 
   componentDidMount() {
-    this.interval = setInterval(() => {
-      if (!this.props.isPaused) {
-        this.props.incrementTime()
-      }
-    }, 1000)
+    if (!localStorage.token) {
+      this.props.history.push('/')
+    } else if (localStorage.role !== 'student') {
+      this.props.history.goBack()
+    } else {
+      this.interval = setInterval(() => {
+        if (!this.props.isPaused) {
+          this.props.incrementTime()
+        }
+      }, 1000)
+    }
   }
 
   componentWillUnmount() {
@@ -36,7 +42,7 @@ class Practice extends Component {
     return (
       <div className='setup'>
         <Stopwatch context={'practice'}/>
-        
+
         <Message floating><p >{assignmentText}</p></Message>
 
         <div style={{textAlign: 'center'}}>

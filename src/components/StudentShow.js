@@ -8,7 +8,13 @@ import { clearSelectedStudent } from '../redux/actions/selectedStudentActions'
 class StudentShow extends Component {
 
   componentDidMount() {
-    this.props.findStudent(this.props.match.params.student)
+    if (!localStorage.token) {
+      this.props.history.push('/')
+    } else if (localStorage.role !== 'teacher') {
+      this.props.history.goBack()
+    } else {
+      this.props.findStudent(this.props.match.params.student)
+    }
   }
 
   componentWillUnmount() {
@@ -20,39 +26,44 @@ class StudentShow extends Component {
 
     return (
       <div className='setup'>
-        <Header
-          style={{color: 'white', fontSize: '5vh'}}>
-          {this.props.username}
-        </Header>
+        {this.props.username ?
+          (<React.Fragment>
+            <Header
+              style={{color: 'white', fontSize: '5vh'}}>
+              {this.props.username}
+            </Header>
 
-        <Divider inverted/>
+            <Divider inverted/>
 
-        <Statistic horizontal inverted>
-          <Statistic.Value>{stat}%</Statistic.Value>
-          <Statistic.Label>Practice Completion</Statistic.Label>
-        </Statistic>
+            <Statistic horizontal inverted>
+              <Statistic.Value>{stat}%</Statistic.Value>
+              <Statistic.Label>Practice Completion</Statistic.Label>
+            </Statistic>
 
-        <Divider inverted/>
+            <Divider inverted/>
 
-        <Header style={{color: 'white', marginBottom: '5%'}} as='h3'>
-          Assigned: {this.props.assignmentCreated}
-        </Header>
+            <Header style={{color: 'white', marginBottom: '5%'}} as='h3'>
+              Assigned: {this.props.assignmentCreated}
+            </Header>
 
-        <p style={{color: 'white'}} >{this.props.assignmentText}</p>
+            <p style={{color: 'white'}} >{this.props.assignmentText}</p>
 
-        <div >
-          <Button
-            inverted size='big'
-            style={{marginTop: '3%', marginRight: '1%'}}
-            onClick={() => this.props.history.push('/teacherDashboard')}
-            content='Back'
-          />
-          <Button
-            inverted style={{marginTop: '3%'}} size='big'
-            onClick={() => this.props.history.push(`/createassignment`)}
-            content='NewAssignment'
-          />
-        </div>
+            <div >
+              <Button
+                inverted size='big'
+                style={{marginTop: '3%', marginRight: '1%'}}
+                onClick={() => this.props.history.push('/teacherDashboard')}
+                content='Back'
+              />
+              <Button
+                inverted style={{marginTop: '3%'}} size='big'
+                onClick={() => this.props.history.push(`/createassignment`)}
+                content='NewAssignment'
+              />
+            </div>
+          </React.Fragment>) :
+          null
+        }
       </div>
     )
   }

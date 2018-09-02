@@ -14,19 +14,22 @@ class Stopwatch extends Component {
 
     return (
       <div style={{padding: '10%', width: '100%'}}>
-        <Statistic
-          size='large'
-          style={{display: 'block', marginLeft: 'auto', marginRight: 'auto', paddingBottom: '10%'}}
-        >
-          <Statistic.Value style={{color: 'white'}}>
-            {hours}:
-            {minutes < 10 ? 0 : ''}{minutes}:
-            {seconds < 10 ? 0 : ''}{seconds}
-          </Statistic.Value>
-          <Statistic.Label style={{color: 'white'}}>
-            {this.props.text && this.props.text}
-          </Statistic.Label>
-        </Statistic>
+        {time ?
+          (<Statistic
+            size='large'
+            style={{display: 'block', marginLeft: 'auto', marginRight: 'auto', paddingBottom: '10%'}}
+          >
+            <Statistic.Value style={{color: 'white'}}>
+              {hours}:
+              {minutes < 10 ? 0 : ''}{minutes}:
+              {seconds < 10 ? 0 : ''}{seconds}
+            </Statistic.Value>
+            <Statistic.Label style={{color: 'white'}}>
+              {this.props.text && this.props.text}
+            </Statistic.Label>
+          </Statistic>) :
+          null
+        }
       </div>
     )
   }
@@ -39,6 +42,7 @@ const mapStateToProps = state => {
     currentPracticeTime: state.user.currentPracticeTime,
     goalPracticeTime: state.user.goalPracticeTime,
     time: state.stopwatch.time,
+    loggedIn: state.user.loggedIn,
   }
 }
 

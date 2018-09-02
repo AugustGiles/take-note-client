@@ -13,6 +13,14 @@ class AuthForm extends Component {
     passwordConfirmation: '',
   }
 
+  componentDidMount() {
+    if (localStorage.token && localStorage.role === 'teacher') {
+      this.props.history.push('/teacherDashboard')
+    } else if (localStorage.token && localStorage.role === 'student') {
+      this.props.history.push('/StudentDashboard')
+    }
+  }
+
   handleSubmit = (e) => {
     e.preventDefault()
     if (this.validate()) {

@@ -10,7 +10,8 @@ export function userReducer(state = {}, action) {
         recentAssignment: action.payload.recentAssignment,
         currentPracticeTime: action.payload.currentPracticeTime,
         goalPracticeTime: action.payload.goalPracticeTime,
-        role: 'student'
+        role: 'student',
+        loggedIn: true
       }
 
     case ADD_TEACHER:
@@ -18,7 +19,8 @@ export function userReducer(state = {}, action) {
         id: action.payload.userInfo.id,
         username: action.payload.userInfo.username,
         students: action.payload.students,
-        role: 'teacher'
+        role: 'teacher',
+        loggedIn: true
       }
 
     case REMOVE_USER:
