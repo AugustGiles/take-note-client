@@ -114,7 +114,6 @@ export function findStudent(studentId) {
 export function assignHomework(data) {
   return dispatch => {
     return new Promise(function (resolve, reject) {
-      debugger
       return (
         fetch(`http://localhost:3000/assignments`, {
           method: 'POST',

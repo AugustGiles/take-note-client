@@ -13,10 +13,10 @@ class Stopwatch extends Component {
     const seconds = time % 60
 
     return (
-      <div style={{padding: '10%', width: '100%'}}>
+      <div style={{paddingTop: '10%', width: '100%'}}>
         {time ?
           (<Statistic
-            size='large'
+            size='huge'
             style={{display: 'block', marginLeft: 'auto', marginRight: 'auto', paddingBottom: '10%'}}
           >
             <Statistic.Value style={{color: 'white'}}>

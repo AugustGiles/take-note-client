@@ -22,3 +22,15 @@
 .featureText {
   font-family: 'BioRhyme', serif;
 }
+
+.wrapper {
+  height: 100%;
+  margin-bottom: 2%;
+}
+
+
+.editor {
+  background-color: #F1F1F1;
+  height: 90%;
+  padding: 2%;
+}

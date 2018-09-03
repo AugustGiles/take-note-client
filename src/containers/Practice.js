@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Button, Message } from 'semantic-ui-react'
+import {stateToHTML} from 'draft-js-export-html';
+import { convertFromRaw } from 'draft-js';
 
 import '../styles/App.css'
 import Stopwatch from '../components/Stopwatch'
@@ -39,11 +41,19 @@ class Practice extends Component {
     const assignmentText = this.props.recentAssignment ?
       this.props.recentAssignment['assignment_text'] : ''
 
+    const convertCommentFromJSONToHTML = (text) => {
+      return stateToHTML(convertFromRaw(text))
+    }
+
     return (
-      <div className='setup'>
+      <div className='setup' >
         <Stopwatch context={'practice'}/>
 
-        <Message floating><p >{assignmentText}</p></Message>
+        { this.props.assignmentText ?
+          <p style={{color: 'white', textAlign: 'center'}}
+          dangerouslySetInnerHTML={{ __html: convertCommentFromJSONToHTML(this.props.assignmentText)}}
+          /> : null
+        }
 
         <div style={{textAlign: 'center'}}>
           <Button inverted size="huge"
@@ -68,6 +78,7 @@ const mapStateToProps = state => {
     role: state.user.role,
     time: state.stopwatch.time,
     isPaused: state.stopwatch.isPaused,
+    assignmentText: state.user.assignmentText
   }
 }
 

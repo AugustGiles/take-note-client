@@ -8,6 +8,7 @@ export function userReducer(state = {}, action) {
         username: action.payload.userInfo.username,
         allAssignments: action.payload.userInfo.givenAssignments,
         recentAssignment: action.payload.recentAssignment,
+        assignmentText: action.payload.recentAssignment['assignment_text'],
         currentPracticeTime: action.payload.currentPracticeTime,
         goalPracticeTime: action.payload.goalPracticeTime,
         role: 'student',

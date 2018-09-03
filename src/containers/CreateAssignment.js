@@ -1,7 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Form, Dropdown, TextArea, Button, Header } from 'semantic-ui-react'
+import { Form, Dropdown, Button, Header } from 'semantic-ui-react'
+import { EditorState, convertFromRaw, convertToRaw } from 'draft-js'
+import { Editor} from 'react-draft-wysiwyg'
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 
+import '../styles/App.css'
 import { practiceAmounts } from '../data/practiceAmounts'
 import { assignHomework } from '../redux/actions/fetchActions'
 import Navigation from '../components/Navigation'
@@ -9,7 +13,7 @@ import Navigation from '../components/Navigation'
 class CreateAssignment extends Component {
 
   state = {
-    assignmentText: '',
+    editorState: EditorState.createEmpty(),
     studentSelect: 0,
     practiceAmount: 0,
   }
@@ -32,14 +36,13 @@ class CreateAssignment extends Component {
     let data = {
       'teacher_id': this.props.id,
       'student_id': this.state.studentSelect,
-      'assignment_text': this.state.assignmentText,
+      'assignment_text': convertToRaw(this.state.editorState.getCurrentContent()),
       'practice_goal': this.state.practiceAmount,
     }
     this.props.assignHomework(data)
       .then(this.props.history.push('/teacherDashboard'))
   }
 
-  handleTextArea = (e) => {this.setState({assignmentText: e.target.value})}
   handlePracticeAmount = (e, { value }) => {this.setState({practiceAmount: value})}
   handleStudentSelect = (e, { value }) => {this.setState({studentSelect: value})}
 
@@ -63,28 +66,38 @@ class CreateAssignment extends Component {
           <Dropdown
             placeholder='Select Practice Time'
             selection fluid
-            style={{marginBottom: '2%'}}
+            style={{marginBottom: '2%', zIndex: 5}}
             options={practiceAmounts}
             onChange={this.handlePracticeAmount}
-
           />
-          <TextArea
-            placeholder='Assignment Text'
-            style={{ minHeight: '60vh' }}
-            onChange={(e) => this.handleTextArea(e)}
-          />
+        <div style={{height: '50vh', width: '100%'}}>
+            <Editor
+              editorState={this.state.editorState}
+              wrapperClassName="wrapper"
+              toolbarClassName="toolbar"
+              editorClassName="editor"
+              onEditorStateChange={(editorState) => this.setState({editorState})}
+              toolbar={{
+                options: ['inline', 'blockType', 'fontSize', 'list', 'textAlign', 'history'],
+                inline: { inDropdown: true },
+                list: { inDropdown: true },
+                textAlign: { inDropdown: true },
+                history: { inDropdown: true },
+              }}
+            />
+          </div>
           <Button
-            inverted fluid style={{marginTop: '3%'}}
+            inverted fluid style={{marginTop: '6%'}}
             size='big'
             type='submit'
             onClick={this.handleSend}
             content='Send'
           />
         </Form>
+
       </div>
     )
   }
-
 }
 
 const mapStateToProps = state => {

@@ -5,6 +5,8 @@ import '../styles/App.css'
 import { findStudent } from '../redux/actions/fetchActions'
 import { clearSelectedStudent } from '../redux/actions/selectedStudentActions'
 import Navigation from './Navigation'
+import {stateToHTML} from 'draft-js-export-html';
+import { convertFromRaw } from 'draft-js';
 
 class StudentShow extends Component {
 
@@ -23,7 +25,11 @@ class StudentShow extends Component {
   }
 
   render () {
-    const stat =  Math.floor((this.props.currentPracticeTime/this.props.goalPracticeTime)*100)
+    const stat = Math.floor((this.props.currentPracticeTime/this.props.goalPracticeTime)*100)
+
+    const convertCommentFromJSONToHTML = (text) => {
+      return stateToHTML(convertFromRaw(text))
+    }
 
     return (
       <div className='setup'>
@@ -48,7 +54,11 @@ class StudentShow extends Component {
               Assigned: {this.props.assignmentCreated}
             </Header>
 
-            <p style={{color: 'white'}} >{this.props.assignmentText}</p>
+            {
+
+            }<p style={{color: 'white'}}
+              dangerouslySetInnerHTML={{ __html: convertCommentFromJSONToHTML(this.props.assignmentText)}}
+            />
 
           </React.Fragment>) :
           null
