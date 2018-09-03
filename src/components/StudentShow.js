@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Header, Divider, Statistic, Button } from 'semantic-ui-react'
+import { Header, Divider, Statistic } from 'semantic-ui-react'
 import '../styles/App.css'
 import { findStudent } from '../redux/actions/fetchActions'
 import { clearSelectedStudent } from '../redux/actions/selectedStudentActions'
+import Navigation from './Navigation'
 
 class StudentShow extends Component {
 
@@ -29,9 +30,10 @@ class StudentShow extends Component {
         {this.props.username ?
           (<React.Fragment>
             <Header
-              style={{color: 'white', fontSize: '5vh'}}>
+              style={{color: 'white', fontSize: '5vh', display: 'inline-block'}}>
               {this.props.username}
             </Header>
+            <Navigation context='teacher'/>
 
             <Divider inverted/>
 
@@ -48,19 +50,6 @@ class StudentShow extends Component {
 
             <p style={{color: 'white'}} >{this.props.assignmentText}</p>
 
-            <div >
-              <Button
-                inverted size='big'
-                style={{marginTop: '3%', marginRight: '1%'}}
-                onClick={() => this.props.history.push('/teacherDashboard')}
-                content='Back'
-              />
-              <Button
-                inverted style={{marginTop: '3%'}} size='big'
-                onClick={() => this.props.history.push(`/createassignment`)}
-                content='NewAssignment'
-              />
-            </div>
           </React.Fragment>) :
           null
         }

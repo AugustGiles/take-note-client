@@ -4,6 +4,7 @@ import { Form, Dropdown, TextArea, Button, Header } from 'semantic-ui-react'
 
 import { practiceAmounts } from '../data/practiceAmounts'
 import { assignHomework } from '../redux/actions/fetchActions'
+import Navigation from '../components/Navigation'
 
 class CreateAssignment extends Component {
 
@@ -46,17 +47,10 @@ class CreateAssignment extends Component {
 
     return (
       <div className='setup'>
-        <div>
-          <Header content='Assignment'
-            style={{color: 'white', display: "inline-block", fontSize: '4vh'}}
-          />
-          <Button
-            inverted style={{display: "inline-block", float: 'right'}}
-            size='small'
-            onClick={() => this.props.history.push('/teacherDashboard')}
-            content='Dashboard'
-          />
-        </div>
+        <Header content='Assignment'
+          style={{color: 'white', display: "inline-block", fontSize: '4vh', paddingBottom: '2%'}}
+        />
+        <Navigation context='teacher'/>
 
         <Form>
           <Dropdown

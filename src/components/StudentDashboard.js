@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Stopwatch from './Stopwatch'
 import { Button, Header, Divider } from 'semantic-ui-react'
 import { connect } from 'react-redux'
-import { removeUser } from '../redux/actions/userActions'
+import Navigation from './Navigation'
 
 class StudentDashboard extends Component {
 
@@ -14,27 +14,16 @@ class StudentDashboard extends Component {
     }
   }
 
-  handleLogoutButton = () => {
-    localStorage.clear()
-    this.props.removeUser()
-    this.props.history.push('/login')
-  }
-
   render () {
 
     return (
       <div className='setup'>
 
-        <div >
-          <Header
-            style={{color: 'white', fontSize: '5vh', display: "inline-block"}}
-            content={this.props.username}
-          />
-          <Button inverted content='Logout'
-            onClick={this.handleLogoutButton}
-            style={{display: 'inline-block', float:'right'}}
-          />
-        </div>
+        <Header
+          style={{color: 'white', fontSize: '5vh', display: "inline-block"}}
+          content={this.props.username}
+        />
+        <Navigation context='student' />
 
         <Divider inverted/>
 
@@ -62,4 +51,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, { removeUser })(StudentDashboard)
+export default connect(mapStateToProps)(StudentDashboard)

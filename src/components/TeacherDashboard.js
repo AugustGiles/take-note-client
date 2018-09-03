@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { Header, Button, Divider } from 'semantic-ui-react'
 import '../styles/App.css'
 import { connect } from 'react-redux'
-import { removeUser } from '../redux/actions/userActions'
 import Navigation from './Navigation'
 
 
@@ -17,12 +16,6 @@ class TeacherDashboard extends Component {
     }
   }
 
-  handleLogoutButton = () => {
-    localStorage.clear()
-    this.props.removeUser()
-    this.props.history.push('/login')
-  }
-
   render () {
 
     return (
@@ -32,18 +25,10 @@ class TeacherDashboard extends Component {
             style={{color: 'white', fontSize: '5vh', display: "inline-block"}}
             content={this.props.username}
           />
-          <Navigation />
-
+          <Navigation context='teacher'/>
         </div>
         <Divider inverted/>
-        <div style={{width: '100%'}}>
-          <Header style={{color: 'white', fontSize: '4vh', display:'inline-block'}} >Students:</Header>
-          <Button
-            icon='plus square' style={{display:'inline-block', float: 'right'}} inverted
-            onClick={() => this.props.history.push(`/createstudent`)}
-          />
-        </div>
-
+        <Header style={{color: 'white', fontSize: '4vh', display:'inline-block'}} >Students:</Header>
 
         {this.props.students && this.props.students.map(student => {
           return (
@@ -68,9 +53,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, { removeUser })(TeacherDashboard)
-
-// <Button inverted content='Logout'
-//   onClick={this.handleLogoutButton}
-//   style={{display: 'inline-block', float:'right'}}
-// />
+export default connect(mapStateToProps)(TeacherDashboard)
