@@ -6,11 +6,16 @@ import { convertFromRaw } from 'draft-js';
 
 import '../styles/App.css'
 import Stopwatch from '../components/Stopwatch'
+import Metronome from '../components/Metronome'
 import { patchCurrentPracticeTime } from '../redux/actions/fetchActions'
 import { incrementTime, clearStopwatch, togglePause } from '../redux/actions/stopwatchActions'
 
 
 class Practice extends Component {
+
+  state = {
+    metronomeActive: false,
+  }
 
   componentDidMount() {
     if (!localStorage.token) {
@@ -37,6 +42,10 @@ class Practice extends Component {
       .then(this.props.history.push(`/${this.props.role}dashboard`))
   }
 
+  toggleMetronome = () => {
+    this.setState({metronomeActive: !this.state.metronomeActive})
+  }
+
   render () {
 
     const convertCommentFromJSONToHTML = (text) => {
@@ -49,10 +58,18 @@ class Practice extends Component {
         <div>
           <Stopwatch context={'practice'}/>
         </div>
-        <Button inverted size="medium" fluid
-          icon={this.props.isPaused? 'play' : 'pause'}
-          onClick={() => this.props.togglePause()}
-        />
+        <div style={{textAlign: 'center'}}>
+          <Button inverted size="large" style={{display: 'inline-block'}}
+            icon={this.props.isPaused? 'play' : 'pause'}
+            onClick={() => this.props.togglePause()}
+          />
+          <Button inverted size='large' icon='hourglass outline'
+            style={{display: 'inline-block'}}
+            onClick={this.toggleMetronome}
+          />
+        </div>
+
+        { this.state.metronomeActive ? <Metronome /> : null }
 
         <Divider inverted/>
 
@@ -65,7 +82,7 @@ class Practice extends Component {
           : null
         }
         <div style={{paddingBottom: '2%', paddingLeft: '10%', paddingRight: '10%', position: 'fixed', bottom: '0', left: '0', width: '100%'}}>
-          <Button inverted size="huge" content='End' fluid
+          <Button size="huge" content='End' fluid
             onClick={this.handleEnd}
           />
         </div>
