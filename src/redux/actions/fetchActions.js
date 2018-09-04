@@ -42,6 +42,7 @@ export function handleLogin(userInfo) {
                 localStorage.setItem('role', 'teacher')
             resolve(json)
           } else {
+            reject("Incorrect Username or Password")
             console.log("Login Failed")
           }
         })
@@ -58,17 +59,42 @@ export function handleSignUp(userInfo) {
         body: JSON.stringify(userInfo)
       })
         .then(resp => resp.json())
+        .then(json =>
+          json.success ? resolve(json) : reject(json.message)
+        )
+    })
+  }
+}
+
+export function handleStudentCreation(userInfo) {
+  return dispatch => {
+    return new Promise(function(resolve, reject) {
+      return fetch ('http://localhost:3000/users', {
+        method: 'POST',
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(userInfo)
+      })
+        .then(resp => resp.json())
         .then(json => {
           if (json.success) {
-            // localStorage.setItem('token',json.token)
-            resolve(json)
+            let data = {
+              teacher_id: json.user['teacher_id'],
+              student_id: json.user.id,
+              assignment_text: {
+                "blocks":
+                [{"key":"dpkr", "text":"Write The First Assignment!", "type":"header-three", "depth":0, "inlineStyleRanges":[], "entityRanges":[], "data":{}
+              }], "entityMap":{}},
+              practice_goal: 0
+            }
+            resolve(data)
           } else {
-            console.log('Signup Failed')
+            reject(json.message)
           }
         })
     })
   }
 }
+
 
 export function patchCurrentPracticeTime(id, data) {
   return dispatch => {

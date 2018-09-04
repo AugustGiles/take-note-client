@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import { Button, Input, Header, Divider, Form } from 'semantic-ui-react'
+import { Button, Input, Header, Divider, Form, Message } from 'semantic-ui-react'
 import '../styles/App.css'
 import { handleLogin, handleSignUp, fetchUser } from '../redux/actions/fetchActions'
+import { validate, removeErrorMessage, addErrorMessage } from '../redux/actions/errorActions'
 import { connect } from 'react-redux'
 
 
@@ -21,9 +22,15 @@ class AuthForm extends Component {
     }
   }
 
+  componentWillUnmount() {
+    this.props.removeErrorMessage()
+  }
+
   handleSubmit = (e) => {
     e.preventDefault()
-    if (this.validate()) {
+    this.props.removeErrorMessage()
+    if (this.props.validate(
+      this.props.context, this.state.username, this.state.password, this.state.passwordConfirmation )) {
       if (this.props.context === 'login') {
         this.props.handleLogin(this.state)
           .then(user => {
@@ -31,6 +38,7 @@ class AuthForm extends Component {
             return (user['teacher_id'] ? 'student' : 'teacher')
           })
           .then(user => this.props.history.push(`/${user}dashboard`))
+          .catch(message => this.setState({error: message}))
       } else {
         this.props.handleSignUp(this.state)
           .then(json => {
@@ -42,43 +50,25 @@ class AuthForm extends Component {
             return (json.user['teacher_id'] ? 'student' : 'teacher')
           })
           .then(user => this.props.history.push(`/${user}dashboard`))
+          .catch(message => this.props.addErrorMessage(message))
       }
     }
   }
 
-  validate = () => {
-    if (this.props.context==='login') {
-        if (this.state.username==="" || this.state.password==="") {
-            // Add Error
-            debugger
-            // this.props.addError("Username/Password Required")
-            return false
-        }
-    } else {
-        if (this.state.username==="" || this.state.password==="" || this.state.passwordConfirmation==="") {
-            debugger
-            // Add Error
-            // this.props.addError("Username/Password/Password Confirmation Required")
-            return false
-        }
-        if (this.state.password!==this.state.passwordConfirmation) {
-            debugger
-            // this.props.addError("Password and Password Confirmation must match")
-            return false
-        }
-    }
-    return true
-  }
-
   render() {
     return (
-      <div className="auth" style={{padding: '13%', paddingTop: '12%'}}>
-        <h1 className='featureText' style={{color: 'white', fontSize: '36px'}}>Take Note .</h1>
+      <div className="auth" >
+        <h1 className='featureText' >Take Note .</h1>
         <Header
           size='huge'
           style={{color: 'white'}}
           content={this.props.context === 'signup' ? 'Create Studio Account' : 'Login'}
         />
+
+        {this.props.errorMessage ?
+          <Message error header={this.props.errorMessage} /> : null
+        }
+
         <Form>
           <Input
             placeholder='Username'
@@ -118,11 +108,21 @@ class AuthForm extends Component {
         {this.props.context === 'signup' ?
           <div style={{marginTop: '15%'}}>
             <Header as='h3' style={{color:'white'}} content='Already have an account?' />
-            <Button inverted content='Login' onClick={() => this.props.history.push('/')} />
+            <Button inverted content='Login'
+              onClick={() => {
+                this.props.removeErrorMessage()
+                this.props.history.push('/login')}
+              }
+            />
           </div> :
             <div style={{marginTop: '15%'}}>
               <Header as='h3' style={{color:'white'}} content='Become a participating teacher...' />
-              <Button inverted content='SignUp' onClick={() => this.props.history.push('/signup')} />
+              <Button inverted content='SignUp'
+                onClick={() => {
+                  this.props.removeErrorMessage()
+                  this.props.history.push('/signup')}
+                }
+              />
             </div>
         }
       </div>
@@ -130,4 +130,8 @@ class AuthForm extends Component {
   }
 }
 
-export default connect(null, { handleLogin, handleSignUp, fetchUser })(AuthForm)
+const mapStateToProps = state => {
+  return {errorMessage: state.error}
+}
+
+export default connect(mapStateToProps, { handleLogin, handleSignUp, fetchUser, validate, removeErrorMessage, addErrorMessage })(AuthForm)

@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Form, Header, Input, Button } from 'semantic-ui-react'
+import { Form, Header, Input, Button, Message } from 'semantic-ui-react'
 
 import Navigation from './Navigation'
-import { handleSignUp, assignHomework } from '../redux/actions/fetchActions'
+import { handleStudentCreation, assignHomework } from '../redux/actions/fetchActions'
+import { validate, removeErrorMessage, addErrorMessage } from '../redux/actions/errorActions'
 
 class CreateStudent extends Component {
 
@@ -13,41 +14,44 @@ class CreateStudent extends Component {
     passwordConfirmation: '',
   }
 
+  componentWillUnmount() {
+    this.props.removeErrorMessage()
+  }
+
   handleSubmit = (e) => {
     e.preventDefault()
+    this.props.removeErrorMessage()
     let data = {
       username: this.state.username,
       password: this.state.password,
       teacher_id: this.props.id
     }
-    this.props.handleSignUp(data)
-      .then(json => {
-        let data = {
-          teacher_id: json.user['teacher_id'],
-          student_id: json.user.id,
-          assignment_text: {
-            "blocks":
-            [{"key":"dpkr", "text":"Write The First Assignment!", "type":"header-three", "depth":0, "inlineStyleRanges":[], "entityRanges":[], "data":{}
-          }], "entityMap":{}},
-          practice_goal: 0
-        }
-        this.props.assignHomework(data)
-          .then(this.props.history.push('/teacherDashboard'))
-      })
-
+    if (this.props.validate('createStudent', this.state.username, this.state.password, this.state.passwordConfirmation)) {
+      this.props.handleStudentCreation(data)
+        .then(assignmentData => {
+          this.props.assignHomework(assignmentData)
+            .then(this.props.history.push('/teacherDashboard'))
+        })
+        .catch(message => this.props.addErrorMessage(message))
+    }
   }
 
   render() {
     return (
 
-      <div className="auth" style={{padding: '13%', paddingTop: '12%'}}>
-        <h1 className='featureText' style={{color: 'white', fontSize: '36px', display: 'inline-block'}}>Take Note .</h1>
+      <div className="auth" >
+        <h1 className='featureText' style={{display: 'inline-block'}}>Take Note .</h1>
         <Navigation context='teacher'/>
         <Header
           size='huge'
           style={{color: 'white'}}
           content='Add Student'
         />
+
+        {this.props.errorMessage ?
+          <Message error header={this.props.errorMessage} /> : null
+        }
+
         <Form>
           <Input
             placeholder='Username'
@@ -90,7 +94,8 @@ const mapStateToProps = state => {
   return {
     username: state.user.username,
     id: state.user.id,
+    errorMessage: state.error,
   }
 }
 
-export default connect(mapStateToProps, { handleSignUp, assignHomework })(CreateStudent)
+export default connect(mapStateToProps, { handleStudentCreation, assignHomework, validate, removeErrorMessage, addErrorMessage })(CreateStudent)

@@ -7,6 +7,7 @@ import { clearSelectedStudent } from '../redux/actions/selectedStudentActions'
 import Navigation from './Navigation'
 import {stateToHTML} from 'draft-js-export-html';
 import { convertFromRaw } from 'draft-js';
+import Moment from 'react-moment'
 
 class StudentShow extends Component {
 
@@ -53,12 +54,10 @@ class StudentShow extends Component {
             <Divider inverted/>
 
             <Header style={{color: 'white', marginBottom: '5%'}} as='h3'>
-              Assigned: {this.props.assignmentCreated}
+              Assigned: <Moment format="MM/DD/YYYY" date={this.props.assignmentCreated} />
             </Header>
 
-            {
-
-            }<p style={{color: 'white'}}
+            <p style={{color: 'white'}}
               dangerouslySetInnerHTML={{ __html: convertCommentFromJSONToHTML(this.props.assignmentText)}}
             />
 

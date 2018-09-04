@@ -7,9 +7,12 @@
 
 .auth {
   background-color: #2f4f4f;
-  padding: 5vh;
+  padding-left: 13%;
+  padding-right: 13%;
+  padding-top: 15%;
   height: 100%;
   width: 100%;
+  overflow: auto
 }
 
 .setup {
@@ -22,6 +25,8 @@
 
 .featureText {
   font-family: 'BioRhyme', serif;
+  color: white;
+  font-size: 36px;
 }
 
 .wrapper {

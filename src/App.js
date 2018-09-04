@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Route } from 'react-router';
 
 import './styles/App.css'
-// import Navigation from './components/Navigation'
 import Practice from './containers/Practice'
 import StudentDashboard from './components/StudentDashboard'
 import TeacherDashboard from './components/TeacherDashboard'
@@ -23,10 +22,8 @@ class App extends Component {
   }
 
   render() {
-
     return (
       <div className='App'>
-
 
         <Route
           exact path='/login'
@@ -74,9 +71,3 @@ class App extends Component {
 }
 
 export default withRouter(connect(null, { fetchUser })(App));
-
-
-        // {localStorage.token ?
-        //   <Route path='/' className='setup' render={(props) => <Navigation {...props} /> } /> :
-        //     null
-        // }
