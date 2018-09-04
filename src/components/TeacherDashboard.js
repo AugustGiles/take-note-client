@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import { Header, Button, Divider } from 'semantic-ui-react'
+import { Header, Button, Divider, Message } from 'semantic-ui-react'
 import '../styles/App.css'
 import { connect } from 'react-redux'
 import Navigation from './Navigation'
 import { fetchUser } from '../redux/actions/fetchActions'
+import { removeErrorMessage } from '../redux/actions/errorActions'
 
 
 
@@ -19,6 +20,10 @@ class TeacherDashboard extends Component {
     }
   }
 
+  componentWillUnmount() {
+    this.props.removeErrorMessage()
+  }
+
   render () {
 
     return (
@@ -32,6 +37,11 @@ class TeacherDashboard extends Component {
         </div>
         <Divider inverted/>
         <Header style={{color: 'white', fontSize: '4vh', display:'inline-block'}} >Students:</Header>
+
+        {this.props.errorMessage ?
+          <Message success header={this.props.errorMessage} /> : null
+        }
+
         {this.props.students && this.props.students.map(student => {
           return (
             <Button
@@ -52,7 +62,8 @@ const mapStateToProps = state => {
   return {
     username: state.user.username,
     students: state.user.students,
+    errorMessage: state.error,
   }
 }
 
-export default connect(mapStateToProps, { fetchUser })(TeacherDashboard)
+export default connect(mapStateToProps, { fetchUser, removeErrorMessage })(TeacherDashboard)

@@ -5,6 +5,7 @@ export function selectedStudentReducer(state={}, action) {
 
     case SELECT_STUDENT:
       return {
+        id: action.payload.id,
         username: action.payload.studentUsername,
         recentAssignment: action.payload.recentAssignment,
         goalPracticeTime: action.payload.recentAssignment['practice_goal'],
@@ -19,6 +20,6 @@ export function selectedStudentReducer(state={}, action) {
 
     default:
       return state
-      
+
   }
 }
