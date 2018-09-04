@@ -59,14 +59,14 @@ class CreateAssignment extends Component {
           <Dropdown
             placeholder='Select Student'
             search selection fluid
-            style={{marginBottom: '2%'}}
+            style={{marginBottom: '2%', zIndex: '105'}}
             options={this.props.students && this.studentOptions()}
             onChange={this.handleStudentSelect}
           />
           <Dropdown
             placeholder='Select Practice Time'
             selection fluid
-            style={{marginBottom: '2%', zIndex: 5}}
+            style={{marginBottom: '2%', zIndex: '100'}}
             options={practiceAmounts}
             onChange={this.handlePracticeAmount}
           />

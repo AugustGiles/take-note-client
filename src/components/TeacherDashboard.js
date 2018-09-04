@@ -36,11 +36,16 @@ class TeacherDashboard extends Component {
           <Navigation context='teacher'/>
         </div>
         <Divider inverted/>
-        <Header style={{color: 'white', fontSize: '4vh', display:'inline-block'}} >Students:</Header>
+        <Header style={{color: 'white', fontSize: '4vh'}} >Students:</Header>
 
         {this.props.errorMessage ?
           <Message success header={this.props.errorMessage} /> : null
         }
+
+        <Button icon='add user' size='big' inverted
+          content='Add Student' color='grey'
+          onClick={() => this.props.history.push('/createstudent')}
+        />
 
         {this.props.students && this.props.students.map(student => {
           return (

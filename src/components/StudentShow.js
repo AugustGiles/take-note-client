@@ -46,14 +46,6 @@ class StudentShow extends Component {
             </Header>
 
             <Navigation context={localStorage.role}/>
-            {localStorage.role === 'teacher' ?
-              <Button icon='minus' size='big' inverted
-                style={{display: 'inline-block', float:'right', marginRight: '10%'}}
-                onClick={() => {
-                  this.props.addErrorMessage('Are you sure you want to delete?')
-                }}
-              /> : null
-            }
 
             <Divider inverted/>
 
@@ -90,9 +82,19 @@ class StudentShow extends Component {
               Assigned: <Moment format="MM/DD/YYYY" date={this.props.assignmentCreated} />
             </Header>
 
-            <p style={{color: 'white'}}
+            <p style={{color: 'white', paddingBottom: '5%'}}
               dangerouslySetInnerHTML={{ __html: convertCommentFromJSONToHTML(this.props.assignmentText)}}
             />
+
+            {localStorage.role === 'teacher' ?
+              <Button icon='minus' size='big' inverted
+                content='Remove Student'
+                style={{display: 'inline-block'}}
+                onClick={() => {
+                  this.props.addErrorMessage('Are you sure you want to delete?')
+                }}
+              /> : null
+            }
 
           </React.Fragment>) :
           null
