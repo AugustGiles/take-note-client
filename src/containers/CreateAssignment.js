@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Form, Dropdown, Button, Header } from 'semantic-ui-react'
-import { EditorState, convertFromRaw, convertToRaw } from 'draft-js'
+import { EditorState, convertToRaw } from 'draft-js'
 import { Editor} from 'react-draft-wysiwyg'
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 
@@ -86,13 +86,15 @@ class CreateAssignment extends Component {
               }}
             />
           </div>
-          <Button
-            inverted fluid style={{marginTop: '6%'}}
-            size='big'
-            type='submit'
-            onClick={this.handleSend}
-            content='Send'
-          />
+          <div style={{paddingBottom: '2%', paddingLeft: '10%', paddingRight: '10%', position: 'fixed', bottom: '0', left: '0', width: '100%'}}>
+            <Button
+              inverted fluid 
+              size='big'
+              type='submit'
+              onClick={this.handleSend}
+              content='Send'
+            />
+          </div>
         </Form>
 
       </div>

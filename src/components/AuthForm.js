@@ -33,9 +33,13 @@ class AuthForm extends Component {
           .then(user => this.props.history.push(`/${user}dashboard`))
       } else {
         this.props.handleSignUp(this.state)
-          .then(user => {
+          .then(json => {
+            localStorage.setItem('token',json.token)
+            json.user['teacher_id'] ?
+              localStorage.setItem('role', 'student') :
+                localStorage.setItem('role', 'teacher')
             this.props.fetchUser()
-            return (user['teacher_id'] ? 'student' : 'teacher')
+            return (json.user['teacher_id'] ? 'student' : 'teacher')
           })
           .then(user => this.props.history.push(`/${user}dashboard`))
       }

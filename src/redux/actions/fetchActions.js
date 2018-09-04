@@ -40,7 +40,7 @@ export function handleLogin(userInfo) {
             json.user['teacher_id'] ?
               localStorage.setItem('role', 'student') :
                 localStorage.setItem('role', 'teacher')
-            resolve(json.user)
+            resolve(json)
           } else {
             console.log("Login Failed")
           }
@@ -60,8 +60,8 @@ export function handleSignUp(userInfo) {
         .then(resp => resp.json())
         .then(json => {
           if (json.success) {
-            localStorage.setItem('token',json.token)
-            resolve()
+            // localStorage.setItem('token',json.token)
+            resolve(json)
           } else {
             console.log('Signup Failed')
           }

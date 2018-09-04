@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Statistic } from 'semantic-ui-react'
 import '../styles/App.css'
+import { togglePause } from '../redux/actions/stopwatchActions'
 
 class Stopwatch extends Component {
 
@@ -13,21 +14,22 @@ class Stopwatch extends Component {
     const seconds = time % 60
 
     return (
-      <div style={{paddingTop: '10%', width: '100%'}}>
+      <div style={{ width: '100%'}}>
         {time ?
-          (<Statistic
-            size='huge'
-            style={{display: 'block', marginLeft: 'auto', marginRight: 'auto', paddingBottom: '10%'}}
-          >
-            <Statistic.Value style={{color: 'white'}}>
-              {hours}:
-              {minutes < 10 ? 0 : ''}{minutes}:
-              {seconds < 10 ? 0 : ''}{seconds}
-            </Statistic.Value>
-            <Statistic.Label style={{color: 'white'}}>
-              {this.props.text && this.props.text}
-            </Statistic.Label>
-          </Statistic>) :
+          (<div style={{textAlign: 'center', paddingBottom: '5%'}}>
+            <Statistic
+              size='huge'
+            >
+              <Statistic.Value style={{color: 'white'}}>
+                {hours}:
+                {minutes < 10 ? 0 : ''}{minutes}:
+                {seconds < 10 ? 0 : ''}{seconds}
+              </Statistic.Value>
+              <Statistic.Label style={{color: 'white'}}>
+                {this.props.text && this.props.text}
+              </Statistic.Label>
+            </Statistic>
+          </div>) :
           null
         }
       </div>
@@ -43,7 +45,8 @@ const mapStateToProps = state => {
     goalPracticeTime: state.user.goalPracticeTime,
     time: state.stopwatch.time,
     loggedIn: state.user.loggedIn,
+    isPaused: state.stopwatch.isPaused,
   }
 }
 
-export default connect(mapStateToProps)(Stopwatch)
+export default connect(mapStateToProps, { togglePause })(Stopwatch)

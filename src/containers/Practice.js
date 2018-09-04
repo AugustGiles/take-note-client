@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Button, Message } from 'semantic-ui-react'
+import { Button, Divider } from 'semantic-ui-react'
 import {stateToHTML} from 'draft-js-export-html';
 import { convertFromRaw } from 'draft-js';
 
 import '../styles/App.css'
 import Stopwatch from '../components/Stopwatch'
 import { patchCurrentPracticeTime } from '../redux/actions/fetchActions'
-import { incrementTime, togglePause, clearStopwatch } from '../redux/actions/stopwatchActions'
+import { incrementTime, clearStopwatch, togglePause } from '../redux/actions/stopwatchActions'
 
 
 class Practice extends Component {
@@ -38,32 +38,35 @@ class Practice extends Component {
   }
 
   render () {
-    const assignmentText = this.props.recentAssignment ?
-      this.props.recentAssignment['assignment_text'] : ''
 
     const convertCommentFromJSONToHTML = (text) => {
       return stateToHTML(convertFromRaw(text))
     }
 
     return (
-      <div className='setup' >
-        <Stopwatch context={'practice'}/>
+      <div className='setup' style={{paddingLeft: '10%', paddingRight: '10%'}}>
+
+        <div>
+          <Stopwatch context={'practice'}/>
+        </div>
+        <Button inverted size="medium" fluid
+          icon={this.props.isPaused? 'play' : 'pause'}
+          onClick={() => this.props.togglePause()}
+        />
+
+        <Divider inverted/>
 
         { this.props.assignmentText ?
-          <p style={{color: 'white', textAlign: 'center'}}
-          dangerouslySetInnerHTML={{ __html: convertCommentFromJSONToHTML(this.props.assignmentText)}}
-          /> : null
+          <div style={{overflow: 'auto'}}>
+            <p style={{color: 'white', }}
+            dangerouslySetInnerHTML={{ __html: convertCommentFromJSONToHTML(this.props.assignmentText)}}
+            />
+          </div>
+          : null
         }
-
-        <div style={{textAlign: 'center'}}>
-          <Button inverted size="huge"
-            content={this.props.isPaused? 'Continue' : 'Pause'}
-            onClick={() => this.props.togglePause()}
-            style={{margin: '2%'}}
-          />
-          <Button inverted size="huge" content='End'
+        <div style={{paddingBottom: '2%', paddingLeft: '10%', paddingRight: '10%', position: 'fixed', bottom: '0', left: '0', width: '100%'}}>
+          <Button inverted size="huge" content='End' fluid
             onClick={this.handleEnd}
-            style={{margin: '2%'}}
           />
         </div>
 
@@ -82,4 +85,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, { patchCurrentPracticeTime, incrementTime, togglePause, clearStopwatch })(Practice)
+export default connect(mapStateToProps, { patchCurrentPracticeTime, incrementTime,  clearStopwatch, togglePause })(Practice)

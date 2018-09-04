@@ -3,6 +3,7 @@ import { Header, Button, Divider } from 'semantic-ui-react'
 import '../styles/App.css'
 import { connect } from 'react-redux'
 import Navigation from './Navigation'
+import { fetchUser } from '../redux/actions/fetchActions'
 
 
 
@@ -13,6 +14,8 @@ class TeacherDashboard extends Component {
       this.props.history.push('/login')
     } else if (localStorage.role !== 'teacher') {
       this.props.history.goBack()
+    } else {
+      this.props.fetchUser()
     }
   }
 
@@ -53,4 +56,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps)(TeacherDashboard)
+export default connect(mapStateToProps, { fetchUser })(TeacherDashboard)

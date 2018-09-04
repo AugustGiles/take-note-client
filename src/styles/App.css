@@ -17,6 +17,7 @@
   padding: 5vh;
   height: 100%;
   width: 100%;
+  overflow: auto
 }
 
 .featureText {
