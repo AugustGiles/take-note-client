@@ -13,6 +13,8 @@ class StudentShow extends Component {
   componentDidMount() {
     if (!localStorage.token) {
       this.props.history.push('/login')
+    } else if (this.props.id === parseInt(this.props.match.params.student)){
+      this.props.findStudent(this.props.match.params.student)
     } else if (localStorage.role !== 'teacher') {
       this.props.history.goBack()
     } else {
@@ -39,7 +41,7 @@ class StudentShow extends Component {
               style={{color: 'white', fontSize: '5vh', display: 'inline-block'}}>
               {this.props.username}
             </Header>
-            <Navigation context='teacher'/>
+            <Navigation context={localStorage.role}/>
 
             <Divider inverted/>
 
@@ -76,6 +78,7 @@ const mapStateToProps = state => {
     assignmentText: state.selectedStudent.assignmentText,
     currentPracticeTime: state.selectedStudent.currentPracticeTime,
     goalPracticeTime: state.selectedStudent.goalPracticeTime,
+    id: state.user.id,
   }
 }
 

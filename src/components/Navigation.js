@@ -12,6 +12,7 @@ class Navigation extends Component {
   }
 
   render() {
+
     return (
       <Modal
         trigger={<Button icon='list ul' size='big' inverted style={{display: 'inline-block', float:'right'}}/>}
@@ -27,6 +28,7 @@ class Navigation extends Component {
           <div style={{textAlign: 'center'}}>
             <Button as={Link} to='/studentDashboard' size='massive' icon='home' />
             <Button as={Link} to='/practice' size='massive' icon='music' />
+            <Button as={Link} to={`/students/${this.props.id}`} size='massive' icon='file alternate'/>
             <Button size='massive' icon='hand peace outline' as={Link} to='/login' onClick={this.handleLogoutButton}/>
           </div>
         }
@@ -36,4 +38,10 @@ class Navigation extends Component {
 
 }
 
-export default connect (null, { removeUser })(Navigation)
+const mapStateToProps = state => {
+  return {
+    id: state.user.id,
+  }
+}
+
+export default connect (mapStateToProps, { removeUser })(Navigation)

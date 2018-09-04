@@ -40,7 +40,7 @@ class CreateAssignment extends Component {
       'practice_goal': this.state.practiceAmount,
     }
     this.props.assignHomework(data)
-      .then(this.props.history.push('/teacherDashboard'))
+      .then(this.props.history.push(`/students/${this.state.studentSelect}`))
   }
 
   handlePracticeAmount = (e, { value }) => {this.setState({practiceAmount: value})}
@@ -88,7 +88,7 @@ class CreateAssignment extends Component {
           </div>
           <div style={{paddingBottom: '2%', paddingLeft: '10%', paddingRight: '10%', position: 'fixed', bottom: '0', left: '0', width: '100%'}}>
             <Button
-              inverted fluid 
+              inverted fluid
               size='big'
               type='submit'
               onClick={this.handleSend}

@@ -5,6 +5,7 @@ export function userReducer(state = {}, action) {
 
     case ADD_STUDENT:
       return {
+        id: action.payload.userInfo.id,
         username: action.payload.userInfo.username,
         allAssignments: action.payload.userInfo.givenAssignments,
         recentAssignment: action.payload.recentAssignment,

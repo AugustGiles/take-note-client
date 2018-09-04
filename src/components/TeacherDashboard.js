@@ -32,12 +32,11 @@ class TeacherDashboard extends Component {
         </div>
         <Divider inverted/>
         <Header style={{color: 'white', fontSize: '4vh', display:'inline-block'}} >Students:</Header>
-
         {this.props.students && this.props.students.map(student => {
           return (
             <Button
               key={student.id}
-              inverted fluid style={{marginTop: '3%'}}
+              inverted color='grey' fluid style={{marginTop: '3%'}}
               size='huge'
               onClick={() => this.props.history.push(`/students/${student.id}`)}
               content={student.username}
