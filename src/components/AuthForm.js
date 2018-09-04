@@ -38,7 +38,7 @@ class AuthForm extends Component {
             return (user['teacher_id'] ? 'student' : 'teacher')
           })
           .then(user => this.props.history.push(`/${user}dashboard`))
-          .catch(message => this.setState({error: message}))
+          .catch(message => this.props.addErrorMessage(message))
       } else {
         this.props.handleSignUp(this.state)
           .then(json => {

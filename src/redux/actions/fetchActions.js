@@ -42,7 +42,7 @@ export function handleLogin(userInfo) {
                 localStorage.setItem('role', 'teacher')
             resolve(json)
           } else {
-            reject("Incorrect Username or Password")
+            reject(json.message)
             console.log("Login Failed")
           }
         })

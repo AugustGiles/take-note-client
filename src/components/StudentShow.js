@@ -46,12 +46,14 @@ class StudentShow extends Component {
             </Header>
 
             <Navigation context={localStorage.role}/>
-            <Button icon='minus' size='big' inverted
-              style={{display: 'inline-block', float:'right', marginRight: '10%'}}
-              onClick={() => {
-                this.props.addErrorMessage('Are you sure you want to delete student?')
-              }}
-            />
+            {localStorage.role === 'teacher' ?
+              <Button icon='minus' size='big' inverted
+                style={{display: 'inline-block', float:'right', marginRight: '10%'}}
+                onClick={() => {
+                  this.props.addErrorMessage('Are you sure you want to delete?')
+                }}
+              /> : null
+            }
 
             <Divider inverted/>
 
@@ -66,13 +68,18 @@ class StudentShow extends Component {
               <Message warning >
                 <Message.Header>
                   {this.props.errorMessage}
-                  <Button content="Delete" style={{marginLeft: '10%'}}
+                  <Button content="Delete" style={{marginLeft: '10%', marginTop: '5%', marginBottom: '5%'}} size='medium'
                     onClick={() => {
                       this.props.removeStudent(parseInt(this.props.studentId, 0))
                       .then(message => {
                         this.props.addErrorMessage(message)
                         this.props.history.push('/teacherDashboard')
                       })
+                    }}
+                  />
+                  <Button content="Nevermind" style={{marginLeft: '10%'}} size='medium'
+                    onClick={() => {
+                      this.props.removeErrorMessage()
                     }}
                   />
               </Message.Header>
