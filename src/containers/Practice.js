@@ -63,13 +63,8 @@ class Practice extends Component {
             icon={this.props.isPaused? 'play' : 'pause'}
             onClick={() => this.props.togglePause()}
           />
-          <Button inverted size='large' icon='hourglass outline'
-            style={{display: 'inline-block'}}
-            onClick={this.toggleMetronome}
-          />
+          <Metronome />
         </div>
-
-        { this.state.metronomeActive ? <Metronome /> : null }
 
         <Divider inverted/>
 
@@ -82,9 +77,7 @@ class Practice extends Component {
           : null
         }
         <div style={{paddingBottom: '2%', paddingLeft: '10%', paddingRight: '10%', position: 'fixed', bottom: '0', left: '0', width: '100%'}}>
-          <Button size="huge" content='End' fluid
-            onClick={this.handleEnd}
-          />
+          <Button size="huge" content='End' fluid onClick={this.handleEnd}  />
         </div>
 
       </div>
@@ -103,3 +96,10 @@ const mapStateToProps = state => {
 }
 
 export default connect(mapStateToProps, { patchCurrentPracticeTime, incrementTime,  clearStopwatch, togglePause })(Practice)
+
+// { this.state.metronomeActive ? <Metronome /> : null }
+
+// <Button inverted size='large' icon='hourglass outline'
+//   style={{display: 'inline-block'}}
+//   onClick={this.toggleMetronome}
+// />

@@ -1,10 +1,10 @@
 import { ADD_STUDENT, ADD_TEACHER, REMOVE_USER, ADD_PRACTICE_TIME } from './actionTypes'
 
-export const addTeacher = user => ({
+export const addTeacher = (user, students) => ({
   type: ADD_TEACHER,
   payload: {
     userInfo: user,
-    students: user.students
+    students: students
   }
 })
 

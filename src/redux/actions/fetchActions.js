@@ -19,10 +19,18 @@ export function fetchUser() {
           dispatch(addStudent(user, assignment,time))
         // set relevant state for a teacher user
         } else {
-          dispatch(addTeacher(user))
+          dispatch(addTeacher(user, sortStudents(user.students)))
         }
       })
   }
+}
+
+function sortStudents(students) {
+  return students.sort(function(a,b) {
+    if (a.username < b.username) return -1;
+    if (a.username > b.username) return 1;
+    return 0;
+  })
 }
 
 export function handleLogin(userInfo) {

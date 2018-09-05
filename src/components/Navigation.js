@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, Modal } from 'semantic-ui-react'
+import { Button, Modal, Header } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { removeUser } from '../redux/actions/userActions'
@@ -20,22 +20,38 @@ class Navigation extends Component {
         content={
           this.props.context === 'teacher' ?
           <div style={{textAlign: 'center'}}>
-            <Button as={Link} to='/teacherDashboard' size='massive' icon='home'
-              content='Dashboard' style={{marginTop: '5%'}}/><br/>
-            <Button as={Link} to='/createassignment' size='massive' icon='write'
-              content='Create Assignment' style={{marginTop: '5%'}}/><br/>
-            <Button size='massive' icon='hand peace outline' as={Link} to='/login' content='Logout'
-              style={{marginTop: '5%'}} onClick={this.handleLogoutButton}  /><br/>
+            <div style={{display: 'inline-block', margin: '5%', textAlign: 'center'}}>
+              <Button as={Link} to='/teacherDashboard' size='massive' icon='home'/>
+              <Header as='h3' content='Dashboard' style={{color: 'white'}} />
+            </div>
+            <div style={{display: 'inline-block', margin: '5%', textAlign: 'center'}}>
+              <Button as={Link} to='/createassignment' size='massive' icon='write'/>
+              <Header as='h3' content='Create Assignment' style={{color: 'white'}} />
+            </div>
+            <div style={{display: 'inline-block', margin: '5%', textAlign: 'center'}}>
+              <Button size='massive' icon='hand peace outline' as={Link} to='/login'
+                onClick={this.handleLogoutButton}  />
+              <Header as='h3' content='Logout' style={{color: 'white'}} />
+            </div>
           </div> :
           <div style={{textAlign: 'center'}}>
-            <Button as={Link} to='/studentDashboard' size='massive' icon='home'
-              content='Dashboard' style={{marginTop: '5%'}}/><br/>
-            <Button as={Link} to='/practice' size='massive' icon='music'
-              content='Practice' style={{marginTop: '5%'}}/><br/>
-            <Button as={Link} to={`/students/${this.props.id}`} size='massive' icon='file alternate'
-               style={{marginTop: '5%'}} content='Homework'/><br/>
-            <Button size='massive' icon='hand peace outline' as={Link} to='/login'
-              content='Logout' style={{marginTop: '5%'}} onClick={this.handleLogoutButton}/><br/>
+            <div style={{display: 'inline-block', margin: '5%', textAlign: 'center'}}>
+              <Button as={Link} to='/studentDashboard' size='massive' icon='home'/>
+              <Header as='h3' content='Dashboard' style={{color: 'white'}} />
+            </div>
+            <div style={{display: 'inline-block', margin: '5%', textAlign: 'center'}}>
+              <Button as={Link} to='/practice' size='massive' icon='music'/>
+              <Header as='h3' content='Practice' style={{color: 'white'}} />
+            </div>
+            <div style={{display: 'inline-block', margin: '5%', textAlign: 'center'}}>
+              <Button as={Link} to={`/students/${this.props.id}`} size='massive' icon='file alternate'/>
+              <Header as='h3' content='Homework' style={{color: 'white'}} />
+            </div>
+            <div style={{display: 'inline-block', margin: '5%', textAlign: 'center'}}>
+              <Button size='massive' icon='hand peace outline' as={Link} to='/login'
+                onClick={this.handleLogoutButton}  />
+              <Header as='h3' content='Logout' style={{color: 'white'}} />
+            </div>
           </div>
         }
       />
