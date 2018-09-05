@@ -9,6 +9,7 @@ import CreateAssignment from './containers/CreateAssignment'
 import StudentShow from './components/StudentShow'
 import AuthForm from './components/AuthForm'
 import CreateStudent from './components/CreateStudent'
+import Archive from './components/Archive'
 import { fetchUser } from './redux/actions/fetchActions'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
@@ -65,6 +66,10 @@ class App extends Component {
           render={(props) => <StudentShow {...props} /> }
         />
 
+        <Route exact path='/students/:student/archive'
+          render={(props) => <Archive {...props} /> }
+        />
+      
       </ div>
     )
   }

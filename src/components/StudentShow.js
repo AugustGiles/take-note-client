@@ -26,7 +26,7 @@ class StudentShow extends Component {
   }
 
   componentWillUnmount() {
-    this.props.clearSelectedStudent()
+    // this.props.clearSelectedStudent()
   }
 
   render () {
@@ -87,13 +87,19 @@ class StudentShow extends Component {
             />
 
             {localStorage.role === 'teacher' ?
-              <Button icon='minus' size='big' inverted
-                content='Remove Student'
-                style={{display: 'inline-block'}}
-                onClick={() => {
-                  this.props.addErrorMessage('Are you sure you want to delete?')
-                }}
-              /> : null
+              <div>
+                <Button icon='minus' size='medium' inverted
+                  content='Remove Student'
+                  style={{display: 'inline-block'}}
+                  onClick={() => {
+                    this.props.addErrorMessage('Are you sure you want to delete?')
+                  }}
+                />
+              <Button icon='folder open outline' size='medium' inverted
+                  content='Archive' style={{display: 'inline-block'}}
+                  onClick={() => this.props.history.push(`/students/${this.props.studentId}/archive`)}
+                />
+              </div> : null
             }
 
           </React.Fragment>) :

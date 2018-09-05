@@ -184,3 +184,22 @@ export function removeStudent(id) {
     })
   }
 }
+
+export function postRecording(assignmentId, recordingBlob) {
+  return dispatch => {
+    return new Promise(function(resolve, reject) {
+      return (
+        fetch('http://localhost:3000/recordings', {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+          },
+          body: JSON.stringify({assignment_id: assignmentId, recording: recordingBlob})
+        })
+        .then(json => resolve('Posted?'))
+      )
+    })
+  }
+}

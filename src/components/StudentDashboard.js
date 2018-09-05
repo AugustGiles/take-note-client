@@ -26,16 +26,17 @@ class StudentDashboard extends Component {
         <Navigation context='student' />
 
         <Divider inverted/>
-
-        <Stopwatch
-          context={'dashboard'}
-          text={'Remaining Practice Time'}
-        />
-        <Button inverted fluid
-          size="huge"
-          content='Start Practice!'
-          onClick={() => this.props.history.push('/practice')}
-        />
+        <div style={{paddingTop: '20%'}}>
+          <Stopwatch
+            context={'dashboard'}
+            text={'Remaining Practice Time'}
+          />
+          <Button inverted fluid
+            size="huge"
+            content='Start Practice!'
+            onClick={() => this.props.history.push('/practice')}
+          />
+        </div>
 
       </div>
     )

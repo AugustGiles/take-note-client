@@ -26,7 +26,7 @@ class Navigation extends Component {
             </div>
             <div style={{display: 'inline-block', margin: '5%', textAlign: 'center'}}>
               <Button as={Link} to='/createassignment' size='massive' icon='write'/>
-              <Header as='h3' content='Create Assignment' style={{color: 'white'}} />
+              <Header as='h3' content='Assignment' style={{color: 'white'}} />
             </div>
             <div style={{display: 'inline-block', margin: '5%', textAlign: 'center'}}>
               <Button size='massive' icon='hand peace outline' as={Link} to='/login'
@@ -46,6 +46,10 @@ class Navigation extends Component {
             <div style={{display: 'inline-block', margin: '5%', textAlign: 'center'}}>
               <Button as={Link} to={`/students/${this.props.id}`} size='massive' icon='file alternate'/>
               <Header as='h3' content='Homework' style={{color: 'white'}} />
+            </div>
+            <div style={{display: 'inline-block', margin: '5%', textAlign: 'center'}}>
+              <Button as={Link} to={`/students/${this.props.id}/archive`} size='massive' icon='folder open outline'/>
+              <Header as='h3' content='Archive' style={{color: 'white'}} />
             </div>
             <div style={{display: 'inline-block', margin: '5%', textAlign: 'center'}}>
               <Button size='massive' icon='hand peace outline' as={Link} to='/login'

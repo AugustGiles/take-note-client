@@ -38,7 +38,7 @@ class Metronome extends Component {
   }
 
 
-  //   M E T R O N O M E     A U D I O / V I S U A L     H A N D L E R S
+  //   M E T R O N O M E      A U D I O / V I S U A L     H A N D L E R S
   pauseMetronome = () => {
     this.setState({active: false})
     this.ticker.stop()
@@ -46,7 +46,7 @@ class Metronome extends Component {
   }
 
   handleBPMChange = (value) => {
-    this.state.active === true ? this.pauseMetronome() : null;
+    if (this.state.active === true) this.pauseMetronome();
     this.setState({bpm: value})
   }
 

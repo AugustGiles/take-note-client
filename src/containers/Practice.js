@@ -7,6 +7,7 @@ import { convertFromRaw } from 'draft-js';
 import '../styles/App.css'
 import Stopwatch from '../components/Stopwatch'
 import Metronome from '../components/Metronome'
+import Recorder from '../components/Recorder'
 import { patchCurrentPracticeTime } from '../redux/actions/fetchActions'
 import { incrementTime, clearStopwatch, togglePause } from '../redux/actions/stopwatchActions'
 
@@ -58,12 +59,16 @@ class Practice extends Component {
         <div>
           <Stopwatch context={'practice'}/>
         </div>
+
+        <Divider inverted />
+        
         <div style={{textAlign: 'center'}}>
           <Button inverted size="large" style={{display: 'inline-block'}}
             icon={this.props.isPaused? 'play' : 'pause'}
             onClick={() => this.props.togglePause()}
           />
           <Metronome />
+          <Recorder />
         </div>
 
         <Divider inverted/>
