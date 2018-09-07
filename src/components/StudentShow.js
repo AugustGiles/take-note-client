@@ -15,7 +15,7 @@ class StudentShow extends Component {
 
   componentDidMount() {
     if (!localStorage.token) {
-      this.props.history.push('/login')
+      this.props.history.push('/')
     } else if (this.props.id === parseInt(this.props.match.params.student, 0)){
       this.props.findStudent(this.props.match.params.student)
     } else if (localStorage.role !== 'teacher') {
@@ -87,7 +87,7 @@ class StudentShow extends Component {
             />
 
           {this.props.recentAssignment && this.props.recentAssignment['recordings'].map(recording => {
-              
+
               return <audio key={recording} src={`https://take-note-server.herokuapp.com/${recording}`}
                 controls style={{padding: '2%'}}
                 />

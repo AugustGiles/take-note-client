@@ -11,12 +11,12 @@ class Archive extends Component {
 
   componentDidMount() {
     if (!localStorage.token) {
-      this.props.history.push('/login')
+      this.props.history.push('/')
     } else if (this.props.studentId === parseInt(this.props.match.params.student, 0)){
 
       this.props.findStudent(this.props.match.params.student)
     } else if (localStorage.role !== 'teacher') {
-      
+
       this.props.history.goBack()
     } else {
       this.props.findStudent(this.props.match.params.student)

@@ -20,7 +20,7 @@ class Practice extends Component {
 
   componentDidMount() {
     if (!localStorage.token) {
-      this.props.history.push('/login')
+      this.props.history.push('/')
     } else if (localStorage.role !== 'student') {
       this.props.history.goBack()
     } else {

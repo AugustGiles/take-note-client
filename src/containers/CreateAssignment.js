@@ -20,7 +20,7 @@ class CreateAssignment extends Component {
 
   componentDidMount() {
     if (!localStorage.token) {
-      this.props.history.push('/login')
+      this.props.history.push('/')
     } else if (localStorage.role !== 'teacher') {
       this.props.history.goBack()
     }

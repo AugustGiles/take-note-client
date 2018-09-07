@@ -29,7 +29,7 @@ class Navigation extends Component {
               <Header as='h3' content='Assignment' style={{color: 'white'}} />
             </div>
             <div style={{display: 'inline-block', margin: '5%', textAlign: 'center'}}>
-              <Button size='massive' icon='hand peace outline' as={Link} to='/login'
+              <Button size='massive' icon='hand peace outline' as={Link} to='/'
                 onClick={this.handleLogoutButton}  />
               <Header as='h3' content='Logout' style={{color: 'white'}} />
             </div>
@@ -52,7 +52,7 @@ class Navigation extends Component {
               <Header as='h3' content='Archive' style={{color: 'white'}} />
             </div>
             <div style={{display: 'inline-block', margin: '5%', textAlign: 'center'}}>
-              <Button size='massive' icon='hand peace outline' as={Link} to='/login'
+              <Button size='massive' icon='hand peace outline' as={Link} to='/'
                 onClick={this.handleLogoutButton}  />
               <Header as='h3' content='Logout' style={{color: 'white'}} />
             </div>

@@ -111,7 +111,7 @@ class AuthForm extends Component {
             <Button inverted content='Login'
               onClick={() => {
                 this.props.removeErrorMessage()
-                this.props.history.push('/login')}
+                this.props.history.push('/')}
               }
             />
           </div> :

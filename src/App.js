@@ -27,7 +27,7 @@ class App extends Component {
       <div className='App'>
 
         <Route
-          exact path='/login'
+          exact path='/'
           render={(props) => <AuthForm {...props} context={'login'} /> }
         />
 
@@ -69,7 +69,7 @@ class App extends Component {
         <Route exact path='/students/:student/archive'
           render={(props) => <Archive {...props} /> }
         />
-      
+
       </ div>
     )
   }
