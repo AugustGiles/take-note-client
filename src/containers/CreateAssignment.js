@@ -86,7 +86,7 @@ class CreateAssignment extends Component {
               }}
             />
           </div>
-          <div style={{paddingBottom: '2%', paddingLeft: '10%', paddingRight: '10%', position: 'fixed', bottom: '0', left: '0', width: '100%'}}>
+          <div style={{paddingBottom: '2%', width: '100%'}}>
             <Button
               inverted fluid
               size='big'
