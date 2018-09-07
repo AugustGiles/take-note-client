@@ -27,7 +27,7 @@ class App extends Component {
       <div className='App'>
 
         <Route
-          exact path='/'
+          path='/'
           render={(props) => <AuthForm {...props} context={'login'} /> }
         />
 
