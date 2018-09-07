@@ -15,7 +15,7 @@ class Navigation extends Component {
 
     return (
       <Modal
-        trigger={<Button icon='list ul' size='big' inverted style={{display: 'inline-block', float:'right'}}/>}
+        trigger={<Button icon='list ul' size='medium' inverted style={{display: 'inline-block', float:'right'}}/>}
         size='tiny' basic centered={false}
         content={
           this.props.context === 'teacher' ?
