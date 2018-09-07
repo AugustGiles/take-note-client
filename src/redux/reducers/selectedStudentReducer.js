@@ -13,6 +13,7 @@ export function selectedStudentReducer(state={}, action) {
         assignmentCreated: action.payload.recentAssignment['created_at'],
         assignmentText: action.payload.recentAssignment['assignment_text'],
         allAssignments: action.payload.allAssignments,
+        recordings: action.payload.recentAssignment.recordings,
       }
 
     case CLEAR_SELECTED_STUDENT:

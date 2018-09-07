@@ -86,6 +86,12 @@ class StudentShow extends Component {
               dangerouslySetInnerHTML={{ __html: convertCommentFromJSONToHTML(this.props.assignmentText)}}
             />
 
+          {this.props.recentAssignment && this.props.recentAssignment['recordings'].map(recording => {
+              return <audio key={recording} src={`http://localhost:3000${recording}`}
+                controls style={{padding: '2%'}}
+                />
+            })}
+
             {localStorage.role === 'teacher' ?
               <div>
                 <Button icon='minus' size='medium' inverted
