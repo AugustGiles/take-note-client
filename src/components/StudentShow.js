@@ -87,7 +87,8 @@ class StudentShow extends Component {
             />
 
           {this.props.recentAssignment && this.props.recentAssignment['recordings'].map(recording => {
-              return <audio key={recording} src={`http://localhost:3000${recording}`}
+              debugger
+              return <audio key={recording} src={`https://take-note-9877.herokuapp.com/${recording}`}
                 controls style={{padding: '2%'}}
                 />
             })}

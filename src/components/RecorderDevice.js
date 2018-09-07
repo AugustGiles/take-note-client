@@ -50,13 +50,13 @@ class RecorderDevice extends Component {
   }
 
   postRecording(assignmentId) {
-    // let recording = this.createFileFromBlob()
+    let recording = this.createFileFromBlob()
     let formData = new FormData()
     let blob = this.state.audioBlob
     formData.append("id", assignmentId)
-    formData.append("recording", blob)
+    formData.append("recording", recording)
 
-    fetch('http://localhost:3000/attachrecording', {
+    fetch('https://take-note-9877.herokuapp.com/attachrecording', {
       method: 'PATCH',
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`
