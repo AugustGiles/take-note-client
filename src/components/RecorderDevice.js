@@ -56,7 +56,7 @@ class RecorderDevice extends Component {
     formData.append("id", assignmentId)
     formData.append("recording", recording)
 
-    fetch('https://take-note-9877.herokuapp.com/attachrecording', {
+    fetch('https://take-note-server.herokuapp.com/attachrecording', {
       method: 'PATCH',
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`
