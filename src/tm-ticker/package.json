@@ -1,0 +1,66 @@
+{
+  "_from": "tm-ticker",
+  "_id": "tm-ticker@1.0.0",
+  "_inBundle": false,
+  "_integrity": "sha512-0Eo1rDEf9wdvNj/rEqngfztLl2hgWvMOFwVBKH0R1JDI9VOiiHrTFzwP++26voxBebMJ6HVPqSHuo8QyEj7SIw==",
+  "_location": "/tm-ticker",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "tm-ticker",
+    "name": "tm-ticker",
+    "escapedName": "tm-ticker",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/tm-ticker/-/tm-ticker-1.0.0.tgz",
+  "_shasum": "50f7afd41a27f927d2185b2f2c9f2965e8158f07",
+  "_spec": "tm-ticker",
+  "_where": "/Users/tayloraugustgiles/Development/flatiron/final-project/app-client",
+  "author": {
+    "name": "Taitu Lizenbaum"
+  },
+  "bugs": {
+    "url": "https://github.com/taitulism/ticker/issues"
+  },
+  "bundleDependencies": false,
+  "deprecated": false,
+  "description": "An interval Ticker class (no GUI)",
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "eslint": "^5.4.0",
+    "mocha": "^5.2.0",
+    "sinon": "^6.1.4"
+  },
+  "homepage": "https://github.com/taitulism/ticker#readme",
+  "keywords": [
+    "accurate",
+    "interval",
+    "ticker",
+    "timer",
+    "clock",
+    "metronome",
+    "setTimeout",
+    "setInterval"
+  ],
+  "license": "MIT",
+  "main": "index.js",
+  "name": "tm-ticker",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/taitulism/ticker.git"
+  },
+  "scripts": {
+    "lint": "eslint index.js src playground",
+    "playground": "node ./playground/index.js",
+    "tdd": "mocha ./test --watch",
+    "test": "mocha ./test"
+  },
+  "version": "1.0.0"
+}

@@ -3,7 +3,7 @@ import { selectStudent } from './selectedStudentActions'
 
 export function fetchUser() {
   return dispatch => {
-    fetch(`https://take-note-9877.herokuapp.com/profile`, {
+    fetch(`https://take-note-server.herokuapp.com/profile`, {
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
@@ -36,7 +36,7 @@ function sortStudents(students) {
 export function handleLogin(userInfo) {
   return dispatch => {
     return new Promise(function(resolve, reject) {
-      return fetch ('https://take-note-9877.herokuapp.com/login', {
+      return fetch ('https://take-note-server.herokuapp.com/login', {
         method: 'POST',
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(userInfo)
@@ -61,7 +61,7 @@ export function handleLogin(userInfo) {
 export function handleSignUp(userInfo) {
   return dispatch => {
     return new Promise(function(resolve, reject) {
-      return fetch ('https://take-note-9877.herokuapp.com/users', {
+      return fetch ('https://take-note-server.herokuapp.com/users', {
         method: 'POST',
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify(userInfo)
@@ -77,7 +77,7 @@ export function handleSignUp(userInfo) {
 export function handleStudentCreation(userInfo) {
   return dispatch => {
     return new Promise(function(resolve, reject) {
-      return fetch ('https://take-note-9877.herokuapp.com/users', {
+      return fetch ('https://take-note-server.herokuapp.com/users', {
         method: 'POST',
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify(userInfo)
@@ -108,7 +108,7 @@ export function patchCurrentPracticeTime(id, data) {
   return dispatch => {
     return new Promise(function(resolve, reject) {
       return (
-        fetch(`https://take-note-9877.herokuapp.com/assignments/currentpractice/${id}`, {
+        fetch(`https://take-note-server.herokuapp.com/assignments/currentpractice/${id}`, {
           method: "PATCH",
           mode: "cors",
           headers: {
@@ -130,7 +130,7 @@ export function patchCurrentPracticeTime(id, data) {
 
 export function findStudent(studentId) {
   return dispatch => {
-    fetch(`https://take-note-9877.herokuapp.com/users/${studentId}`, {
+    fetch(`https://take-note-server.herokuapp.com/users/${studentId}`, {
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
@@ -149,7 +149,7 @@ export function assignHomework(data) {
   return dispatch => {
     return new Promise(function (resolve, reject) {
       return (
-        fetch(`https://take-note-9877.herokuapp.com/assignments`, {
+        fetch(`https://take-note-server.herokuapp.com/assignments`, {
           method: 'POST',
           headers: {
             'Accept': 'application/json',
@@ -171,7 +171,7 @@ export function removeStudent(id) {
   return dispatch => {
     return new Promise(function(resolve, reject) {
       return (
-        fetch(`https://take-note-9877.herokuapp.com/users/${id}`, {
+        fetch(`https://take-note-server.herokuapp.com/users/${id}`, {
           method: 'DELETE',
           headers: {
             'Accept': 'application/json',

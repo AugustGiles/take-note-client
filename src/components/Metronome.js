@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Divider, Button, Header, Modal } from 'semantic-ui-react'
-import Ticker from 'tm-ticker'
+import Ticker from '../tm-ticker/src/Ticker'
 import Slider from 'react-rangeslider'
 import 'react-rangeslider/lib/index.css'
 import posed from 'react-pose'
