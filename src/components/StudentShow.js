@@ -25,10 +25,6 @@ class StudentShow extends Component {
     }
   }
 
-  componentWillUnmount() {
-    // this.props.clearSelectedStudent()
-  }
-
   render () {
     const stat = Math.floor((this.props.currentPracticeTime/this.props.goalPracticeTime)*100)
 

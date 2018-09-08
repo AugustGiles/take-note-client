@@ -54,7 +54,16 @@ class CreateAssignment extends Component {
           style={{color: 'white', display: "inline-block", fontSize: '4vh', paddingBottom: '2%'}}
         />
         <Navigation context='teacher'/>
-
+        <div style={{marginBottom: '3%',}}>
+          <Button
+            inverted
+            size='medium'
+            type='submit'
+            icon='send'
+            onClick={this.handleSend}
+            content='Send'
+          />
+        </div>
         <Form>
           <Dropdown
             placeholder='Select Student'
@@ -84,15 +93,6 @@ class CreateAssignment extends Component {
                 textAlign: { inDropdown: true },
                 history: { inDropdown: true },
               }}
-            />
-          </div>
-          <div style={{paddingBottom: '2%', width: '100%'}}>
-            <Button
-              inverted fluid
-              size='big'
-              type='submit'
-              onClick={this.handleSend}
-              content='Send'
             />
           </div>
         </Form>
