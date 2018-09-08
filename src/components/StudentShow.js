@@ -38,7 +38,7 @@ class StudentShow extends Component {
 
     return (
       <div className='setup'>
-        {this.props.username ?
+        {this.props.goalPracticeTime ?
           (<React.Fragment>
             <Header
               style={{color: 'white', fontSize: '5vh', display: 'inline-block'}}>
