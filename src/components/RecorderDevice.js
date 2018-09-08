@@ -52,7 +52,6 @@ class RecorderDevice extends Component {
   postRecording(assignmentId) {
     let recording = this.createFileFromBlob()
     let formData = new FormData()
-    let blob = this.state.audioBlob
     formData.append("id", assignmentId)
     formData.append("recording", recording)
 
@@ -71,7 +70,7 @@ class RecorderDevice extends Component {
     return (
       <Modal
         trigger={<Button icon='microphone' size='large' inverted style={{display: 'inline-block'}}/>}
-        size='large' basic
+        size='mini' basic
         onOpen={this.prepareRecording}
         onClose={this.emergencyStop}
         content={
