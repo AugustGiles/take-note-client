@@ -34,7 +34,7 @@ class StudentShow extends Component {
 
     return (
       <div className='setup'>
-        {this.props.goalPracticeTime ?
+        {this.props.username ?
           (<React.Fragment>
             <Header
               style={{color: 'white', fontSize: '5vh', display: 'inline-block'}}>
@@ -45,12 +45,27 @@ class StudentShow extends Component {
 
             <Divider inverted/>
 
-            <Statistic horizontal inverted>
-              <Statistic.Value>{stat}%</Statistic.Value>
-              <Statistic.Label>Practice Completion</Statistic.Label>
-            </Statistic>
+              {localStorage.role === 'teacher' ?
+                <div>
+                  <Button icon='folder open outline' size='medium' inverted
+                    content='Archive' style={{display: 'inline-block'}}
+                    onClick={() => this.props.history.push(`/students/${this.props.studentId}/archive`)}
+                  />
+                  <Button icon='write' size='medium' inverted
+                    content='Write Assignment' style={{display: 'inline-block'}}
+                    onClick={() => this.props.history.push(`/createassignment`)}
+                  />
+                </div> : null
+              }
 
             <Divider inverted/>
+
+              <Statistic horizontal inverted>
+                <Statistic.Value>{stat}%</Statistic.Value>
+                <Statistic.Label>Practice Completion</Statistic.Label>
+              </Statistic>
+
+            <Divider inverted />
 
             {this.props.errorMessage ?
               <Message warning >
@@ -97,10 +112,6 @@ class StudentShow extends Component {
                   onClick={() => {
                     this.props.addErrorMessage('Are you sure you want to delete?')
                   }}
-                />
-              <Button icon='folder open outline' size='medium' inverted
-                  content='Archive' style={{display: 'inline-block'}}
-                  onClick={() => this.props.history.push(`/students/${this.props.studentId}/archive`)}
                 />
               </div> : null
             }

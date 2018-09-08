@@ -14,7 +14,6 @@ class CreateAssignment extends Component {
 
   state = {
     editorState: EditorState.createEmpty(),
-    studentSelect: 0,
     practiceAmount: 0,
   }
 
@@ -23,55 +22,45 @@ class CreateAssignment extends Component {
       this.props.history.push('/')
     } else if (localStorage.role !== 'teacher') {
       this.props.history.goBack()
+    } else if (this.props.selectedStudentId === undefined) {
+      this.props.history.push('/teacherdashboard')
     }
   }
 
-  studentOptions = () => {
-    return this.props.students.map(student => {
-      return {key: student.id, value: student.id, text: student.username}
-    })
-  }
+  // studentOptions = () => {
+  //   return this.props.students.map(student => {
+  //     return {key: student.id, value: student.id, text: student.username}
+  //   })
+  // }
 
   handleSend = () => {
     let data = {
       'teacher_id': this.props.id,
-      'student_id': this.state.studentSelect,
+      'student_id': this.props.selectedStudentId,
       'assignment_text': convertToRaw(this.state.editorState.getCurrentContent()),
       'practice_goal': this.state.practiceAmount,
     }
     this.props.assignHomework(data)
-      .then(this.props.history.push(`/students/${this.state.studentSelect}`))
+      .then(this.props.history.push(`/students/${this.props.selectedStudentId}`))
   }
 
   handlePracticeAmount = (e, { value }) => {this.setState({practiceAmount: value})}
-  handleStudentSelect = (e, { value }) => {this.setState({studentSelect: value})}
+  // handleStudentSelect = (e, { value }) => {this.setState({studentSelect: value})}
 
   render () {
 
     return (
       <div className='setup'>
-        <Header content='Assignment'
+        <Header content={`Assignment for ${this.props.selectedStudentUsername}`}
           style={{color: 'white', display: "inline-block", fontSize: '4vh', paddingBottom: '2%'}}
         />
         <Navigation context='teacher'/>
-        <div style={{marginBottom: '3%',}}>
-          <Button
-            inverted
-            size='medium'
-            type='submit'
-            icon='send'
-            onClick={this.handleSend}
-            content='Send'
+        <div style={{marginBottom: '3%'}}>
+          <Button inverted size='medium' type='submit' icon='send'
+            onClick={this.handleSend} content='Send'
           />
         </div>
         <Form>
-          <Dropdown
-            placeholder='Select Student'
-            search selection fluid
-            style={{marginBottom: '2%', zIndex: '105'}}
-            options={this.props.students && this.studentOptions()}
-            onChange={this.handleStudentSelect}
-          />
           <Dropdown
             placeholder='Select Practice Time'
             selection fluid
@@ -79,7 +68,7 @@ class CreateAssignment extends Component {
             options={practiceAmounts}
             onChange={this.handlePracticeAmount}
           />
-        <div style={{height: '50vh', width: '100%'}}>
+          <div style={{height: '50vh', width: '100%'}}>
             <Editor
               editorState={this.state.editorState}
               wrapperClassName="wrapper"
@@ -105,8 +94,18 @@ class CreateAssignment extends Component {
 const mapStateToProps = state => {
   return {
     students: state.user.students,
-    id: state.user.id
+    id: state.user.id,
+    selectedStudentUsername: state.selectedStudent.username,
+    selectedStudentId: state.selectedStudent.id,
   }
 }
 
 export default connect(mapStateToProps, { assignHomework })(CreateAssignment)
+
+// <Dropdown
+//   placeholder='Select Student'
+//   search selection fluid
+//   style={{marginBottom: '2%', zIndex: '105'}}
+//   options={this.props.students && this.studentOptions()}
+//   onChange={this.handleStudentSelect}
+// />
