@@ -10,6 +10,7 @@
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
     "react-draft-wysiwyg": "^1.12.13",
+    "react-dropzone": "^5.1.0",
     "react-moment": "^0.7.9",
     "react-pose": "^3.2.2",
     "react-rangeslider": "^2.2.0",

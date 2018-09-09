@@ -7,7 +7,7 @@ import posed from 'react-pose'
 import '../styles/App.css'
 
 const Circle = posed.div({
-  hidden: { 'border-radius': '75%', opacity: .3},
+  hidden: { 'border-radius': '75%', opacity: .2},
   visible: { 'border-radius': '50%', opacity: .9}
 })
 

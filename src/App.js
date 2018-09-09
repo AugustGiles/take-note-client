@@ -10,6 +10,7 @@ import StudentShow from './components/StudentShow'
 import AuthForm from './components/AuthForm'
 import CreateStudent from './components/CreateStudent'
 import Archive from './components/Archive'
+import CreateResource from './components/CreateResource'
 import { fetchUser } from './redux/actions/fetchActions'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
@@ -54,6 +55,11 @@ class App extends Component {
         <Route
           exact path='/createstudent'
           render={(props) => <CreateStudent {...props} /> }
+        />
+
+        <Route 
+          exact path='/createresource'
+          render={(props) => <CreateResource {...props} />}
         />
 
         <Route

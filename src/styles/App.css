@@ -50,3 +50,13 @@
   border-color: #00FF00;
   transform-origin: 50% 50%;
 }
+
+.dropzone {
+  border-style: dotted;
+  border-color: #F1F1F1;
+  color: #F1F1F1;
+  font-size: 3vh;
+  height: 50%;
+  width: 50%;
+  margin-top: 5%;
+}
