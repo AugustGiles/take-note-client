@@ -32,7 +32,6 @@ class StudentShow extends Component {
 
   render () {
     const stat = Math.floor((this.props.currentPracticeTime/this.props.goalPracticeTime)*100)
-
     const convertCommentFromJSONToHTML = (text) => {
       return stateToHTML(convertFromRaw(text))
     }
