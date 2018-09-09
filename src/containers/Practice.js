@@ -101,10 +101,3 @@ const mapStateToProps = state => {
 }
 
 export default connect(mapStateToProps, { patchCurrentPracticeTime, incrementTime,  clearStopwatch, togglePause })(Practice)
-
-//
-// <React.Fragment>
-//   <audio id='playback'/>
-//   <Button icon='play' size='massive' onClick={this.handlePlayback} />
-//   <Header content='Click play to hear your recording. Click outside to exit recording session' inverted />
-// </React.Fragment>

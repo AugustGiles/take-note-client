@@ -24,6 +24,12 @@ class StudentShow extends Component {
     }
   }
 
+  handlePlayback = (id) => {
+    let audio = document.getElementById(id)
+    audio.load()
+    audio.play()
+  }
+
   render () {
     const stat = Math.floor((this.props.currentPracticeTime/this.props.goalPracticeTime)*100)
 
@@ -105,7 +111,11 @@ class StudentShow extends Component {
 
           {this.props.recentAssignment && this.props.recentAssignment['recordings'].map(recording => {
               return (
-                  <audio key={recording} src={`https://take-note-server.herokuapp.com/${recording}`} controls/>
+                <React.Fragment key={recording}>
+                  <audio id={recording}
+                    src={`https://take-note-server.herokuapp.com/${recording}`} />
+                  <Button icon='play' size='massive' onClick={() => this.handlePlayback(recording)} />
+                </React.Fragment>
               )
             })}
           </React.Fragment>) : null
