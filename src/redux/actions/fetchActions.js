@@ -130,18 +130,21 @@ export function patchCurrentPracticeTime(id, data) {
 
 export function findStudent(studentId) {
   return dispatch => {
-    fetch(`https://take-note-server.herokuapp.com/users/${studentId}`, {
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: `Bearer ${localStorage.getItem("token")}`
-      }
-    })
-      .then(resp => resp.json())
-      .then(student => {
-        let assignment = findMostRecentAssignment(student.givenAssignments)
-        dispatch(selectStudent(student, assignment))
+    return new Promise(function(resolve, reject) {
+      return (fetch(`https://take-note-server.herokuapp.com/users/${studentId}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`
+        }
       })
+        .then(resp => resp.json())
+        .then(student => {
+          let assignment = findMostRecentAssignment(student.givenAssignments)
+          dispatch(selectStudent(student, assignment))
+        })
+      )
+    })
   }
 }
 

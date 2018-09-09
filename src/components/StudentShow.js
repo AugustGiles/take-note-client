@@ -2,14 +2,13 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Header, Divider, Statistic, Button, Message } from 'semantic-ui-react'
 import '../styles/App.css'
-import { findStudent } from '../redux/actions/fetchActions'
 import { clearSelectedStudent } from '../redux/actions/selectedStudentActions'
 import Navigation from './Navigation'
 import {stateToHTML} from 'draft-js-export-html';
 import { convertFromRaw } from 'draft-js';
 import Moment from 'react-moment'
 import { removeErrorMessage, addErrorMessage } from '../redux/actions/errorActions'
-import { removeStudent } from '../redux/actions/fetchActions'
+import { removeStudent, findStudent } from '../redux/actions/fetchActions'
 
 class StudentShow extends Component {
 
@@ -20,7 +19,7 @@ class StudentShow extends Component {
       this.props.findStudent(this.props.match.params.student)
     } else if (localStorage.role !== 'teacher') {
       this.props.history.goBack()
-    } else {
+    } else if (!this.props.selectedStudent){
       this.props.findStudent(this.props.match.params.student)
     }
   }
@@ -54,6 +53,13 @@ class StudentShow extends Component {
                   <Button icon='write' size='medium' inverted
                     content='Write Assignment' style={{display: 'inline-block'}}
                     onClick={() => this.props.history.push(`/createassignment`)}
+                  />
+                  <Button icon='minus' size='medium' inverted
+                    content='Remove Student'
+                    style={{display: 'inline-block', float: 'right'}}
+                    onClick={() => {
+                      this.props.addErrorMessage('Are you sure you want to delete?')
+                    }}
                   />
                 </div> : null
               }
@@ -98,26 +104,11 @@ class StudentShow extends Component {
             />
 
           {this.props.recentAssignment && this.props.recentAssignment['recordings'].map(recording => {
-
-              return <audio key={recording} src={`https://take-note-server.herokuapp.com/${recording}`}
-                controls style={{padding: '2%'}}
-                />
+              return (
+                  <audio key={recording} src={`https://take-note-server.herokuapp.com/${recording}`} controls/>
+              )
             })}
-
-            {localStorage.role === 'teacher' ?
-              <div>
-                <Button icon='minus' size='medium' inverted
-                  content='Remove Student'
-                  style={{display: 'inline-block'}}
-                  onClick={() => {
-                    this.props.addErrorMessage('Are you sure you want to delete?')
-                  }}
-                />
-              </div> : null
-            }
-
-          </React.Fragment>) :
-          null
+          </React.Fragment>) : null
         }
       </div>
     )

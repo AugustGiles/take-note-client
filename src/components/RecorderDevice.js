@@ -34,14 +34,16 @@ class RecorderDevice extends Component {
     this.state.mediaRecorder.addEventListener('stop', () => {
       let audioBlob = new Blob(this.state.audioChunks, {type:'audio'})
       let audioUrl = URL.createObjectURL(audioBlob)
-      this.setState({ audioBlob: audioBlob, audioUrl: audioUrl})
+      this.setState({ audioBlob: audioBlob, audioUrl: audioUrl, active: false})
     })
-    this.setState({ active: false })
+    debugger
+    this.postRecording(this.props.assignmentId)
   }
 
   emergencyStop = () => {
     if (this.state.active === true) {this.state.mediaRecorder.stop()}
-    this.setState({ mediaRecorder: null, audioBlob: [], audioUrl: null, active: false})
+    URL.revokeObjectURL(this.state.audioUrl)
+    this.setState({ audioBlob: [], audioUrl: null, active: false})
   }
 
   createFileFromBlob = () => {
@@ -54,6 +56,7 @@ class RecorderDevice extends Component {
     let formData = new FormData()
     formData.append("id", assignmentId)
     formData.append("recording", recording)
+    debugger
 
     fetch('https://take-note-server.herokuapp.com/attachrecording', {
       method: 'PATCH',
@@ -65,6 +68,12 @@ class RecorderDevice extends Component {
       .then(message => console.log(message))
   }
 
+  handlePlayback = () => {
+    let audio = document.getElementById('playback')
+    audio.setAttribute('src', this.state.audioUrl)
+    audio.load()
+    audio.play()
+  }
 
   render() {
     return (
@@ -77,10 +86,9 @@ class RecorderDevice extends Component {
           <div style={{textAlign: 'center'}}>
             {(this.state.audioUrl) &&
               <React.Fragment>
-                <audio src={this.state.audioUrl} controls />
-                <Button content='Save Recording' inverted
-                  onClick={() => this.postRecording(this.props.assignmentId)}/>
-
+                <audio id='playback'/>
+                <Button icon='play' size='massive' onClick={this.handlePlayback} />
+                <Header content='Click play to hear your recording. Click outside to exit recording session' inverted />
               </React.Fragment>
             }
             {(!this.state.active && !this.state.audioUrl) &&
@@ -96,7 +104,7 @@ class RecorderDevice extends Component {
                 <Button icon='microphone slash' circular size='massive'
                   onClick={this.stopRecording}
                 />
-                <Header content='Click to Stop' as='h3' style={{color: 'white'}} />
+              <Header content='Click to End and Save Recording' as='h3' style={{color: 'white'}} />
               </React.Fragment>
             }
           </div>

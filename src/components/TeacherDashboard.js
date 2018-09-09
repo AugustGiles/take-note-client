@@ -3,7 +3,7 @@ import { Header, Button, Divider, Message } from 'semantic-ui-react'
 import '../styles/App.css'
 import { connect } from 'react-redux'
 import Navigation from './Navigation'
-import { fetchUser } from '../redux/actions/fetchActions'
+import { fetchUser, findStudent } from '../redux/actions/fetchActions'
 import { removeErrorMessage } from '../redux/actions/errorActions'
 
 
@@ -53,7 +53,11 @@ class TeacherDashboard extends Component {
               key={student.id}
               inverted color='grey' fluid style={{marginTop: '3%'}}
               size='huge'
-              onClick={() => this.props.history.push(`/students/${student.id}`)}
+              onClick={() => {
+                this.props.findStudent(student.id)
+                  .then(this.props.history.push(`/students/${student.id}`))
+                // this.props.history.push(`/students/${student.id}`)
+              }}
               content={student.username}
             />
           )
@@ -71,4 +75,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, { fetchUser, removeErrorMessage })(TeacherDashboard)
+export default connect(mapStateToProps, { fetchUser, removeErrorMessage, findStudent })(TeacherDashboard)
