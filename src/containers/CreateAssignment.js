@@ -7,7 +7,7 @@ import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 
 import '../styles/App.css'
 import { practiceAmounts } from '../data/practiceAmounts'
-import { assignHomework } from '../redux/actions/fetchActions'
+import { assignHomework, findStudent } from '../redux/actions/fetchActions'
 import Navigation from '../components/Navigation'
 
 class CreateAssignment extends Component {
@@ -27,12 +27,6 @@ class CreateAssignment extends Component {
     }
   }
 
-  // studentOptions = () => {
-  //   return this.props.students.map(student => {
-  //     return {key: student.id, value: student.id, text: student.username}
-  //   })
-  // }
-
   handleSend = () => {
     let data = {
       'teacher_id': this.props.id,
@@ -41,11 +35,11 @@ class CreateAssignment extends Component {
       'practice_goal': this.state.practiceAmount,
     }
     this.props.assignHomework(data)
+      .then(this.props.findStudent(this.props.selectedStudentId))
       .then(this.props.history.push(`/students/${this.props.selectedStudentId}`))
   }
 
   handlePracticeAmount = (e, { value }) => {this.setState({practiceAmount: value})}
-  // handleStudentSelect = (e, { value }) => {this.setState({studentSelect: value})}
 
   render () {
 
@@ -85,7 +79,6 @@ class CreateAssignment extends Component {
             />
           </div>
         </Form>
-
       </div>
     )
   }
@@ -100,12 +93,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, { assignHomework })(CreateAssignment)
-
-// <Dropdown
-//   placeholder='Select Student'
-//   search selection fluid
-//   style={{marginBottom: '2%', zIndex: '105'}}
-//   options={this.props.students && this.studentOptions()}
-//   onChange={this.handleStudentSelect}
-// />
+export default connect(mapStateToProps, { assignHomework, findStudent })(CreateAssignment)
