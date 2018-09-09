@@ -10,6 +10,7 @@ class RecorderDevice extends Component {
     audioChunks: [],
     audioBlob: null,
     audioUrl: null,
+    saved: false,
   }
 
   prepareRecording = () => {
@@ -34,16 +35,14 @@ class RecorderDevice extends Component {
     this.state.mediaRecorder.addEventListener('stop', () => {
       let audioBlob = new Blob(this.state.audioChunks, {type:'audio'})
       let audioUrl = URL.createObjectURL(audioBlob)
-      this.setState({ audioBlob: audioBlob, audioUrl: audioUrl, active: false})
+      this.setState({ audioBlob: audioBlob, audioUrl: audioUrl})
     })
-    debugger
-    this.postRecording(this.props.assignmentId)
+    this.setState({ active: false })
   }
 
   emergencyStop = () => {
     if (this.state.active === true) {this.state.mediaRecorder.stop()}
-    URL.revokeObjectURL(this.state.audioUrl)
-    this.setState({ audioBlob: [], audioUrl: null, active: false})
+    this.setState({ mediaRecorder: null, audioBlob: [], audioUrl: null, active: false})
   }
 
   createFileFromBlob = () => {
@@ -56,7 +55,6 @@ class RecorderDevice extends Component {
     let formData = new FormData()
     formData.append("id", assignmentId)
     formData.append("recording", recording)
-    debugger
 
     fetch('https://take-note-server.herokuapp.com/attachrecording', {
       method: 'PATCH',
@@ -65,15 +63,12 @@ class RecorderDevice extends Component {
       },
       body: formData
     })
-      .then(message => console.log(message))
+      .then(message => {
+        this.setState({saved: true})
+        console.log(message)
+      })
   }
 
-  handlePlayback = () => {
-    let audio = document.getElementById('playback')
-    audio.setAttribute('src', this.state.audioUrl)
-    audio.load()
-    audio.play()
-  }
 
   render() {
     return (
@@ -84,12 +79,15 @@ class RecorderDevice extends Component {
         onClose={this.emergencyStop}
         content={
           <div style={{textAlign: 'center'}}>
-            {(this.state.audioUrl) &&
+            {(this.state.audioUrl && !this.state.saved) &&
               <React.Fragment>
-                <audio id='playback'/>
-                <Button icon='play' size='massive' onClick={this.handlePlayback} />
-                <Header content='Click play to hear your recording. Click outside to exit recording session' inverted />
+                <audio src={this.state.audioUrl} controls />
+                <Button content='Save Recording' inverted
+                  onClick={() => this.postRecording(this.props.assignmentId)}/>
               </React.Fragment>
+            }
+            {(this.state.audioUrl && this.state.saved) &&
+              <Header content='Recording Saved!' inverted/>
             }
             {(!this.state.active && !this.state.audioUrl) &&
               <React.Fragment>
@@ -104,7 +102,7 @@ class RecorderDevice extends Component {
                 <Button icon='microphone slash' circular size='massive'
                   onClick={this.stopRecording}
                 />
-              <Header content='Click to End and Save Recording' as='h3' style={{color: 'white'}} />
+                <Header content='Click to Stop' as='h3' style={{color: 'white'}} />
               </React.Fragment>
             }
           </div>
