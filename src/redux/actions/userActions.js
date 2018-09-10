@@ -33,7 +33,7 @@ export const addPracticeTime = (assignment) => ({
   practiceTime: assignment['current_practice_time'],
 })
 
-export const addResource = (resource) => ({
+export const addResource = (resources) => ({
   type: ADD_RESOURCE,
-  payload: resource
+  payload: resources
 })

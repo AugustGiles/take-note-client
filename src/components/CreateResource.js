@@ -4,6 +4,7 @@ import '../styles/App.css'
 import Navigation from './Navigation'
 import { Header, Divider, Input, Button, TextArea, Form } from 'semantic-ui-react'
 import Dropzone from 'react-dropzone'
+import { addResource } from '../redux/actions/userActions'
 
 class CreateResource extends Component {
 
@@ -30,10 +31,10 @@ class CreateResource extends Component {
       },
       body: formData
     })
-      .then(message => {
-        // add to this.state
-        // redirect to viewresources
-        console.log(message)
+      .then(resp => resp.json())
+      .then(info => {
+        this.props.addResource(info)
+        this.props.history.push('/viewresources')
       })
   }
 
@@ -58,7 +59,7 @@ class CreateResource extends Component {
 
             disabled={this.state.disabled}
             accept="image/jpeg, image/png, audio/mp3, audio/wav, application/pdf">
-            <Header as='h3' style={{fontSize: '3vh'}} 
+            <Header as='h3' style={{color: '#F1F1F1', fontSize: '3vh'}}
               content='Drop Your File Here or Click Here to Open Your File Manager.' />
             <Header as='h3' style={{color: '#F1F1F1'}}
               content='Accepts: .jpeg, .png, .mp3, .wav, and .pdf file types' />
@@ -82,7 +83,7 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps)(CreateResource)
+export default connect(mapStateToProps, { addResource })(CreateResource)
 
 // <Form>
 // <TextArea value={this.state.description}
