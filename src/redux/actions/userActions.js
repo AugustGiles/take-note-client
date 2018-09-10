@@ -1,4 +1,4 @@
-import { ADD_STUDENT, ADD_TEACHER, REMOVE_USER, ADD_PRACTICE_TIME } from './actionTypes'
+import { ADD_STUDENT, ADD_TEACHER, REMOVE_USER, ADD_PRACTICE_TIME, ADD_RESOURCE } from './actionTypes'
 
 export const addTeacher = (user, students) => ({
   type: ADD_TEACHER,
@@ -31,4 +31,9 @@ export const removeUser = () => ({
 export const addPracticeTime = (assignment) => ({
   type: ADD_PRACTICE_TIME,
   practiceTime: assignment['current_practice_time'],
+})
+
+export const addResource = (resource) => ({
+  type: ADD_RESOURCE,
+  payload: resource
 })

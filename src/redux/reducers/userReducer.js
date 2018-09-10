@@ -22,7 +22,8 @@ export function userReducer(state = {}, action) {
         username: action.payload.userInfo.username,
         students: action.payload.students,
         role: 'teacher',
-        loggedIn: true
+        loggedIn: true,
+        resources: action.payload.userInfo.resources,
       }
 
     case REMOVE_USER:
@@ -33,6 +34,12 @@ export function userReducer(state = {}, action) {
         ...state,
         currentPracticeTime: action.practiceTime,
       }
+
+    // case ADD_RESOURCE:
+    //   return {
+    //     ..state,
+    //     resources: [...state.resources.push(action.resource)]
+    //   }
 
     default:
       return state

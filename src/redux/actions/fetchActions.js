@@ -19,6 +19,7 @@ export function fetchUser() {
           dispatch(addStudent(user, assignment,time))
         // set relevant state for a teacher user
         } else {
+          // debugger
           dispatch(addTeacher(user, sortStudents(user.students)))
         }
       })

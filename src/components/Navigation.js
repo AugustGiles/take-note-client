@@ -25,6 +25,10 @@ class Navigation extends Component {
               <Header as='h3' content='Dashboard' style={{color: 'white'}} />
             </div>
             <div style={{display: 'inline-block', margin: '5%', textAlign: 'center'}}>
+              <Button as={Link} to='/viewresources' size='massive' icon='paperclip'/>
+              <Header as='h3' content='Resources' style={{color: 'white'}} />
+            </div>
+            <div style={{display: 'inline-block', margin: '5%', textAlign: 'center'}}>
               <Button size='massive' icon='hand peace outline' as={Link} to='/'
                 onClick={this.handleLogoutButton}  />
               <Header as='h3' content='Logout' style={{color: 'white'}} />
