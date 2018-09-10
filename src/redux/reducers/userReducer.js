@@ -1,4 +1,4 @@
-import { ADD_STUDENT, ADD_TEACHER, REMOVE_USER, ADD_PRACTICE_TIME, ADD_RESOURCE } from '../actions/actionTypes'
+import { ADD_STUDENT, ADD_TEACHER, REMOVE_USER, ADD_PRACTICE_TIME, UPDATE_RESOURCES } from '../actions/actionTypes'
 
 export function userReducer(state = {}, action) {
   switch (action.type) {
@@ -35,7 +35,7 @@ export function userReducer(state = {}, action) {
         currentPracticeTime: action.practiceTime,
       }
 
-    case ADD_RESOURCE:
+    case UPDATE_RESOURCES:
       return {
         ...state,
         resources: action.payload

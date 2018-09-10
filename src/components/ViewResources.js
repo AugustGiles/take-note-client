@@ -3,19 +3,9 @@ import { connect } from 'react-redux'
 import '../styles/App.css'
 import Navigation from './Navigation'
 import { Header, Divider, Button } from 'semantic-ui-react'
+import ResourceCards from './ResourceCards'
 
 class ViewResources extends Component {
-
-  renderResource = (file, title) => {
-    let extension = file.split('.')[1]
-    if (extension === 'jpeg' || extension === 'png') {
-      return <img alt={title} src={`https://take-note-server.herokuapp.com${file}`} />
-    } else if (extension === 'pdf') {
-      return <embed src={`https://take-note-server.herokuapp.com${file}`} />
-    } else if (extension === 'mp3' || extension === 'wav') {
-      return <audio src={`https://take-note-server.herokuapp.com${file}`} controls />
-    }
-  }
 
   render() {
     return(
@@ -30,24 +20,10 @@ class ViewResources extends Component {
             onClick={() => this.props.history.push(`/createresource`)}
           />
         <Divider inverted/>
-        {this.props.resources && this.props.resources.map(resource => {
-          return (
-            <div>
-              <Header as='h2' content={resource.title} inverted />
-              <p>{resource.description}</p>
-              {this.renderResource(resource.file, resource.title)}
-            </div>
-          )
-        })}
+        <ResourceCards context="view"/>
       </div>
     )
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    resources: state.user.resources
-  }
-}
-
-export default connect(mapStateToProps)(ViewResources)
+export default connect()(ViewResources)

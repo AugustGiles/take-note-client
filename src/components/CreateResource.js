@@ -4,7 +4,7 @@ import '../styles/App.css'
 import Navigation from './Navigation'
 import { Header, Divider, Input, Button, TextArea, Form } from 'semantic-ui-react'
 import Dropzone from 'react-dropzone'
-import { addResource } from '../redux/actions/userActions'
+import { updateResources } from '../redux/actions/userActions'
 
 class CreateResource extends Component {
 
@@ -24,6 +24,7 @@ class CreateResource extends Component {
     formData.append("title", this.state.title)
     formData.append("file", this.state.file[this.state.file.length - 1])
     formData.append("teacher_id", this.props.teacherId)
+    formData.append("description", this.state.description)
     fetch('https://take-note-server.herokuapp.com/resources', {
       method: 'POST',
       headers: {
@@ -33,7 +34,7 @@ class CreateResource extends Component {
     })
       .then(resp => resp.json())
       .then(info => {
-        this.props.addResource(info)
+        this.props.updateResources(info)
         this.props.history.push('/viewresources')
       })
   }
@@ -52,7 +53,10 @@ class CreateResource extends Component {
         <Header content='Resource Title:' inverted/>
         <Input value={this.state.title} onChange={(e) => this.setState({title: e.target.value})}/>
         <Header content='Description:' inverted/>
-
+        <Form>
+          <TextArea value={this.state.description}
+            onChange={(e) => this.setState({description: e.target.value})}/>
+        </Form>
 
         {!this.state.file ?
           <Dropzone onDrop={this.onDrop.bind(this)} className={'dropzone'}
@@ -83,9 +87,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, { addResource })(CreateResource)
-
-// <Form>
-// <TextArea value={this.state.description}
-//   onChange={(e) => this.setState({description: e.target.value})}/>
-// </Form>
+export default connect(mapStateToProps, { updateResources })(CreateResource)
