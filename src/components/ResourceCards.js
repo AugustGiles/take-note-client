@@ -23,11 +23,12 @@ class ResourceCards extends Component {
         <Modal size='large' style={{height: '90%'}}
           trigger={<Button size='medium' fluid content='Show Details' />}
           content={
-            <object width="100%" height="100%" type="application/pdf" data={`https://take-note-server.herokuapp.com${file}`}>
-              <iframe src="/pdf/sample-3pp.pdf#page=2" width="100%" height="100%" scrolling="yes">
+
+              <iframe src={`https://take-note-server.herokuapp.com${file}`} width="100%" height="100%"
+                scrolling="yes" style={{overflow: 'auto', webkitOverflowScrolling: 'touch'}}>
                 <p style={{color: '#F1F1F1'}}>This browser does not support PDFs. </p>
               </iframe>
-            </object>
+
           }
         />
       )
@@ -101,3 +102,6 @@ const mapStateToProps = state => {
 }
 
 export default connect(mapStateToProps, { updateResources })(ResourceCards)
+
+            // <object width="100%" height="100%" type="application/pdf" data={`https://take-note-server.herokuapp.com${file}`}>
+            // </object>
