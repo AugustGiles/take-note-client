@@ -12,6 +12,7 @@ export function selectedStudentReducer(state={}, action) {
         currentPracticeTime: action.payload.recentAssignment['current_practice_time'],
         assignmentCreated: action.payload.recentAssignment['created_at'],
         assignmentText: action.payload.recentAssignment['assignment_text'],
+        resources: action.payload.recentAssignment.resources,
         allAssignments: action.payload.allAssignments,
         recordings: action.payload.recentAssignment.recordings,
       }

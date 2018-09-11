@@ -141,8 +141,9 @@ export function findStudent(studentId) {
       })
         .then(resp => resp.json())
         .then(student => {
-          let assignment = findMostRecentAssignment(student.givenAssignments)
-          dispatch(selectStudent(student, assignment))
+          let recentAssignment = findMostRecentAssignment(student.givenAssignments)
+          dispatch(fetchAssignment(recentAssignment.id))
+            .then(assignment => dispatch(selectStudent(student, assignment)))
         })
       )
     })
@@ -184,6 +185,26 @@ export function removeStudent(id) {
           },
         })
           .then(json => resolve('Student Successfully Removed'))
+      )
+    })
+  }
+}
+
+function fetchAssignment(id) {
+  return dispatch => {
+    return new Promise(function(resolve, reject) {
+      return (
+        fetch(`https://take-note-server.herokuapp.com/assignments/${id}`, {
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+          }
+        })
+          .then(resp => resp.json())
+          .then(assignment => {
+            resolve(assignment)
+          })
       )
     })
   }

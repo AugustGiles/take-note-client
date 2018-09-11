@@ -71,7 +71,7 @@ class CreateAssignment extends Component {
             />
             <Modal basic size='small'
               trigger={<Button size='medium' icon='paperclip' inverted content='Attach Resource' />}
-              content={<ResourceCards context="assignment" addResource={this.addResource}/>}
+              content={<ResourceCards context="assignment" addResource={this.addResource} resources={this.props.resources}/>}
             />
           </div>
         <Divider inverted />
@@ -125,6 +125,7 @@ const mapStateToProps = state => {
     id: state.user.id,
     selectedStudentUsername: state.selectedStudent.username,
     selectedStudentId: state.selectedStudent.id,
+    resources: state.user.resources,
   }
 }
 

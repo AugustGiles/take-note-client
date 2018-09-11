@@ -4,6 +4,7 @@ import { Header, Divider, Statistic, Button, Message } from 'semantic-ui-react'
 import '../styles/App.css'
 import { clearSelectedStudent } from '../redux/actions/selectedStudentActions'
 import Navigation from './Navigation'
+import ResourceCards from './ResourceCards'
 import {stateToHTML} from 'draft-js-export-html';
 import { convertFromRaw } from 'draft-js';
 import Moment from 'react-moment'
@@ -109,14 +110,16 @@ class StudentShow extends Component {
             />
 
           {this.props.recentAssignment && this.props.recentAssignment['recordings'].map(recording => {
-              return (
-                <React.Fragment key={recording}>
-                  <audio id={recording}
-                    src={`https://take-note-server.herokuapp.com/${recording}`} />
-                  <Button icon='play' size='massive' onClick={() => this.handlePlayback(recording)} />
-                </React.Fragment>
-              )
-            })}
+            return (
+              <React.Fragment key={recording}>
+                <audio id={recording}
+                  src={`https://take-note-server.herokuapp.com/${recording}`} />
+                <Button icon='play' size='massive' onClick={() => this.handlePlayback(recording)} />
+              </React.Fragment>
+            )
+          })}
+          {this.props.resources && <ResourceCards context='view' resources={this.props.resources}/>}
+
           </React.Fragment>) : null
         }
       </div>
@@ -135,6 +138,7 @@ const mapStateToProps = state => {
     id: state.user.id,
     errorMessage: state.error,
     studentId: state.selectedStudent.id,
+    resources: state.selectedStudent.resources
   }
 }
 

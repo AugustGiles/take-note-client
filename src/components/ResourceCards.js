@@ -79,7 +79,7 @@ class ResourceCards extends Component {
                       style={{display: 'inline-block', marginTop: '2%'}}
                       onClick={() => this.handleSelect(resource)}
                     /> }
-                  
+
                 </Card.Content>
               </Card>
             )
@@ -94,7 +94,6 @@ class ResourceCards extends Component {
 
 const mapStateToProps = state => {
   return {
-    resources: state.user.resources,
     role: state.user.role
   }
 }

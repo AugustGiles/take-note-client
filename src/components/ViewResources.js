@@ -20,10 +20,16 @@ class ViewResources extends Component {
             onClick={() => this.props.history.push(`/createresource`)}
           />
         <Divider inverted/>
-        <ResourceCards context="view"/>
+        <ResourceCards context="view" resources={this.props.resources}/>
       </div>
     )
   }
 }
 
-export default connect()(ViewResources)
+const mapStateToProps = state => {
+  return {
+    resources: state.user.resources
+  }
+}
+
+export default connect(mapStateToProps)(ViewResources)
