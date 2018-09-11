@@ -61,7 +61,7 @@ class StudentShow extends Component {
                     onClick={() => this.props.history.push(`/createassignment`)}
                   />
                 <Button icon='minus' size='medium' inverted
-                    content='Remove'
+                    content='Remove Student'
                     style={{display: 'inline-block', marginTop: '1%'}}
                     onClick={() => {
                       this.props.addErrorMessage('Are you sure you want to delete?')
@@ -111,14 +111,24 @@ class StudentShow extends Component {
 
           {this.props.recentAssignment && this.props.recentAssignment['recordings'].map(recording => {
             return (
-              <React.Fragment key={recording}>
-                <audio id={recording}
-                  src={`https://take-note-server.herokuapp.com/${recording}`} />
-                <Button icon='play' size='massive' onClick={() => this.handlePlayback(recording)} />
+              <React.Fragment >
+                <Divider inverted />
+                <Header as='h3' content='Recordings:' inverted />
+                <div key={recording}>
+                  <audio id={recording}
+                    src={`https://take-note-server.herokuapp.com/${recording}`} />
+                  <Button icon='play' size='massive' onClick={() => this.handlePlayback(recording)} />
+                </div>
               </React.Fragment>
             )
           })}
-          {this.props.resources && <ResourceCards context='view' resources={this.props.resources}/>}
+          {this.props.resources &&
+            <React.Fragment>
+              <Divider inverted />
+              <Header as='h3' content='Resources:' inverted />
+              <ResourceCards context='view' resources={this.props.resources}/>
+            </React.Fragment>
+          }
 
           </React.Fragment>) : null
         }

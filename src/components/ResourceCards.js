@@ -79,7 +79,7 @@ class ResourceCards extends Component {
               />
             </React.Fragment>
           }
-          <Card.Group centered>
+          <Card.Group >
             {this.props.resources && this.filterResources(this.props.resources).map(resource => {
               return (
                 <Card>

@@ -13,6 +13,8 @@ class CreateResource extends Component {
     disabled: false,
     title: '',
     description: '',
+    youtube: '',
+    type: 'file',
   }
 
   onDrop = (acceptedFiles, rejectedFiles) => {
@@ -59,15 +61,31 @@ class CreateResource extends Component {
         </Form>
 
         {!this.state.file ?
-          <Dropzone onDrop={this.onDrop.bind(this)} className={'dropzone'}
+          <React.Fragment>
+            <Divider inverted />
+            <Button.Group>
+              <Button content='Upload File' onClick={() => this.setState({type: 'file'})} />
+              <Button.Or />
+              <Button content='YouTube Link' onClick={() => this.setState({type: 'youtube'})} />
+            </Button.Group>
+          {this.state.type === 'file' ?
+            <Dropzone onDrop={this.onDrop.bind(this)} className={'dropzone'}
+              disabled={this.state.disabled}
+              accept="image/jpeg, image/jpg, image/png, image/gif, audio/mp3, audio/wav, application/pdf">
+              <Header as='h3' style={{color: '#F1F1F1', fontSize: '3vh'}}
+                content='Drop your file here or click to open your file manager.' />
+              <Header as='h3' style={{color: '#F1F1F1'}}
+                content='Accepts: .jpeg, .jpg, .png, .gif, .mp3, .wav, and .pdf file types' />
+            </Dropzone> :
+            <div>
+              <Header content='YouTube Embed Link:' style={{marginTop: '3%'}} inverted as='h3' />
+              <p style={{color: '#F1F1F1'}}>Note on embedding things here</p>
+              <Input fluid value={this.state.youtube}
+                onChange={(e) => this.setState({youtube: e.target.value})} />
+            </div>
 
-            disabled={this.state.disabled}
-            accept="image/jpeg, image/jpg, image/png, image/gif, audio/mp3, audio/wav, application/pdf">
-            <Header as='h3' style={{color: '#F1F1F1', fontSize: '3vh'}}
-              content='Drop Your File Here or Click Here to Open Your File Manager.' />
-            <Header as='h3' style={{color: '#F1F1F1'}}
-              content='Accepts: .jpeg, .jpg, .png, .gif, .mp3, .wav, and .pdf file types' />
-          </Dropzone> :
+          }
+          </React.Fragment> :
           <Header as='h2' inverted content={this.state.file[0].name} />
         }
         {(this.state.file && this.state.title) &&
