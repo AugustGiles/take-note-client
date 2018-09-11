@@ -24,7 +24,7 @@ class ResourceCards extends Component {
           trigger={<Button size='medium' fluid content='Show Details' />}
           content={
             <object width="100%" height="100%" type="application/pdf" data={`https://take-note-server.herokuapp.com${file}`}>
-              <iframe src="/pdf/sample-3pp.pdf#page=2" width="100%" height="100%">
+              <iframe src="/pdf/sample-3pp.pdf#page=2" width="100%" height="100%" scrolling="yes">
                 <p style={{color: '#F1F1F1'}}>This browser does not support PDFs. </p>
               </iframe>
             </object>
