@@ -69,9 +69,9 @@ class CreateAssignment extends Component {
             <Button inverted size='medium' type='submit' icon='send'
               onClick={this.handleSend} content='Send'
             />
-            <Modal basic size='small'
+          <Modal basic size='large'
               trigger={<Button size='medium' icon='paperclip' inverted content='Attach Resource' />}
-              content={<ResourceCards context="assignment" addResource={this.addResource} resources={this.props.resources}/>}
+              content={<ResourceCards context="assignment" addResource={this.addResource} resources={this.props.resources} search={true} />}
             />
           </div>
         <Divider inverted />

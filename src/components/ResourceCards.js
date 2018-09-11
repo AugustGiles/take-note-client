@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { updateResources } from '../redux/actions/userActions'
-import { Header, Button, Card, Modal } from 'semantic-ui-react'
+import { Header, Button, Card, Modal, Input } from 'semantic-ui-react'
 
 class ResourceCards extends Component {
 
   state = {
-    resourceAdded: false
+    resourceAdded: false,
+    searchTerm: '',
   }
 
   renderResource = (file, title) => {
@@ -23,7 +24,7 @@ class ResourceCards extends Component {
         <Modal size='small'
           trigger={<Button size='medium' fluid content='Show Details' />}
           content={
-            <iframe 
+            <iframe
               src={`https://docs.google.com/viewer?url=https://take-note-server.herokuapp.com${file}&embedded=true`} style={{width:'100%', height:'80vh'}} frameborder="0">
               <p style={{color: '#F1F1F1'}}>PDF is not available on your device.</p>
             </iframe>
@@ -58,34 +59,51 @@ class ResourceCards extends Component {
     this.props.addResource(resource)
   }
 
+  filterResources = (resources) => {
+    return resources.filter(resource => {
+      return resource.title.toLowerCase().includes(this.state.searchTerm.toLowerCase())
+    })
+  }
+
   render() {
     return(
       <React.Fragment>
       {this.state.resourceAdded === false ?
-        <Card.Group centered>
-          {this.props.resources && this.props.resources.map(resource => {
-            return (
-              <Card>
-                <Card.Content header={resource.title} />
-                <Card.Content description={resource.description} />
-                <Card.Content extra>
-                  {this.renderResource(resource.file, resource.title)}
-                  {(this.props.context === 'view' && this.props.role === 'teacher') &&
-                    <Button icon='delete' size='medium' fluid
-                      content='Remove' style={{display: 'inline-block', marginTop: '2%'}}
-                      onClick={() => this.handleDelete(resource.id)}
-                    /> }
-                  {(this.props.context === 'assignment' && this.props.role === 'teacher') &&
-                    <Button icon='add' size='small' content='Add To Assignment' fluid
-                      style={{display: 'inline-block', marginTop: '2%'}}
-                      onClick={() => this.handleSelect(resource)}
-                    /> }
+        <React.Fragment>
+          {this.props.search &&
+            <React.Fragment>
+              <Header as='h3' content="Quick Search:" inverted
+                style={{display: 'inline-block', marginRight: '2%'}} />
+              <Input value={this.state.searchTerm} style={{marginBottom: '2%', display: 'inline-block'}}
+                onChange={(e) => this.setState({searchTerm: e.target.value})}
+              />
+            </React.Fragment>
+          }
+          <Card.Group centered>
+            {this.props.resources && this.filterResources(this.props.resources).map(resource => {
+              return (
+                <Card>
+                  <Card.Content header={resource.title} />
+                  <Card.Content description={resource.description} />
+                  <Card.Content extra>
+                    {this.renderResource(resource.file, resource.title)}
+                    {(this.props.context === 'view' && this.props.role === 'teacher') &&
+                      <Button icon='delete' size='medium' fluid
+                        content='Remove' style={{display: 'inline-block', marginTop: '2%'}}
+                        onClick={() => this.handleDelete(resource.id)}
+                      /> }
+                    {(this.props.context === 'assignment' && this.props.role === 'teacher') &&
+                      <Button icon='add' size='small' content='Add To Assignment' fluid
+                        style={{display: 'inline-block', marginTop: '2%'}}
+                        onClick={() => this.handleSelect(resource)}
+                      /> }
 
-                </Card.Content>
-              </Card>
-            )
-          })}
-        </Card.Group> :
+                  </Card.Content>
+                </Card>
+              )
+            })}
+          </Card.Group>
+        </React.Fragment> :
         <Header inverted content={`Selected!`} />
       }
       </React.Fragment>
@@ -100,6 +118,3 @@ const mapStateToProps = state => {
 }
 
 export default connect(mapStateToProps, { updateResources })(ResourceCards)
-
-            // <object width="100%" height="auto" type="application/pdf" data={`https://take-note-server.herokuapp.com${file}`}>
-                        // </object>

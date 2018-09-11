@@ -53,16 +53,16 @@ class StudentShow extends Component {
               {localStorage.role === 'teacher' ?
                 <div>
                   <Button icon='folder open outline' size='medium' inverted
-                    content='Archive' style={{display: 'inline-block'}}
+                    content='Archive' style={{display: 'inline-block', marginTop: '1%'}}
                     onClick={() => this.props.history.push(`/students/${this.props.studentId}/archive`)}
                   />
-                  <Button icon='write' size='medium' inverted
-                    content='Write Assignment' style={{display: 'inline-block'}}
+                <Button icon='write' size='medium' inverted
+                    content='Write Assignment' style={{display: 'inline-block', marginTop: '1%'}}
                     onClick={() => this.props.history.push(`/createassignment`)}
                   />
-                  <Button icon='minus' size='medium' inverted
+                <Button icon='minus' size='medium' inverted
                     content='Remove'
-                    style={{display: 'inline-block', float: 'right'}}
+                    style={{display: 'inline-block', marginTop: '1%'}}
                     onClick={() => {
                       this.props.addErrorMessage('Are you sure you want to delete?')
                     }}
