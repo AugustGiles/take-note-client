@@ -11,7 +11,13 @@ class ResourceCards extends Component {
   }
 
   renderResource = (file, title) => {
-    let extension = file.split('.')[1]
+    let extension
+    if (file.includes('/embed/')) {
+      extension = 'youtube'
+    } else {
+      extension = file.split('.')[1]
+    }
+
     if (extension === 'jpeg' || extension === 'png' || extension === 'jpg' || extension === 'gif') {
       return (
         <Modal basic size='small'
@@ -36,6 +42,15 @@ class ResourceCards extends Component {
         <Modal basic size='mini'
           trigger={<Button size='medium' content='Show Details' fluid/>}
           content={<audio src={`https://take-note-server.herokuapp.com${file}`} controls />}
+        />
+      )
+    } else if (extension === 'youtube') {
+      return (
+        <Modal basic size='small'
+          trigger={<Button size='medium' content='Show Details' fluid/>}
+          content={
+            <iframe width="560" height="315" src={`${file}`} frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+          }
         />
       )
     }
@@ -81,6 +96,7 @@ class ResourceCards extends Component {
           }
           <Card.Group >
             {this.props.resources && this.filterResources(this.props.resources).map(resource => {
+              // debugger
               return (
                 <Card>
                   <Card.Content header={resource.title} />
@@ -96,6 +112,29 @@ class ResourceCards extends Component {
                       <Button icon='add' size='small' content='Add To Assignment' fluid
                         style={{display: 'inline-block', marginTop: '2%'}}
                         onClick={() => this.handleSelect(resource)}
+                      /> }
+
+                  </Card.Content>
+                </Card>
+              )
+            })}
+            {this.props.youtubes && this.filterResources(this.props.youtubes).map(link => {
+              // debugger
+              return (
+                <Card>
+                  <Card.Content header={link.title} />
+                  <Card.Content description={link.description} />
+                  <Card.Content extra>
+                    {this.renderResource(link.link, link.title)}
+                    {(this.props.context === 'view' && this.props.role === 'teacher') &&
+                      <Button icon='delete' size='medium' fluid
+                        content='Remove' style={{display: 'inline-block', marginTop: '2%'}}
+                        onClick={() => console.log('remove')}
+                      /> }
+                    {(this.props.context === 'assignment' && this.props.role === 'teacher') &&
+                      <Button icon='add' size='small' content='Add To Assignment' fluid
+                        style={{display: 'inline-block', marginTop: '2%'}}
+                        onClick={() => console.log('select')}
                       /> }
 
                   </Card.Content>

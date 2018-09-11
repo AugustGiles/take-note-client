@@ -1,4 +1,4 @@
-import { ADD_STUDENT, ADD_TEACHER, REMOVE_USER, ADD_PRACTICE_TIME, UPDATE_RESOURCES } from './actionTypes'
+import { ADD_STUDENT, ADD_TEACHER, REMOVE_USER, ADD_PRACTICE_TIME, UPDATE_RESOURCES,UPDATE_YOUTUBES } from './actionTypes'
 
 export const addTeacher = (user, students) => ({
   type: ADD_TEACHER,
@@ -36,4 +36,9 @@ export const addPracticeTime = (assignment) => ({
 export const updateResources = (resources) => ({
   type: UPDATE_RESOURCES,
   payload: resources
+})
+
+export const updateYoutubes = (youtubes) => ({
+  type: UPDATE_YOUTUBES,
+  payload: youtubes
 })

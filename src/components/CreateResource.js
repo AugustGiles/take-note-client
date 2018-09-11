@@ -4,7 +4,7 @@ import '../styles/App.css'
 import Navigation from './Navigation'
 import { Header, Divider, Input, Button, TextArea, Form } from 'semantic-ui-react'
 import Dropzone from 'react-dropzone'
-import { updateResources } from '../redux/actions/userActions'
+import { updateResources, updateYoutubes } from '../redux/actions/userActions'
 
 class CreateResource extends Component {
 
@@ -21,24 +21,55 @@ class CreateResource extends Component {
     this.setState({disabled: true, file: acceptedFiles})
   }
 
+  // handleLink = () => {
+  //   let array = this.state.youtube.split('/')
+  //   array.splice(array.length - 1, 0, 'embed')
+  //   return array.join('/')
+  // }
+
   handleSave = () => {
     let formData = new FormData()
-    formData.append("title", this.state.title)
-    formData.append("file", this.state.file[this.state.file.length - 1])
-    formData.append("teacher_id", this.props.teacherId)
-    formData.append("description", this.state.description)
-    fetch('https://take-note-server.herokuapp.com/resources', {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`
-      },
-      body: formData
-    })
-      .then(resp => resp.json())
-      .then(info => {
-        this.props.updateResources(info)
-        this.props.history.push('/viewresources')
+
+    if (this.state.file) {
+      formData.append("file", this.state.file[this.state.file.length - 1])
+      formData.append("title", this.state.title)
+      formData.append("teacher_id", this.props.teacherId)
+      formData.append("description", this.state.description)
+
+      fetch('https://take-note-server.herokuapp.com/resources', {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`
+        },
+        body: formData
       })
+        .then(resp => resp.json())
+        .then(info => {
+          this.props.updateResources(info)
+          this.props.history.push('/viewresources')
+        })
+
+    } else {
+      formData.append("link", this.state.youtube)
+      formData.append("title", this.state.title)
+      formData.append("teacher_id", this.props.teacherId)
+      formData.append("description", this.state.description)
+
+      fetch('https://take-note-server.herokuapp.com/youtubes', {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`
+        },
+        body: formData
+      })
+        .then(resp => resp.json())
+        .then(info => {
+          debugger
+          this.props.updateYoutubes(info)
+          this.props.history.push('/viewresources')
+        })
+    }
+
   }
 
   render() {
@@ -79,7 +110,10 @@ class CreateResource extends Component {
             </Dropzone> :
             <div>
               <Header content='YouTube Embed Link:' style={{marginTop: '3%'}} inverted as='h3' />
-              <p style={{color: '#F1F1F1'}}>Note on embedding things here</p>
+              <p style={{color: '#F1F1F1'}}>1. Go to youtube video of your choice and copy the link at the top of the page</p>
+              <p style={{color: '#F1F1F1'}}>2. Paste it in the space below </p>
+              <p style={{color: '#F1F1F1'}}>3. Take '/watch?v=' out of the URL and Replace with '/embed/' </p>
+              <p style={{color: '#F1F1F1'}}>Result should look like: 'https://www.youtube.com/embed/the-remaining-url' </p>
               <Input fluid value={this.state.youtube}
                 onChange={(e) => this.setState({youtube: e.target.value})} />
             </div>
@@ -88,10 +122,10 @@ class CreateResource extends Component {
           </React.Fragment> :
           <Header as='h2' inverted content={this.state.file[0].name} />
         }
-        {(this.state.file && this.state.title) &&
+        {( (this.state.file||this.state.youtube) && this.state.title ) &&
           <React.Fragment>
             <Divider inverted />
-            <Button content='Save Resource' inverted size='huge' onClick={this.handleSave} />
+            <Button content='Save Resource' inverted size='huge' onClick={() => this.handleSave()} />
           </React.Fragment>
         }
       </div>
@@ -105,4 +139,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, { updateResources })(CreateResource)
+export default connect(mapStateToProps, { updateResources, updateYoutubes })(CreateResource)

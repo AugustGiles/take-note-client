@@ -1,4 +1,4 @@
-import { ADD_STUDENT, ADD_TEACHER, REMOVE_USER, ADD_PRACTICE_TIME, UPDATE_RESOURCES } from '../actions/actionTypes'
+import { ADD_STUDENT, ADD_TEACHER, REMOVE_USER, ADD_PRACTICE_TIME, UPDATE_RESOURCES, UPDATE_YOUTUBES } from '../actions/actionTypes'
 
 export function userReducer(state = {}, action) {
   switch (action.type) {
@@ -24,6 +24,7 @@ export function userReducer(state = {}, action) {
         role: 'teacher',
         loggedIn: true,
         resources: action.payload.userInfo.resources,
+        youtubes: action.payload.userInfo.youtubes,
       }
 
     case REMOVE_USER:
@@ -39,6 +40,12 @@ export function userReducer(state = {}, action) {
       return {
         ...state,
         resources: action.payload
+      }
+
+    case UPDATE_YOUTUBES:
+      return {
+        ...state,
+        youtubes: action.payload
       }
 
     default:

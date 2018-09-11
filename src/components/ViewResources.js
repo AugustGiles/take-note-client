@@ -20,7 +20,8 @@ class ViewResources extends Component {
             onClick={() => this.props.history.push(`/createresource`)}
           />
         <Divider inverted/>
-        <ResourceCards context="view" resources={this.props.resources} search={true}/>
+        <ResourceCards context="view" resources={this.props.resources}
+          youtubes={this.props.youtubes} search={true}/>
       </div>
     )
   }
@@ -28,7 +29,8 @@ class ViewResources extends Component {
 
 const mapStateToProps = state => {
   return {
-    resources: state.user.resources
+    resources: state.user.resources,
+    youtubes: state.user.youtubes,
   }
 }
 
