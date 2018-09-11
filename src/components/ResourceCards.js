@@ -20,11 +20,13 @@ class ResourceCards extends Component {
       )
     } else if (extension === 'pdf') {
       return (
-        <Modal size='medium' style={{height: '90%'}}
+        <Modal size='large' style={{height: '90%'}}
           trigger={<Button size='medium' fluid content='Show Details' />}
           content={
             <object width="100%" height="100%" type="application/pdf" data={`https://take-note-server.herokuapp.com${file}`}>
-              <p>Insert your error message here, if the PDF cannot be displayed.</p>
+              <iframe src="/pdf/sample-3pp.pdf#page=2" width="100%" height="100%">
+                <p style={{color: '#F1F1F1'}}>This browser does not support PDFs. </p>
+              </iframe>
             </object>
           }
         />
@@ -61,7 +63,7 @@ class ResourceCards extends Component {
     return(
       <React.Fragment>
       {this.state.resourceAdded === false ?
-        <Card.Group>
+        <Card.Group centered>
           {this.props.resources && this.props.resources.map(resource => {
             return (
               <Card>

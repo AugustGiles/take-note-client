@@ -61,7 +61,7 @@ class StudentShow extends Component {
                     onClick={() => this.props.history.push(`/createassignment`)}
                   />
                   <Button icon='minus' size='medium' inverted
-                    content='Remove Student'
+                    content='Remove'
                     style={{display: 'inline-block', float: 'right'}}
                     onClick={() => {
                       this.props.addErrorMessage('Are you sure you want to delete?')
