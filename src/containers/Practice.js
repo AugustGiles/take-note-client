@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Button, Divider } from 'semantic-ui-react'
+import { Button, Divider, Modal } from 'semantic-ui-react'
 import {stateToHTML} from 'draft-js-export-html';
 import { convertFromRaw } from 'draft-js';
 
@@ -8,7 +8,8 @@ import '../styles/App.css'
 import Stopwatch from '../components/Stopwatch'
 import Metronome from '../components/Metronome'
 import RecorderDevice from '../components/RecorderDevice'
-import { patchCurrentPracticeTime } from '../redux/actions/fetchActions'
+import ResourceCards from '../components/ResourceCards'
+import { patchCurrentPracticeTime, findStudent } from '../redux/actions/fetchActions'
 import { incrementTime, clearStopwatch, togglePause } from '../redux/actions/stopwatchActions'
 
 
@@ -69,6 +70,10 @@ class Practice extends Component {
           />
           <Metronome />
           <RecorderDevice assignmentId={this.props.recentAssignment && this.props.recentAssignment.id}/>
+          <Modal basic size='small' onOpen={() => this.props.findStudent(this.props.id)}
+            trigger={<Button icon='paperclip' inverted size='large'/>}
+            content={<ResourceCards context="assignment" resources={this.props.resources}/>}
+          />
         </div>
 
         <Divider inverted/>
@@ -81,7 +86,7 @@ class Practice extends Component {
           </div>
           : null
         }
-        <div style={{paddingBottom: '2%', width: '100%'}}>
+        <div style={{paddingBottom: '2%', width: '100%', paddingTop: '5%'}}>
           <Button size="huge" content='End' fluid onClick={this.handleEnd}  />
         </div>
 
@@ -96,8 +101,10 @@ const mapStateToProps = state => {
     role: state.user.role,
     time: state.stopwatch.time,
     isPaused: state.stopwatch.isPaused,
-    assignmentText: state.user.assignmentText
+    assignmentText: state.user.assignmentText,
+    resources: state.selectedStudent.resources,
+    id: state.user.id,
   }
 }
 
-export default connect(mapStateToProps, { patchCurrentPracticeTime, incrementTime,  clearStopwatch, togglePause })(Practice)
+export default connect(mapStateToProps, { patchCurrentPracticeTime, incrementTime,  clearStopwatch, togglePause, findStudent })(Practice)
