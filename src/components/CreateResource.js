@@ -62,11 +62,11 @@ class CreateResource extends Component {
           <Dropzone onDrop={this.onDrop.bind(this)} className={'dropzone'}
 
             disabled={this.state.disabled}
-            accept="image/jpeg, image/jpg, image/png, audio/mp3, audio/wav, application/pdf">
+            accept="image/jpeg, image/jpg, image/png, image/gif, audio/mp3, audio/wav, application/pdf">
             <Header as='h3' style={{color: '#F1F1F1', fontSize: '3vh'}}
               content='Drop Your File Here or Click Here to Open Your File Manager.' />
             <Header as='h3' style={{color: '#F1F1F1'}}
-              content='Accepts: .jpeg, .jpg, .png, .mp3, .wav, and .pdf file types' />
+              content='Accepts: .jpeg, .jpg, .png, .gif, .mp3, .wav, and .pdf file types' />
           </Dropzone> :
           <Header as='h2' inverted content={this.state.file[0].name} />
         }

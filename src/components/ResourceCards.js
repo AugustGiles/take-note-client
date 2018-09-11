@@ -11,7 +11,7 @@ class ResourceCards extends Component {
 
   renderResource = (file, title) => {
     let extension = file.split('.')[1]
-    if (extension === 'jpeg' || extension === 'png' || extension === 'jpg') {
+    if (extension === 'jpeg' || extension === 'png' || extension === 'jpg' || extension === 'gif') {
       return (
         <Modal basic size='small'
           trigger={<Button size='medium' content='Show Details' fluid/>}
@@ -23,9 +23,10 @@ class ResourceCards extends Component {
         <Modal size='small'
           trigger={<Button size='medium' fluid content='Show Details' />}
           content={
-            <iframe
-              src={`https://docs.google.com/viewer?url=https://take-note-server.herokuapp.com${file}&embedded=true`} style={{width:'100%', height:'80vh'}} frameborder="0"></iframe>
-
+            <iframe 
+              src={`https://docs.google.com/viewer?url=https://take-note-server.herokuapp.com${file}&embedded=true`} style={{width:'100%', height:'80vh'}} frameborder="0">
+              <p style={{color: '#F1F1F1'}}>PDF is not available on your device.</p>
+            </iframe>
           }
         />
       )
@@ -100,9 +101,5 @@ const mapStateToProps = state => {
 
 export default connect(mapStateToProps, { updateResources })(ResourceCards)
 
-// <object width="100%" height="100%" type="application/pdf"
-//   data={`https://take-note-server.herokuapp.com${file}`}>
-// <p style={{color: '#F1F1F1'}}>This browser does not support PDFs. </p>
-// </object>
-
-            // <iframe src="https://drive.google.com/viewerng/viewer?url=http://docs.google.com/fileview?id=0B5ImRpiNhCfGZDVhMGEyYmUtZTdmMy00YWEyLWEyMTQtN2E2YzM3MDg3MTZh&hl=en&pid=explorer&efh=false&a=v&chrome=false&embedded=true" frameborder="0"></iframe>
+            // <object width="100%" height="auto" type="application/pdf" data={`https://take-note-server.herokuapp.com${file}`}>
+                        // </object>
