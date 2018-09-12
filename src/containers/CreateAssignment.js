@@ -87,6 +87,8 @@ class CreateAssignment extends Component {
           style={{color: 'white', display: "inline-block", fontSize: '4vh', paddingBottom: '2%'}}
         />
         <Navigation context='teacher'/>
+        <Button inverted style={{float: 'right'}} icon='angle left' content='Back'
+          onClick={() => this.props.history.push(`/students/${this.props.selectedStudentId}`)} />
         <Divider inverted />
           <div>
             <Button inverted size='medium' type='submit' icon='send'

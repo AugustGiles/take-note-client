@@ -38,7 +38,7 @@ class StudentShow extends Component {
     }
 
     return (
-      <div className='setup'>
+      <div className='setup' >
         {this.props.username ?
           (<React.Fragment>
             <Header
@@ -109,20 +109,22 @@ class StudentShow extends Component {
               dangerouslySetInnerHTML={{ __html: convertCommentFromJSONToHTML(this.props.assignmentText)}}
             />
 
-          {this.props.recentAssignment && this.props.recentAssignment['recordings'].map(recording => {
-            return (
-              <React.Fragment >
-                <Divider inverted />
-                <Header as='h3' content='Recordings:' inverted />
-                <div key={recording}>
-                  <audio id={recording}
-                    src={`https://take-note-server.herokuapp.com/${recording}`} />
-                  <Button icon='play' size='massive' onClick={() => this.handlePlayback(recording)} />
-                </div>
-              </React.Fragment>
-            )
-          })}
-          {this.props.resources &&
+          {this.props.recentAssignment.recordings.length > 0 &&
+            <React.Fragment >
+              <Divider inverted />
+              <Header as='h3' content='Recordings:' inverted />
+              {this.props.recentAssignment && this.props.recentAssignment['recordings'].map(recording => {
+                return (
+              <div key={recording} style={{display: 'inline-block'}}>
+                <audio id={recording}
+                  src={`https://take-note-server.herokuapp.com/${recording}`} />
+                <Button icon='play'  size='massive'
+                  onClick={() => this.handlePlayback(recording)} />
+              </div>)})}
+            </React.Fragment>
+          }
+
+          {this.props.resources.length > 0 &&
             <React.Fragment>
               <Divider inverted />
               <Header as='h3' content='Resources:' inverted />

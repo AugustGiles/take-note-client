@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Divider, Header } from 'semantic-ui-react'
+import { Divider, Header, Button } from 'semantic-ui-react'
 import Moment from 'react-moment'
 import {stateToHTML} from 'draft-js-export-html';
 import { convertFromRaw } from 'draft-js';
@@ -13,10 +13,8 @@ class Archive extends Component {
     if (!localStorage.token) {
       this.props.history.push('/')
     } else if (this.props.studentId === parseInt(this.props.match.params.student, 0)){
-
       this.props.findStudent(this.props.match.params.student)
     } else if (localStorage.role !== 'teacher') {
-
       this.props.history.goBack()
     } else {
       this.props.findStudent(this.props.match.params.student)
@@ -52,6 +50,8 @@ class Archive extends Component {
       <div className='setup'>
         <Header as='h1' style={{color: 'white', fontSize: '5vh', display: 'inline-block'}} content='Archive:' />
         <Navigation context={localStorage.role}/>
+        <Button inverted style={{float: 'right'}} icon='angle left' content='Back'
+          onClick={() => this.props.history.push(`/students/${this.props.id}`)} />
         <Divider inverted />
         {this.renderAssignments(convertCommentFromJSONToHTML)}
       </div>

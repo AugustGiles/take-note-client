@@ -85,7 +85,7 @@ class CreateResource extends Component {
       <div className='setup' >
         <Header
           style={{color: 'white', fontSize: '5vh', display: "inline-block"}}
-          content='Create A New Resource'
+          content='New Resource:'
         />
         <Navigation context='teacher' />
 

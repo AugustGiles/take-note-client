@@ -92,7 +92,7 @@ class ResourceCards extends Component {
 
   render() {
     return(
-      <React.Fragment>
+      <React.Fragment >
       {this.state.resourceAdded === false ?
         <React.Fragment>
           {this.props.search &&
@@ -104,9 +104,8 @@ class ResourceCards extends Component {
               />
             </React.Fragment>
           }
-          <Card.Group >
+          <Card.Group centered>
             {this.props.resources && this.filterResources(this.props.resources).map(resource => {
-              // debugger
               return (
                 <Card>
                   <Card.Content header={resource.title} />

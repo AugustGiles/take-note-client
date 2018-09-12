@@ -22,7 +22,7 @@ class Navigation extends Component {
           <div style={{textAlign: 'center'}}>
             <div style={{display: 'inline-block', margin: '5%', textAlign: 'center'}}>
               <Button as={Link} to='/teacherDashboard' size='massive' icon='home'/>
-              <Header as='h3' content='Dashboard' style={{color: 'white'}} />
+              <Header as='h3' content='My Students' style={{color: 'white'}} />
             </div>
             <div style={{display: 'inline-block', margin: '5%', textAlign: 'center'}}>
               <Button as={Link} to='/viewresources' size='massive' icon='paperclip'/>
