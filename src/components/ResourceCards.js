@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { updateResources } from '../redux/actions/userActions'
+import { updateResources, updateYoutubes } from '../redux/actions/userActions'
 import { Header, Button, Card, Modal, Input } from 'semantic-ui-react'
 
 class ResourceCards extends Component {
@@ -56,8 +56,8 @@ class ResourceCards extends Component {
     }
   }
 
-  handleDelete = (id) => {
-    fetch(`https://take-note-server.herokuapp.com/resources/${id}`, {
+  handleDelete = (id, type) => {
+    fetch(`https://take-note-server.herokuapp.com/${type}/${id}`, {
       method: 'DELETE',
       headers: {
         'Accept': 'application/json',
@@ -66,12 +66,22 @@ class ResourceCards extends Component {
       },
     })
       .then(resp => resp.json())
-      .then(json => this.props.updateResources(json))
+      .then(json => {
+        if (type === 'resources') {
+          this.props.updateResources(json)
+        } else {
+          this.props.updateYoutubes(json)
+        }
+      })
   }
 
-  handleSelect = (resource) => {
+  handleSelect = (addedItem) => {
     this.setState({resourceAdded: true})
-    this.props.addResource(resource)
+    if (addedItem.link) {
+      this.props.addYoutube(addedItem)
+    } else {
+      this.props.addResource(addedItem)
+    }
   }
 
   filterResources = (resources) => {
@@ -106,7 +116,7 @@ class ResourceCards extends Component {
                     {(this.props.context === 'view' && this.props.role === 'teacher') &&
                       <Button icon='delete' size='medium' fluid
                         content='Remove' style={{display: 'inline-block', marginTop: '2%'}}
-                        onClick={() => this.handleDelete(resource.id)}
+                        onClick={() => this.handleDelete(resource.id, 'resources')}
                       /> }
                     {(this.props.context === 'assignment' && this.props.role === 'teacher') &&
                       <Button icon='add' size='small' content='Add To Assignment' fluid
@@ -129,12 +139,12 @@ class ResourceCards extends Component {
                     {(this.props.context === 'view' && this.props.role === 'teacher') &&
                       <Button icon='delete' size='medium' fluid
                         content='Remove' style={{display: 'inline-block', marginTop: '2%'}}
-                        onClick={() => console.log('remove')}
+                        onClick={() => this.handleDelete(link.id, 'youtubes')}
                       /> }
                     {(this.props.context === 'assignment' && this.props.role === 'teacher') &&
                       <Button icon='add' size='small' content='Add To Assignment' fluid
                         style={{display: 'inline-block', marginTop: '2%'}}
-                        onClick={() => console.log('select')}
+                        onClick={() => this.handleSelect(link)}
                       /> }
 
                   </Card.Content>
@@ -156,4 +166,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, { updateResources })(ResourceCards)
+export default connect(mapStateToProps, { updateResources, updateYoutubes })(ResourceCards)

@@ -17,6 +17,7 @@ class CreateAssignment extends Component {
     editorState: EditorState.createEmpty(),
     practiceAmount: 0,
     resources: [],
+    youtubes: [],
   }
 
   componentDidMount() {
@@ -36,6 +37,7 @@ class CreateAssignment extends Component {
       'assignment_text': convertToRaw(this.state.editorState.getCurrentContent()),
       'practice_goal': this.state.practiceAmount,
       'resources': this.state.resources,
+      'youtubes': this.state.youtubes
     }
     this.props.assignHomework(data)
       .then(this.props.findStudent(this.props.selectedStudentId))
@@ -49,11 +51,22 @@ class CreateAssignment extends Component {
     this.setState({resources: [...this.state.resources, resource]})
   }
 
+  addYoutube = (youtube) => {
+    this.setState({youtubes: [...this.state.youtubes, youtube]})
+  }
+
   removeResource = (resource) => {
     let index = this.state.resources.indexOf(resource)
     let resources = this.state.resources
     resources.splice(index, 1)
     this.setState({resources: resources})
+  }
+
+  removeYoutube = (youtube) => {
+    let index = this.state.youtubes.indexOf(youtube)
+    let youtubes = this.state.youtubes
+    youtubes.splice(index, 1)
+    this.setState({youtubes: youtubes})
   }
 
   render () {
@@ -71,11 +84,13 @@ class CreateAssignment extends Component {
             />
           <Modal basic size='large'
               trigger={<Button size='medium' icon='paperclip' inverted content='Attach Resource' />}
-              content={<ResourceCards context="assignment" addResource={this.addResource} resources={this.props.resources} youtubes={this.props.youtubes} search={true} />}
+              content={<ResourceCards context="assignment"
+                addResource={this.addResource} addYoutube={this.addYoutube}
+                resources={this.props.resources} youtubes={this.props.youtubes} search={true} />}
             />
           </div>
         <Divider inverted />
-        {this.state.resources.length > 0 ?
+        {(this.state.resources.length > 0 || this.state.youtubes.length > 0) ?
           <React.Fragment>
             <Header as='h4' content='Resources:' inverted/>
             {this.state.resources.map(resource => {
@@ -83,6 +98,14 @@ class CreateAssignment extends Component {
                 <div style={{display: 'inline-block', marginRight: '3%'}} key={resource.title}>
                   <Button size="small" icon="delete" inverted content={resource.title}
                     onClick={() => this.removeResource(resource)} />
+                </div>
+              )
+            })}
+            {this.state.youtubes.map(youtube => {
+              return (
+                <div style={{display: 'inline-block', marginRight: '3%'}} key={youtube.title}>
+                  <Button size="small" icon="delete" inverted content={youtube.title}
+                    onClick={() => this.removeYoutube(youtube)} />
                 </div>
               )
             })}
