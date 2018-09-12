@@ -2,9 +2,10 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import '../styles/App.css'
 import Navigation from './Navigation'
-import { Header, Divider, Input, Button, TextArea, Form } from 'semantic-ui-react'
+import { Header, Divider, Input, Button, TextArea, Form, Message } from 'semantic-ui-react'
 import Dropzone from 'react-dropzone'
 import { updateResources, updateYoutubes } from '../redux/actions/userActions'
+import { addErrorMessage, removeErrorMessage } from '../redux/actions/errorActions'
 
 class CreateResource extends Component {
 
@@ -36,39 +37,47 @@ class CreateResource extends Component {
       formData.append("teacher_id", this.props.teacherId)
       formData.append("description", this.state.description)
 
-      fetch('https://take-note-server.herokuapp.com/resources', {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`
-        },
-        body: formData
-      })
-        .then(resp => resp.json())
-        .then(info => {
-          this.props.updateResources(info)
-          this.props.history.push('/viewresources')
+      if (this.state.file === null || this.state.title === '' || this.state.description === '') {
+        this.props.addErrorMessage('Please select a file and complete all fields')
+      } else {
+        debugger
+        fetch('https://take-note-server.herokuapp.com/resources', {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+          },
+          body: formData
         })
-
+          .then(resp => resp.json())
+          .then(info => {
+            this.props.updateResources(info)
+            this.props.history.push('/viewresources')
+          })
+      }
     } else {
       formData.append("link", this.handleLink(this.state.youtube))
       formData.append("title", this.state.title)
       formData.append("teacher_id", this.props.teacherId)
       formData.append("description", this.state.description)
 
-      fetch('https://take-note-server.herokuapp.com/youtubes', {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`
-        },
-        body: formData
-      })
-        .then(resp => resp.json())
-        .then(info => {
-          this.props.updateYoutubes(info)
-          this.props.history.push('/viewresources')
+      if (this.state.youtube === '' || this.state.title === '' || this.state.description === '') {
+        this.props.addErrorMessage('Please select a file and complete all fields')
+      } else {
+        debugger
+        fetch('https://take-note-server.herokuapp.com/youtubes', {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+          },
+          body: formData
         })
+          .then(resp => resp.json())
+          .then(info => {
+            this.props.updateYoutubes(info)
+            this.props.history.push('/viewresources')
+          })
+      }
     }
-
   }
 
   render() {
@@ -81,6 +90,10 @@ class CreateResource extends Component {
         <Navigation context='teacher' />
 
         <Divider inverted />
+
+        {this.props.errorMessage ?
+          <Message error header={this.props.errorMessage} /> : null
+        }
 
         <Header content='Resource Title:' inverted/>
         <Input value={this.state.title} onChange={(e) => this.setState({title: e.target.value})}/>
@@ -119,12 +132,10 @@ class CreateResource extends Component {
           </React.Fragment> :
           <Header as='h2' inverted content={this.state.file[0].name} />
         }
-        {( (this.state.file||this.state.youtube) && this.state.title ) &&
-          <React.Fragment>
-            <Divider inverted />
-            <Button content='Save Resource' inverted size='huge' onClick={() => this.handleSave()} />
-          </React.Fragment>
-        }
+        <React.Fragment>
+          <Divider inverted />
+          <Button content='Save Resource' inverted size='huge' onClick={() => this.handleSave()} />
+        </React.Fragment>
       </div>
     )
   }
@@ -132,8 +143,9 @@ class CreateResource extends Component {
 
 const mapStateToProps = state => {
   return {
-    teacherId: state.user.id
+    teacherId: state.user.id,
+    errorMessage: state.error,
   }
 }
 
-export default connect(mapStateToProps, { updateResources, updateYoutubes })(CreateResource)
+export default connect(mapStateToProps, { updateResources, updateYoutubes, addErrorMessage, removeErrorMessage })(CreateResource)

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Form, Dropdown, Button, Header, Modal, Divider } from 'semantic-ui-react'
+import { Form, Dropdown, Button, Header, Modal, Divider, Message } from 'semantic-ui-react'
 import { EditorState, convertToRaw } from 'draft-js'
 import { Editor} from 'react-draft-wysiwyg'
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
@@ -8,6 +8,7 @@ import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 import '../styles/App.css'
 import { practiceAmounts } from '../data/practiceAmounts'
 import { assignHomework, findStudent } from '../redux/actions/fetchActions'
+import { addErrorMessage, removeErrorMessage } from '../redux/actions/errorActions'
 import Navigation from '../components/Navigation'
 import ResourceCards from '../components/ResourceCards'
 
@@ -30,6 +31,10 @@ class CreateAssignment extends Component {
     }
   }
 
+  componentWillUnmount() {
+    this.props.removeErrorMessage()
+  }
+
   handleSend = () => {
     let data = {
       'teacher_id': this.props.id,
@@ -39,9 +44,14 @@ class CreateAssignment extends Component {
       'resources': this.state.resources,
       'youtubes': this.state.youtubes
     }
-    this.props.assignHomework(data)
-      .then(this.props.findStudent(this.props.selectedStudentId))
-      .then(this.props.history.push(`/students/${this.props.selectedStudentId}`))
+
+    if (data["assignment_text"].blocks[0].text === '' || this.state.practiceAmount === 0) {
+      this.props.addErrorMessage('Both text and practice time must be sent')
+    } else {
+      this.props.assignHomework(data)
+        .then(this.props.findStudent(this.props.selectedStudentId))
+        .then(this.props.history.push(`/students/${this.props.selectedStudentId}`))
+    }
   }
 
   handlePracticeAmount = (e, { value }) => {this.setState({practiceAmount: value})}
@@ -90,6 +100,9 @@ class CreateAssignment extends Component {
             />
           </div>
         <Divider inverted />
+        {this.props.errorMessage ?
+          <Message error header={this.props.errorMessage} /> : null
+        }
         {(this.state.resources.length > 0 || this.state.youtubes.length > 0) ?
           <React.Fragment>
             <Header as='h4' content='Resources:' inverted/>
@@ -150,7 +163,8 @@ const mapStateToProps = state => {
     selectedStudentId: state.selectedStudent.id,
     resources: state.user.resources,
     youtubes: state.user.youtubes,
+    errorMessage: state.error
   }
 }
 
-export default connect(mapStateToProps, { assignHomework, findStudent })(CreateAssignment)
+export default connect(mapStateToProps, { assignHomework, findStudent, addErrorMessage, removeErrorMessage })(CreateAssignment)
