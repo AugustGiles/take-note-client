@@ -18,6 +18,14 @@ class CreateResource extends Component {
     type: 'file',
   }
 
+  componentDidMount() {
+    if (!localStorage.token) {
+      this.props.history.push('/')
+    } else if (localStorage.role !== 'teacher') {
+      this.props.history.goBack()
+    }
+  }
+
   onDrop = (acceptedFiles, rejectedFiles) => {
     this.setState({disabled: true, file: acceptedFiles})
   }

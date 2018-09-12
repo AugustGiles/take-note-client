@@ -14,6 +14,14 @@ class CreateStudent extends Component {
     passwordConfirmation: '',
   }
 
+  componentDidMount() {
+    if (!localStorage.token) {
+      this.props.history.push('/')
+    } else if (localStorage.role !== 'teacher') {
+      this.props.history.goBack()
+    } 
+  }
+
   componentWillUnmount() {
     this.props.removeErrorMessage()
   }
