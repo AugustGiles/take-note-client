@@ -148,7 +148,8 @@ const mapStateToProps = state => {
     id: state.user.id,
     errorMessage: state.error,
     studentId: state.selectedStudent.id,
-    resources: state.selectedStudent.resources
+    resources: state.selectedStudent.resources,
+    youtubes: state.selectedStudent.youtubes,
   }
 }
 

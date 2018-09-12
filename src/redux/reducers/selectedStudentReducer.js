@@ -15,6 +15,7 @@ export function selectedStudentReducer(state={}, action) {
         resources: action.payload.recentAssignment.resources,
         allAssignments: action.payload.allAssignments,
         recordings: action.payload.recentAssignment.recordings,
+        youtubes: action.payload.recentAssignment.youtubes,
       }
 
     case CLEAR_SELECTED_STUDENT:

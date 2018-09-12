@@ -101,11 +101,11 @@ class CreateResource extends Component {
           {this.state.type === 'file' ?
             <Dropzone onDrop={this.onDrop.bind(this)} className={'dropzone'}
               disabled={this.state.disabled}
-              accept="image/jpeg, image/jpg, image/png, image/gif, audio/mp3, audio/wav, application/pdf">
+              accept="image/jpeg, image/jpg, image/png, image/gif, audio/mp3, audio/wav, application/pdf" >
               <Header as='h3' style={{color: '#F1F1F1', fontSize: '3vh'}}
-                content='Drop your file here or click to open your file manager.' />
+                content='Drop your file here or click to open your file manager. For best results with documents, please convert to PDF before uploading.' />
               <Header as='h3' style={{color: '#F1F1F1'}}
-                content='Accepts: .jpeg, .jpg, .png, .gif, .mp3, .wav, and .pdf file types' />
+                content='Currently Accepting: .jpeg, .jpg, .png, .gif, .mp3, .wav, and .pdf file types' />
             </Dropzone> :
             <div>
               <Header content='YouTube Embed Link:' style={{marginTop: '3%'}} inverted as='h3' />
