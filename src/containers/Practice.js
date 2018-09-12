@@ -72,7 +72,9 @@ class Practice extends Component {
           <RecorderDevice assignmentId={this.props.recentAssignment && this.props.recentAssignment.id}/>
           <Modal basic size='small' onOpen={() => this.props.findStudent(this.props.id)}
             trigger={<Button icon='paperclip' inverted size='large'/>}
-            content={<ResourceCards context="assignment" resources={this.props.resources}/>}
+            content={<ResourceCards context="assignment" resources={this.props.resources} 
+                        youtubes={this.props.youtubes} />
+                    }
           />
         </div>
 
@@ -104,6 +106,7 @@ const mapStateToProps = state => {
     assignmentText: state.user.assignmentText,
     resources: state.selectedStudent.resources,
     id: state.user.id,
+    youtubes: state.selectedStudent.youtubes,
   }
 }
 

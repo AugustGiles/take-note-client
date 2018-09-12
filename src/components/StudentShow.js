@@ -126,7 +126,7 @@ class StudentShow extends Component {
             <React.Fragment>
               <Divider inverted />
               <Header as='h3' content='Resources:' inverted />
-              <ResourceCards context='view' resources={this.props.resources}/>
+              <ResourceCards context='view' resources={this.props.resources} youtubes={this.props.youtubes}/>
             </React.Fragment>
           }
 
