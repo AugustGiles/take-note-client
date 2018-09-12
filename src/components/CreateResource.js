@@ -88,6 +88,8 @@ class CreateResource extends Component {
           content='New Resource:'
         />
         <Navigation context='teacher' />
+        <Button inverted style={{float: 'right'}} icon='angle left' content='Back'
+          onClick={() => this.props.history.push(`/viewresources`)} />
 
         <Divider inverted />
 

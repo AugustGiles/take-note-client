@@ -42,6 +42,8 @@ class CreateStudent extends Component {
       <div className="auth" >
         <h1 className='featureText' style={{display: 'inline-block'}}>Take Note .</h1>
         <Navigation context='teacher'/>
+        <Button inverted style={{float: 'right'}} icon='angle left' content='Back'
+          onClick={() => this.props.history.push(`/`)} />
         <Header
           size='huge'
           style={{color: 'white'}}

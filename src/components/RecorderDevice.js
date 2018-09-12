@@ -73,7 +73,7 @@ class RecorderDevice extends Component {
   render() {
     return (
       <Modal
-        trigger={<Button icon='microphone' size='large' inverted style={{display: 'inline-block'}}/>}
+        trigger={<Button icon='microphone' size='huge' inverted style={{display: 'inline-block'}}/>}
         size='mini' basic
         onOpen={this.prepareRecording}
         onClose={this.emergencyStop}

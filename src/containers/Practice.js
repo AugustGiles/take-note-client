@@ -64,15 +64,15 @@ class Practice extends Component {
         <Divider inverted />
 
         <div style={{textAlign: 'center'}}>
-          <Button inverted size="large" style={{display: 'inline-block'}}
+          <Button inverted size="huge" style={{display: 'inline-block'}}
             icon={this.props.isPaused? 'play' : 'pause'}
             onClick={() => this.props.togglePause()}
           />
           <Metronome />
           <RecorderDevice assignmentId={this.props.recentAssignment && this.props.recentAssignment.id}/>
           <Modal basic size='small' onOpen={() => this.props.findStudent(this.props.id)}
-            trigger={<Button icon='paperclip' inverted size='large'/>}
-            content={<ResourceCards context="assignment" resources={this.props.resources} 
+            trigger={<Button icon='paperclip' inverted size='huge'/>}
+            content={<ResourceCards context="assignment" resources={this.props.resources}
                         youtubes={this.props.youtubes} />
                     }
           />
@@ -82,14 +82,14 @@ class Practice extends Component {
 
         { this.props.assignmentText ?
           <div style={{overflow: 'auto'}}>
-            <p style={{color: 'white', }}
+            <p style={{color: 'white'}}
             dangerouslySetInnerHTML={{ __html: convertCommentFromJSONToHTML(this.props.assignmentText)}}
             />
           </div>
           : null
         }
         <div style={{paddingBottom: '2%', width: '100%', paddingTop: '5%'}}>
-          <Button size="huge" content='End' fluid onClick={this.handleEnd}  />
+          <Button size="huge" content='End' fluid onClick={this.handleEnd} inverted />
         </div>
 
       </div>

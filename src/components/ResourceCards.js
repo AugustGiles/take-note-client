@@ -96,13 +96,13 @@ class ResourceCards extends Component {
       {this.state.resourceAdded === false ?
         <React.Fragment>
           {this.props.search &&
-            <React.Fragment>
+            <div style={{textAlign: 'center'}}>
               <Header as='h3' content="Quick Search:" inverted
                 style={{display: 'inline-block', marginRight: '2%'}} />
               <Input value={this.state.searchTerm} style={{marginBottom: '2%', display: 'inline-block'}}
                 onChange={(e) => this.setState({searchTerm: e.target.value})}
               />
-            </React.Fragment>
+            </div>
           }
           <Card.Group centered>
             {this.props.resources && this.filterResources(this.props.resources).map(resource => {
@@ -128,7 +128,6 @@ class ResourceCards extends Component {
               )
             })}
             {this.props.youtubes && this.filterResources(this.props.youtubes).map(link => {
-              // debugger
               return (
                 <Card>
                   <Card.Content header={link.title} />

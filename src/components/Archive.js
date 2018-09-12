@@ -50,8 +50,10 @@ class Archive extends Component {
       <div className='setup'>
         <Header as='h1' style={{color: 'white', fontSize: '5vh', display: 'inline-block'}} content='Archive:' />
         <Navigation context={localStorage.role}/>
-        <Button inverted style={{float: 'right'}} icon='angle left' content='Back'
+        {this.props.role === 'teacher' &&
+          <Button inverted style={{float: 'right'}} icon='angle left' content='Back'
           onClick={() => this.props.history.push(`/students/${this.props.id}`)} />
+        }
         <Divider inverted />
         {this.renderAssignments(convertCommentFromJSONToHTML)}
       </div>
@@ -64,6 +66,7 @@ const mapStateToProps = state => {
     id: state.selectedStudent.id,
     studentId: state.user.id,
     allAssignments: state.selectedStudent.allAssignments,
+    role: state.user.role,
   }
 }
 

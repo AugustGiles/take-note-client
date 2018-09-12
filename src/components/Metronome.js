@@ -53,7 +53,7 @@ class Metronome extends Component {
   render() {
     return (
       <Modal
-        trigger={<Button icon='hourglass outline' size='large' inverted style={{display: 'inline-block'}}/>}
+        trigger={<Button icon='hourglass outline' size='huge' inverted style={{display: 'inline-block'}}/>}
         size='tiny' basic onClose={() => this.state.active === true ? this.pauseMetronome() : null}
         style={{height: '60vh'}}
         content={
