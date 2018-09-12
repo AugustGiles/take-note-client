@@ -49,7 +49,7 @@ class ResourceCards extends Component {
         <Modal basic size='small'
           trigger={<Button size='medium' content='Show Details' fluid/>}
           content={
-            <iframe width="560" height="315" src={`${file}`} frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            <iframe style={{width:'100%', height:'80vh'}} src={`${file}`} frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
           }
         />
       )

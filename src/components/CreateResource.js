@@ -21,11 +21,11 @@ class CreateResource extends Component {
     this.setState({disabled: true, file: acceptedFiles})
   }
 
-  // handleLink = () => {
-  //   let array = this.state.youtube.split('/')
-  //   array.splice(array.length - 1, 0, 'embed')
-  //   return array.join('/')
-  // }
+  handleLink = () => {
+    let array = this.state.youtube.split('/watch?v=')
+    array.splice(1, 0, 'embed')
+    return array.join('/')
+  }
 
   handleSave = () => {
     let formData = new FormData()
@@ -50,7 +50,7 @@ class CreateResource extends Component {
         })
 
     } else {
-      formData.append("link", this.state.youtube)
+      formData.append("link", this.handleLink(this.state.youtube))
       formData.append("title", this.state.title)
       formData.append("teacher_id", this.props.teacherId)
       formData.append("description", this.state.description)
@@ -64,7 +64,6 @@ class CreateResource extends Component {
       })
         .then(resp => resp.json())
         .then(info => {
-          debugger
           this.props.updateYoutubes(info)
           this.props.history.push('/viewresources')
         })
@@ -110,10 +109,8 @@ class CreateResource extends Component {
             </Dropzone> :
             <div>
               <Header content='YouTube Embed Link:' style={{marginTop: '3%'}} inverted as='h3' />
-              <p style={{color: '#F1F1F1'}}>1. Go to youtube video of your choice and copy the link at the top of the page</p>
+              <p style={{color: '#F1F1F1'}}>1. Go to youtube video of your choice and copy the link at the TOP of the page</p>
               <p style={{color: '#F1F1F1'}}>2. Paste it in the space below </p>
-              <p style={{color: '#F1F1F1'}}>3. Take '/watch?v=' out of the URL and Replace with '/embed/' </p>
-              <p style={{color: '#F1F1F1'}}>Result should look like: 'https://www.youtube.com/embed/the-remaining-url' </p>
               <Input fluid value={this.state.youtube}
                 onChange={(e) => this.setState({youtube: e.target.value})} />
             </div>
