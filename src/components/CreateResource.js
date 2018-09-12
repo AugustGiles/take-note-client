@@ -85,7 +85,7 @@ class CreateResource extends Component {
       <div className='setup' >
         <Header
           style={{color: 'white', fontSize: '5vh', display: "inline-block"}}
-          content='New Resource:'
+          content='Create:'
         />
         <Navigation context='teacher' />
         <Button inverted style={{float: 'right'}} icon='angle left' content='Back'

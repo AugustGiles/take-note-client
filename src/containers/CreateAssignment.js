@@ -83,7 +83,7 @@ class CreateAssignment extends Component {
 
     return (
       <div className='setup'>
-        <Header content={`Assignment for ${this.props.selectedStudentUsername}`}
+        <Header content={`Create`}
           style={{color: 'white', display: "inline-block", fontSize: '4vh', paddingBottom: '2%'}}
         />
         <Navigation context='teacher'/>
@@ -128,6 +128,7 @@ class CreateAssignment extends Component {
           </React.Fragment> : null
         }
         <Form>
+          <Header content={`Student: ${this.props.selectedStudentUsername}`} inverted />
           <Dropdown
             placeholder='Select Practice Time'
             selection fluid
