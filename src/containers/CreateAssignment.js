@@ -32,7 +32,9 @@ class CreateAssignment extends Component {
   }
 
   componentWillUnmount() {
-    this.props.removeErrorMessage()
+    if (this.props.errorMessage) {
+      this.props.removeErrorMessage()
+    }
   }
 
   handleSend = () => {
@@ -83,7 +85,7 @@ class CreateAssignment extends Component {
 
     return (
       <div className='setup'>
-        <Header content={`Create`}
+        <Header content={`Create:`} as='h1'
           style={{color: 'white', display: "inline-block", fontSize: '4vh', paddingBottom: '2%'}}
         />
         <Navigation context='teacher'/>

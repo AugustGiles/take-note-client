@@ -31,8 +31,14 @@ class StudentShow extends Component {
     audio.play()
   }
 
+  getStat = () => {
+    let stat = Math.floor((this.props.currentPracticeTime/this.props.goalPracticeTime)*100)
+    let returnValue
+    !stat ? returnValue = 0 : returnValue = stat
+    return returnValue
+  }
+
   render () {
-    const stat = Math.floor((this.props.currentPracticeTime/this.props.goalPracticeTime)*100)
     const convertCommentFromJSONToHTML = (text) => {
       return stateToHTML(convertFromRaw(text))
     }
@@ -73,7 +79,7 @@ class StudentShow extends Component {
             <Divider inverted/>
 
               <Statistic horizontal inverted>
-                <Statistic.Value>{stat}%</Statistic.Value>
+                <Statistic.Value>{this.getStat()}%</Statistic.Value>
                 <Statistic.Label>Practice Completion</Statistic.Label>
               </Statistic>
 

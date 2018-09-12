@@ -96,7 +96,7 @@ class ResourceCards extends Component {
       {this.state.resourceAdded === false ?
         <React.Fragment>
           {this.props.search &&
-            <div style={{textAlign: 'center'}}>
+            <div style={{textAlign: 'center', paddingBottom: '5%'}}>
               <Header as='h3' content="Quick Search:" inverted
                 style={{display: 'inline-block', marginRight: '2%'}} />
               <Input value={this.state.searchTerm} style={{marginBottom: '2%', display: 'inline-block'}}
@@ -107,7 +107,7 @@ class ResourceCards extends Component {
           <Card.Group centered>
             {this.props.resources && this.filterResources(this.props.resources).map(resource => {
               return (
-                <Card>
+                <Card key={resource.id}>
                   <Card.Content header={resource.title} />
                   <Card.Content description={resource.description} />
                   <Card.Content extra>
@@ -129,7 +129,7 @@ class ResourceCards extends Component {
             })}
             {this.props.youtubes && this.filterResources(this.props.youtubes).map(link => {
               return (
-                <Card>
+                <Card key={link.id}>
                   <Card.Content header={link.title} />
                   <Card.Content description={link.description} />
                   <Card.Content extra>
