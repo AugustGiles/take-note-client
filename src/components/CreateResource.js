@@ -26,6 +26,12 @@ class CreateResource extends Component {
     }
   }
 
+  componentWillUnmount() {
+    if (this.props.errorMessage) {
+      this.props.removeErrorMessage()
+    }
+  }
+
   onDrop = (acceptedFiles, rejectedFiles) => {
     this.setState({disabled: true, file: acceptedFiles})
   }
@@ -48,7 +54,7 @@ class CreateResource extends Component {
       if (this.state.file === null || this.state.title === '' || this.state.description === '') {
         this.props.addErrorMessage('Please select a file and complete all fields')
       } else {
-        debugger
+
         fetch('https://take-note-server.herokuapp.com/resources', {
           method: 'POST',
           headers: {
@@ -58,7 +64,8 @@ class CreateResource extends Component {
         })
           .then(resp => resp.json())
           .then(info => {
-            this.props.updateResources(info)
+            let resources = info.filter(resource => resource.user_id === this.props.teacherId)
+            this.props.updateResources(resources)
             this.props.history.push('/viewresources')
           })
       }
@@ -71,7 +78,6 @@ class CreateResource extends Component {
       if (this.state.youtube === '' || this.state.title === '' || this.state.description === '') {
         this.props.addErrorMessage('Please select a file and complete all fields')
       } else {
-        debugger
         fetch('https://take-note-server.herokuapp.com/youtubes', {
           method: 'POST',
           headers: {
@@ -81,7 +87,8 @@ class CreateResource extends Component {
         })
           .then(resp => resp.json())
           .then(info => {
-            this.props.updateYoutubes(info)
+            let youtubes = info.filter(link => link.user_id === this.props.teacherId)
+            this.props.updateYoutubes(youtubes)
             this.props.history.push('/viewresources')
           })
       }

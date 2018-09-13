@@ -15,6 +15,15 @@ class ViewResources extends Component {
     }
   }
 
+  combinedResources = () => {
+    let array = []
+    if (this.props.resources && this.props.youtubes) {
+      this.props.resources.forEach(resource => array.push(resource))
+      this.props.youtubes.forEach(youtube => array.push(youtube))
+    }
+    return array
+  }
+
   render() {
     return(
       <div className='setup'>
@@ -28,8 +37,14 @@ class ViewResources extends Component {
             onClick={() => this.props.history.push(`/createresource`)}
           />
         <Divider inverted/>
-        <ResourceCards context="view" resources={this.props.resources}
-          youtubes={this.props.youtubes} search={true}/>
+
+
+        {this.combinedResources().length > 0 ?
+          <ResourceCards context="view" resources={this.props.resources}
+            youtubes={this.props.youtubes} search={true}/> :
+          <Header as='h2' style={{textAlign: 'center', padding: '10%'}} inverted content='No Resources To Show Yet' />
+        }
+
       </div>
     )
   }

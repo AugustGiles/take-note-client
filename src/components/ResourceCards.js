@@ -67,10 +67,11 @@ class ResourceCards extends Component {
     })
       .then(resp => resp.json())
       .then(json => {
+        let list = json.filter(item => item.user_id === this.props.teacherId)
         if (type === 'resources') {
-          this.props.updateResources(json)
+          this.props.updateResources(list)
         } else {
-          this.props.updateYoutubes(json)
+          this.props.updateYoutubes(list)
         }
       })
   }
@@ -160,7 +161,8 @@ class ResourceCards extends Component {
 
 const mapStateToProps = state => {
   return {
-    role: state.user.role
+    role: state.user.role,
+    teacherId: state.user.id,
   }
 }
 

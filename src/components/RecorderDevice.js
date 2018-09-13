@@ -79,16 +79,6 @@ class RecorderDevice extends Component {
         onClose={this.emergencyStop}
         content={
           <div style={{textAlign: 'center'}}>
-            {(this.state.audioUrl && !this.state.saved) &&
-              <React.Fragment>
-                <audio src={this.state.audioUrl} controls />
-                <Button content='Save Recording' inverted
-                  onClick={() => this.postRecording(this.props.assignmentId)}/>
-              </React.Fragment>
-            }
-            {(this.state.audioUrl && this.state.saved) &&
-              <Header content='Recording Saved!' inverted/>
-            }
             {(!this.state.active && !this.state.audioUrl) &&
               <React.Fragment>
                 <Button icon='microphone' circular size='massive'
@@ -104,6 +94,16 @@ class RecorderDevice extends Component {
                 />
                 <Header content='Click to Stop' as='h3' style={{color: 'white'}} />
               </React.Fragment>
+            }
+            {(this.state.audioUrl && !this.state.saved) &&
+              <React.Fragment>
+                <audio src={this.state.audioUrl} controls />
+                <Button content='Save Recording' inverted
+                  onClick={() => this.postRecording(this.props.assignmentId)}/>
+              </React.Fragment>
+            }
+            {(this.state.audioUrl && this.state.saved) &&
+              <Header content='Recording Saved!' inverted/>
             }
           </div>
         }

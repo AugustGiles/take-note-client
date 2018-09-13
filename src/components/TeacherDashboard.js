@@ -47,21 +47,30 @@ class TeacherDashboard extends Component {
 
 
 
-        {this.props.students && this.props.students.map(student => {
-          return (
-            <Button
-              key={student.id}
-              inverted color='grey' fluid style={{marginTop: '3%'}}
-              size='huge'
-              onClick={() => {
-                this.props.findStudent(student.id)
-                  .then(this.props.history.push(`/students/${student.id}`))
-                // this.props.history.push(`/students/${student.id}`)
-              }}
-              content={student.username}
-            />
-          )
-        })}
+        {this.props.students &&
+          this.props.students.length > 0 ?
+          this.props.students.map(student => {
+            return (
+              <Button
+                key={student.id}
+                inverted color='grey' fluid style={{marginTop: '3%'}}
+                size='huge'
+                onClick={() => {
+                  this.props.findStudent(student.id)
+                    .then(this.props.history.push(`/students/${student.id}`))
+                  // this.props.history.push(`/students/${student.id}`)
+                }}
+                content={student.username}
+              />
+            )
+          }) :
+          <Header as='h2' style={{textAlign: 'center', padding: '10%'}} inverted>
+            Welcome to Take Note! <br /><br /><br />
+          We're excited to give a nice platform for you to communicate with your students, and provide them the resources they need to be successful with their practice. <br /><br />
+        Try making a test student, creating some resources, writing an assignment - then log in as the student and see what they can do!
+
+          </Header>
+        }
       </div>
     )
   }
