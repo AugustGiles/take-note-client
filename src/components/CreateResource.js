@@ -32,8 +32,14 @@ class CreateResource extends Component {
     }
   }
 
-  onDrop = (acceptedFiles, rejectedFiles) => {
-    this.setState({disabled: true, file: acceptedFiles})
+  onDrop = (acceptedFile) => {
+    let acceptedExtensions = ["image/jpeg", 'image/jpg', 'image/png', 'image/gif', 'audio/mp3', 'audio/wav', "application/pdf"]
+    if (acceptedExtensions.includes(acceptedFile[0].type)) {
+      this.setState({disabled: true, file: acceptedFile})
+    } else {
+      this.props.addErrorMessage('Please drop an accepted file type')
+    }
+
   }
 
   handleLink = () => {
@@ -129,9 +135,8 @@ class CreateResource extends Component {
               <Button content='YouTube Link' onClick={() => this.setState({type: 'youtube'})} />
             </Button.Group>
           {this.state.type === 'file' ?
-            <Dropzone onDrop={this.onDrop.bind(this)} className={'dropzone'}
-              disabled={this.state.disabled}
-              accept="image/jpeg, image/jpg, image/png, image/gif, audio/mp3, audio/wav, application/pdf" >
+            <Dropzone onDrop={this.onDrop} className={'dropzone'}
+              disabled={this.state.disabled} >
               <Header as='h3' style={{color: '#F1F1F1', fontSize: '3vh'}}
                 content='Drop your file here or click to open your file manager. For best results with documents, please convert to PDF before uploading.' />
               <Header as='h3' style={{color: '#F1F1F1'}}
