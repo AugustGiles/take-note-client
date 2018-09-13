@@ -35,6 +35,7 @@ class CreateResource extends Component {
   onDrop = (acceptedFile) => {
     let acceptedExtensions = ["image/jpeg", 'image/jpg', 'image/png', 'image/gif', 'audio/mp3', 'audio/wav', "application/pdf"]
     if (acceptedExtensions.includes(acceptedFile[0].type)) {
+      this.props.removeErrorMessage()
       this.setState({disabled: true, file: acceptedFile})
     } else {
       this.props.addErrorMessage('Please drop an accepted file type')
