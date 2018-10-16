@@ -106,7 +106,7 @@ class AuthForm extends Component {
         <Divider inverted />
 
         {this.props.context === 'signup' ?
-          <div style={{marginTop: '15%'}}>
+          <div style={{marginTop: '10%'}}>
             <Header as='h3' style={{color:'white'}} content='Already have an account?' />
             <Button inverted content='Login'
               onClick={() => {
@@ -115,7 +115,7 @@ class AuthForm extends Component {
               }
             />
           </div> :
-            <div style={{marginTop: '15%'}}>
+            <div style={{marginTop: '10%'}}>
               <Header as='h3' style={{color:'white'}} content='Become a participating teacher...' />
               <Button inverted content='SignUp'
                 onClick={() => {

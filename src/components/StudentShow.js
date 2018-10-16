@@ -45,7 +45,7 @@ class StudentShow extends Component {
 
     return (
       <div className='setup' >
-        {this.props.username ?
+        {this.props.studentId === parseInt(this.props.match.params.student, 0) ?
           (<React.Fragment>
             <Header
               style={{color: 'white', fontSize: '5vh', display: 'inline-block'}}>

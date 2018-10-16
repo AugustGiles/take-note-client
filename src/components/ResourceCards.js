@@ -31,6 +31,7 @@ class ResourceCards extends Component {
           trigger={<Button size='medium' fluid content='Show Details' />}
           content={
             <iframe
+              title='pdf'
               src={`https://docs.google.com/viewer?url=https://take-note-server.herokuapp.com${file}&embedded=true`} style={{width:'100%', height:'80vh'}} frameborder="0">
               <p style={{color: '#F1F1F1'}}>PDF is not available on your device.</p>
             </iframe>
@@ -49,7 +50,7 @@ class ResourceCards extends Component {
         <Modal basic size='small'
           trigger={<Button size='medium' content='Show Details' fluid/>}
           content={
-            <iframe style={{width:'100%', height:'80vh'}} src={`${file}`} frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            <iframe title='youtube' style={{width:'100%', height:'80vh'}} src={`${file}`} frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
           }
         />
       )
