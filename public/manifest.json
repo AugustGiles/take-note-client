@@ -1,15 +1,15 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "TakeNote",
+  "name": "TakeNote",
   "icons": [
     {
-      "src": "favicon.ico",
+      "src": "https://www.dropbox.com/s/n3jic4jucnpgz40/icon1.png?raw=1",
       "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
+      "type": "image/png"
     }
   ],
   "start_url": "./index.html",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "theme_color": "##2f4f4f",
+  "background_color": "##2f4f4f"
 }
