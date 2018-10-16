@@ -5,6 +5,7 @@ import { BrowserRouter } from 'react-router-dom';
 
 import { configureStore } from './redux/configureStore'
 import { Provider } from 'react-redux'
+import HttpsRedirect from 'react-https-redirect'
 
 
 const store = configureStore()
@@ -12,7 +13,9 @@ const store = configureStore()
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
-      <App />
+      <HttpsRedirect>
+        <App />
+      </HttpsRedirect>
     </BrowserRouter>
   </Provider>,
     document.getElementById('root'))

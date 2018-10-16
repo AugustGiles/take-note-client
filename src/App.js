@@ -16,6 +16,7 @@ import { fetchUser } from './redux/actions/fetchActions'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 
+
 class App extends Component {
 
   componentDidMount() {
