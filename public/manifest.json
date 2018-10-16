@@ -3,7 +3,27 @@
   "name": "TakeNote",
   "icons": [
     {
-      "src": "https://www.dropbox.com/s/n3jic4jucnpgz40/icon1.png?raw=1",
+      "src": "https://www.dropbox.com/s/42opm5p5gcek6t9/android-chrome-96x96.png?raw=1",
+      "sizes": "96x96",
+      "type": "image/png"
+    },
+    {
+      "src": "https://www.dropbox.com/s/0y2x6l9sc0qops9/favicon-16x16.png?raw=1",
+      "sizes": "16x16",
+      "type": "image/png"
+    },
+    {
+      "src": "https://www.dropbox.com/s/l0fjk7xve6kd7uy/favicon-32x32.png?raw=1",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "https://www.dropbox.com/s/2l665vj07l5dveh/mstile-150x150.png?raw=1",
+      "sizes": "150x150",
+      "type": "image/png"
+    },
+    {
+      "src": "https://www.dropbox.com/s/53xu4po9t9ev16l/favicon.ico?raw=1",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/png"
     }
