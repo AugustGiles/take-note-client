@@ -50,25 +50,25 @@ class Archive extends Component {
         <Header as='h1' style={{color: 'white', fontSize: '5vh', display: 'inline-block'}} content={`${this.props.studentUsername}`} />
         <Navigation context={localStorage.role}/>
         <Divider inverted />
-          {localStorage.role === 'teacher' ?
-            <div>
-              <Button icon='user outline' size='medium' inverted
-                content='Student Main' style={{display: 'inline-block', marginTop: '1%'}}
-                onClick={() => this.props.history.push(`/students/${this.props.id}`)}
-              />
+        {localStorage.role === 'teacher' ?
+          <div>
+            <Button icon='user outline' size='medium' inverted
+              content='Student Main' style={{display: 'inline-block', marginTop: '1%'}}
+              onClick={() => this.props.history.push(`/students/${this.props.id}`)}
+            />
             <Button icon='write' size='medium' inverted
                 content='Write Assignment' style={{display: 'inline-block', marginTop: '1%'}}
                 onClick={() => this.props.history.push(`/createassignment`)}
               />
             <Button icon='minus' size='medium' inverted
-                content='Remove Student'
-                style={{display: 'inline-block', marginTop: '1%'}}
-                onClick={() => {
-                  this.props.addErrorMessage('Are you sure you want to delete?')
-                }}
-              />
-            </div> : null
-          }
+              content='Remove Student'
+              style={{display: 'inline-block', marginTop: '1%'}}
+              onClick={() => {
+                this.props.addErrorMessage('Are you sure you want to delete?')
+              }}
+            />
+          </div> : null
+        }
         <Divider inverted />
         {this.renderAssignments(convertCommentFromJSONToHTML)}
       </div>
