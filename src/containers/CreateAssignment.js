@@ -93,10 +93,10 @@ class CreateAssignment extends Component {
           onClick={() => this.props.history.push(`/students/${this.props.selectedStudentId}`)} />
         <Divider inverted />
           <div>
-            <Button inverted size='medium' type='submit' icon='send'
+          <Button inverted size='medium' type='submit' icon='send'
               onClick={this.handleSend} content='Send'
             />
-          <Modal basic size='large'
+          <Modal basic size='large' style={{textAlign: 'right'}}
               trigger={<Button size='medium' icon='paperclip' inverted content='Attach Resource' />}
               content={<ResourceCards context="assignment"
                 addResource={this.addResource} addYoutube={this.addYoutube}

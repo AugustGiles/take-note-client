@@ -16,10 +16,8 @@ class Stopwatch extends Component {
     return (
       <div style={{ width: '100%'}}>
         {time ?
-          (<div style={{textAlign: 'center', paddingBottom: '5%'}}>
-            <Statistic
-              size='huge'
-            >
+          <div style={{textAlign: 'center', paddingBottom: '5%'}}>
+            <Statistic size='huge' >
               <Statistic.Value style={{color: 'white'}}>
                 {hours}:
                 {minutes < 10 ? 0 : ''}{minutes}:
@@ -29,8 +27,14 @@ class Stopwatch extends Component {
                 {this.props.text && this.props.text}
               </Statistic.Label>
             </Statistic>
-          </div>) :
-          null
+          </div> :
+          <div style={{textAlign: 'center', paddingBottom: '5%'}}>
+            <Statistic size='huge' >
+              <Statistic.Value style={{color: 'white'}}>
+                0:00:00
+              </Statistic.Value>
+            </Statistic>
+          </div>
         }
       </div>
     )
