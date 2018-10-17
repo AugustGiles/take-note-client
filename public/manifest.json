@@ -3,28 +3,58 @@
   "name": "TakeNote",
   "icons": [
     {
-      "src": "https://www.dropbox.com/s/42opm5p5gcek6t9/android-chrome-96x96.png?raw=1",
-      "sizes": "96x96",
-      "type": "image/png"
-    },
-    {
-      "src": "https://www.dropbox.com/s/0y2x6l9sc0qops9/favicon-16x16.png?raw=1",
+      "src": "https://www.dropbox.com/s/t2efqbr9uko6nuh/music-natur-16-108499.png?raw=1",
       "sizes": "16x16",
       "type": "image/png"
     },
     {
-      "src": "https://www.dropbox.com/s/l0fjk7xve6kd7uy/favicon-32x32.png?raw=1",
+      "src": "https://www.dropbox.com/s/finhvjvi2za8g3h/music-natur-24-108499.png?raw=1",
+      "sizes": "24x24",
+      "type": "image/png"
+    },
+    {
+      "src": "https://www.dropbox.com/s/lnphiw8hw0sn1qn/music-natur-32-108499.png?raw=1",
       "sizes": "32x32",
       "type": "image/png"
     },
     {
-      "src": "https://www.dropbox.com/s/2l665vj07l5dveh/mstile-150x150.png?raw=1",
-      "sizes": "150x150",
+      "src": "https://www.dropbox.com/s/hj6ptqp3zv6whk8/music-natur-48-108499.png?raw=1",
+      "sizes": "48x48",
       "type": "image/png"
     },
     {
-      "src": "https://www.dropbox.com/s/53xu4po9t9ev16l/favicon.ico?raw=1",
-      "sizes": "64x64 32x32 24x24 16x16 512x512",
+      "src": "https://www.dropbox.com/s/5n3u4sksmqxb99n/music-natur-57-108499.png?raw=1",
+      "sizes": "57x57",
+      "type": "image/png"
+    },
+    {
+      "src": "https://www.dropbox.com/s/blijamxn15pszq0/music-natur-64-108499.png?raw=1",
+      "sizes": "64x64",
+      "type": "image/png"
+    },
+    {
+      "src": "https://www.dropbox.com/s/5lgs8c9i0loa89s/music-natur-72-108499.png?raw=1",
+      "sizes": "72x72",
+      "type": "image/png"
+    },
+    {
+      "src": "https://www.dropbox.com/s/w07w8s1pjlqhwk7/music-natur-114-108499.png?raw=1",
+      "sizes": "114x114",
+      "type": "image/png"
+    },
+    {
+      "src": "https://www.dropbox.com/s/fe5ul84i7aygg8g/music-natur-120-108499.png?raw=1",
+      "sizes": "120x120",
+      "type": "image/png"
+    },
+    {
+      "src": "https://www.dropbox.com/s/63pngctc2arhzav/music-natur-144-108499.png?raw=1",
+      "sizes": "144x144",
+      "type": "image/png"
+    },
+    {
+      "src": "https://www.dropbox.com/s/x8t1979qd5ilqdq/music-natur-152-108499.png?raw=1",
+      "sizes": "152x152",
       "type": "image/png"
     }
   ],
