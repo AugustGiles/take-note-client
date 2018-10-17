@@ -56,6 +56,11 @@
       "src": "https://www.dropbox.com/s/x8t1979qd5ilqdq/music-natur-152-108499.png?raw=1",
       "sizes": "152x152",
       "type": "image/png"
+    },
+    {
+      "src": "https://www.dropbox.com/s/ngvmfo7dfnxrf1z/if_083_Music_183211.svg?raw=1",
+      "sizes": "512x512",
+      "type": "image/svg"
     }
   ],
   "start_url": "./index.html",
