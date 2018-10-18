@@ -138,7 +138,7 @@ class CreateAssignment extends Component {
             options={practiceAmounts}
             onChange={this.handlePracticeAmount}
           />
-          <div style={{height: '45vh', width: '100%'}}>
+        <div style={{height: '45vh', width: '100%', marginBottom: '25%'}}>
             <Editor
               editorState={this.state.editorState}
               wrapperClassName="wrapper"
