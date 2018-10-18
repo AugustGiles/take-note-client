@@ -53,7 +53,7 @@ class TeacherDashboard extends Component {
                   <Button
                     key={student.id}
                     inverted color='grey' fluid
-                    size='huge'
+                    size='huge' 
                     onClick={() => {
                       this.props.findStudent(student.id)
                         .then(this.props.history.push(`/students/${student.id}`))

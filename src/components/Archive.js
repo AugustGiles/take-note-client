@@ -27,13 +27,13 @@ class Archive extends Component {
       return sortedAssignments.map(assignment => {
         return (
           <div key={assignment.id}>
-            <Header style={{color: 'white', marginBottom: '5%'}} as='h3'>
+            <Divider inverted />
+            <Header style={{color: 'white', marginBottom: '5%'}} as='h2'>
               Assigned: <Moment format="MM/DD/YYYY" date={assignment["created_at"]} />
             </Header>
             <p style={{color: 'white', paddingBottom: '5%'}}
               dangerouslySetInnerHTML={{ __html: convertCommentFromJSONToHTML(assignment["assignment_text"])}}
             />
-            <Divider inverted />
           </div>
         )
       })
@@ -47,29 +47,13 @@ class Archive extends Component {
 
     return (
       <div className='setup'>
-        <Header as='h1' style={{color: 'white', fontSize: '5vh', display: 'inline-block'}} content={`${this.props.studentUsername}`} />
+        <Header as='h1' style={{color: 'white', fontSize: '5vh', display: 'inline-block'}} content={`Archive:`} />
         <Navigation context={localStorage.role}/>
-        <Divider inverted />
-        {localStorage.role === 'teacher' ?
-          <div>
-            <Button icon='user outline' size='medium' inverted
-              content='Student Main' style={{display: 'inline-block', marginTop: '1%'}}
-              onClick={() => this.props.history.push(`/students/${this.props.id}`)}
-            />
-            <Button icon='write' size='medium' inverted
-                content='Write Assignment' style={{display: 'inline-block', marginTop: '1%'}}
-                onClick={() => this.props.history.push(`/createassignment`)}
-              />
-            <Button icon='minus' size='medium' inverted
-              content='Remove Student'
-              style={{display: 'inline-block', marginTop: '1%'}}
-              onClick={() => {
-                this.props.addErrorMessage('Are you sure you want to delete?')
-              }}
-            />
-          </div> : null
+
+        {this.props.role === 'teacher' &&
+          <Button inverted style={{float: 'right'}} icon='angle left' content='Back'
+          onClick={() => this.props.history.push(`/students/${this.props.id}`)} />
         }
-        <Divider inverted />
         {this.renderAssignments(convertCommentFromJSONToHTML)}
       </div>
     )

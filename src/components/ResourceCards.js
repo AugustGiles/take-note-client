@@ -21,7 +21,7 @@ class ResourceCards extends Component {
     if (extension === 'jpeg' || extension === 'png' || extension === 'jpg' || extension === 'gif') {
       return (
         <Modal basic size='small'
-          trigger={<Button size='medium' content='Show Details' fluid/>}
+          trigger={<Button size='medium' content='Show Details' fluid style={{}}/>}
           content={<img alt={title} src={`https://take-note-server.herokuapp.com${file}`} width={'100%'} height={'auto'}/>}
         />
       )
@@ -110,8 +110,8 @@ class ResourceCards extends Component {
             {this.props.resources && this.filterResources(this.props.resources).map(resource => {
               return (
                 <Card key={resource.id}>
-                  <Card.Content header={resource.title} />
-                  <Card.Content description={resource.description} />
+                  <Card.Content header={resource.title} style={{textAlign: 'left'}} />
+                  <Card.Content description={resource.description} style={{textAlign: 'left'}}/>
                   <Card.Content extra>
                     {this.renderResource(resource.file, resource.title)}
                     {(this.props.context === 'view' && this.props.role === 'teacher') &&
@@ -132,8 +132,8 @@ class ResourceCards extends Component {
             {this.props.youtubes && this.filterResources(this.props.youtubes).map(link => {
               return (
                 <Card key={link.id}>
-                  <Card.Content header={link.title} />
-                  <Card.Content description={link.description} />
+                  <Card.Content header={link.title} style={{textAlign: 'left'}} />
+                  <Card.Content description={link.description} style={{textAlign: 'left'}} />
                   <Card.Content extra>
                     {this.renderResource(link.link, link.title)}
                     {(this.props.context === 'view' && this.props.role === 'teacher') &&
