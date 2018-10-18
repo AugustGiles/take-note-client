@@ -96,7 +96,7 @@ class CreateAssignment extends Component {
           <Button inverted size='medium' type='submit' icon='send'
               onClick={this.handleSend} content='Send'
             />
-          <Modal basic size='large' style={{textAlign: 'right'}}
+          <Modal basic closeIcon size='large' style={{paddingTop: '3%'}}
               trigger={<Button size='medium' icon='paperclip' inverted content='Attach Resource' />}
               content={<ResourceCards context="assignment"
                 addResource={this.addResource} addYoutube={this.addYoutube}
@@ -109,10 +109,10 @@ class CreateAssignment extends Component {
         }
         {(this.state.resources.length > 0 || this.state.youtubes.length > 0) ?
           <React.Fragment>
-            <Header as='h4' content='Resources:' inverted/>
+            <Header as='h4' content='Resources:' inverted style={{display: 'inline-block', marginRight: '2%'}}/>
             {this.state.resources.map(resource => {
               return (
-                <div style={{display: 'inline-block', marginRight: '3%'}} key={resource.title}>
+                <div style={{display: 'inline-block', marginRight: '1%'}} key={resource.title}>
                   <Button size="small" icon="delete" inverted content={resource.title}
                     onClick={() => this.removeResource(resource)} />
                 </div>
@@ -120,7 +120,7 @@ class CreateAssignment extends Component {
             })}
             {this.state.youtubes.map(youtube => {
               return (
-                <div style={{display: 'inline-block', marginRight: '3%'}} key={youtube.title}>
+                <div style={{display: 'inline-block', marginRight: '1%'}} key={youtube.title}>
                   <Button size="small" icon="delete" inverted content={youtube.title}
                     onClick={() => this.removeYoutube(youtube)} />
                 </div>

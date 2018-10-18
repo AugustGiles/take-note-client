@@ -21,14 +21,14 @@ class ResourceCards extends Component {
     if (extension === 'jpeg' || extension === 'png' || extension === 'jpg' || extension === 'gif') {
       return (
         <Modal basic size='small'
-          trigger={<Button size='medium' content='Show Details' fluid style={{}}/>}
+          trigger={<Button size='medium' content='Show Details' style={{display: 'inline-block', width: '48%'}}/>}
           content={<img alt={title} src={`https://take-note-server.herokuapp.com${file}`} width={'100%'} height={'auto'}/>}
         />
       )
     } else if (extension === 'pdf') {
       return (
         <Modal size='small'
-          trigger={<Button size='medium' fluid content='Show Details' />}
+          trigger={<Button size='medium' style={{display: 'inline-block', width: '48%'}} content='Show Details' />}
           content={
             <iframe
               title='pdf'
@@ -41,14 +41,14 @@ class ResourceCards extends Component {
     } else if (extension === 'mp3' || extension === 'wav') {
       return (
         <Modal basic size='mini'
-          trigger={<Button size='medium' content='Show Details' fluid/>}
+          trigger={<Button size='medium' content='Show Details' style={{display: 'inline-block', width: '48%'}}/>}
           content={<audio src={`https://take-note-server.herokuapp.com${file}`} controls />}
         />
       )
     } else if (extension === 'youtube') {
       return (
         <Modal basic size='small'
-          trigger={<Button size='medium' content='Show Details' fluid/>}
+          trigger={<Button size='medium' content='Show Details' style={{display: 'inline-block', width: '48%'}}/>}
           content={
             <iframe title='youtube' style={{width:'100%', height:'80vh'}} src={`${file}`} frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
           }
@@ -98,8 +98,8 @@ class ResourceCards extends Component {
       {this.state.resourceAdded === false ?
         <React.Fragment>
           {this.props.search &&
-            <div style={{textAlign: 'center', paddingBottom: '5%'}}>
-              <Header as='h3' content="Quick Search:" inverted
+            <div style={{paddingBottom: '5%', textAlign: 'center'}}>
+              <Header as='h3' content="Search:" inverted
                 style={{display: 'inline-block', marginRight: '2%'}} />
               <Input value={this.state.searchTerm} style={{marginBottom: '2%', display: 'inline-block'}}
                 onChange={(e) => this.setState({searchTerm: e.target.value})}
@@ -115,13 +115,13 @@ class ResourceCards extends Component {
                   <Card.Content extra>
                     {this.renderResource(resource.file, resource.title)}
                     {(this.props.context === 'view' && this.props.role === 'teacher') &&
-                      <Button icon='delete' size='medium' fluid
-                        content='Remove' style={{display: 'inline-block', marginTop: '2%'}}
+                      <Button icon='delete' size='medium'
+                        content='Remove' style={{display: 'inline-block', marginTop: '2%', width: '48%'}}
                         onClick={() => this.handleDelete(resource.id, 'resources')}
                       /> }
                     {(this.props.context === 'assignment' && this.props.role === 'teacher') &&
-                      <Button icon='add' size='small' content='Add To Assignment' fluid
-                        style={{display: 'inline-block', marginTop: '2%'}}
+                      <Button icon='add' size='medium' content='Assign'
+                        style={{display: 'inline-block', marginTop: '2%', width: '48%'}}
                         onClick={() => this.handleSelect(resource)}
                       /> }
 
@@ -137,13 +137,13 @@ class ResourceCards extends Component {
                   <Card.Content extra>
                     {this.renderResource(link.link, link.title)}
                     {(this.props.context === 'view' && this.props.role === 'teacher') &&
-                      <Button icon='delete' size='medium' fluid
-                        content='Remove' style={{display: 'inline-block', marginTop: '2%'}}
+                      <Button icon='delete' size='medium'
+                        content='Remove' style={{display: 'inline-block', marginTop: '2%', width: '48%'}}
                         onClick={() => this.handleDelete(link.id, 'youtubes')}
                       /> }
                     {(this.props.context === 'assignment' && this.props.role === 'teacher') &&
-                      <Button icon='add' size='small' content='Add To Assignment' fluid
-                        style={{display: 'inline-block', marginTop: '2%'}}
+                      <Button icon='add' size='medium' content='Assign'
+                        style={{display: 'inline-block', marginTop: '2%', width: '48%'}}
                         onClick={() => this.handleSelect(link)}
                       /> }
 

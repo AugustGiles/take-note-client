@@ -57,20 +57,20 @@ class StudentShow extends Component {
             <Divider inverted/>
 
               {localStorage.role === 'teacher' ?
-                <div>
-                  <Button icon='folder open outline' size='medium' inverted
-                    content='Archive' style={{display: 'inline-block', marginTop: '1%'}}
+                <div style={{textAlign: 'center'}}>
+                  <Button icon='folder open outline' size='huge' inverted compact
+                     style={{display: 'inline-block', marginTop: '1%', marginLeft: '2%', marginRight: '2%'}}
                     onClick={() => this.props.history.push(`/students/${this.props.studentId}/archive`)}
                   />
-                <Button icon='write' size='medium' inverted
-                    content='Write Assignment' style={{display: 'inline-block', marginTop: '1%'}}
+                <Button icon='write' size='huge' inverted compact
+                     style={{display: 'inline-block', marginTop: '1%', marginLeft: '2%', marginRight: '2%'}}
                     onClick={() => this.props.history.push(`/createassignment`)}
                   />
-                <Button icon='minus' size='medium' inverted
-                    content='Remove Student'
-                    style={{display: 'inline-block', marginTop: '1%'}}
+                <Button icon='minus' size='huge' inverted compact
+
+                    style={{display: 'inline-block', marginTop: '1%', marginLeft: '2%', marginRight: '2%'}}
                     onClick={() => {
-                      this.props.addErrorMessage('Are you sure you want to delete?')
+                      this.props.addErrorMessage('Are you sure you want to delete this student?')
                     }}
                   />
                 </div> : null
@@ -78,34 +78,39 @@ class StudentShow extends Component {
 
             <Divider inverted/>
 
-              <Statistic horizontal inverted>
-                <Statistic.Value>{this.getStat()}%</Statistic.Value>
-                <Statistic.Label>Practice Completion</Statistic.Label>
-              </Statistic>
-
-            <Divider inverted />
-
             {this.props.errorMessage ?
-              <Message warning >
-                <Message.Header>
-                  {this.props.errorMessage}
-                  <Button content="Delete" style={{marginLeft: '10%', marginTop: '5%', marginBottom: '5%'}} size='medium'
-                    onClick={() => {
-                      this.props.removeStudent(parseInt(this.props.studentId, 0))
-                      .then(message => {
-                        this.props.addErrorMessage(message)
-                        this.props.history.push('/teacherDashboard')
-                      })
-                    }}
-                  />
-                  <Button content="Nevermind" style={{marginLeft: '10%'}} size='medium'
-                    onClick={() => {
-                      this.props.removeErrorMessage()
-                    }}
-                  />
-              </Message.Header>
-              </Message> : null
+              <React.Fragment>
+                <Message warning >
+                  <Message.Header>
+                    {this.props.errorMessage}<br></br>
+                  <div style={{paddingTop: '2%'}}>
+                    <Button content="Delete" style={{width: '48%', display: 'inline-block'}} size='medium'
+                        onClick={() => {
+                          this.props.removeStudent(parseInt(this.props.studentId, 0))
+                          .then(message => {
+                            this.props.addErrorMessage(message)
+                            this.props.history.push('/teacherDashboard')
+                          })
+                        }}
+                      />
+                    <Button content="Nevermind" style={{width: '48%', display: 'inline-block'}} size='medium'
+                      onClick={() => {
+                        this.props.removeErrorMessage()
+                      }}
+                      />
+                  </div>
+                </Message.Header>
+                </Message>
+                <Divider inverted />
+              </ React.Fragment> : null
             }
+
+            <Statistic horizontal inverted>
+              <Statistic.Value>{this.getStat()}%</Statistic.Value>
+              <Statistic.Label>Practice Completion</Statistic.Label>
+            </Statistic>
+
+          <Divider inverted />
 
             <Header style={{color: 'white', marginBottom: '5%'}} as='h3'>
               Assigned: <Moment format="MM/DD/YYYY" date={this.props.assignmentCreated} />
@@ -133,7 +138,6 @@ class StudentShow extends Component {
           {this.props.resources.length > 0 &&
             <React.Fragment>
               <Divider inverted />
-              <Header as='h3' content='Resources:' inverted />
               <ResourceCards context='view' resources={this.props.resources} youtubes={this.props.youtubes}/>
             </React.Fragment>
           }

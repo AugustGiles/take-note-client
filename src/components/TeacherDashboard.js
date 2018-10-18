@@ -36,34 +36,35 @@ class TeacherDashboard extends Component {
           <Navigation context='teacher'/>
         </div>
         <Divider inverted/>
-        <Header style={{color: 'white', fontSize: '4vh', display: 'inline-block'}} content="Students:" />
-        <Button icon='add user' size='medium' inverted content='Add Student'
-          color='grey' style={{display: 'inline-block', float: 'right', marginTop: '3%'}}
-          onClick={() => this.props.history.push('/createstudent')}
-        />
+        <Header style={{color: 'white', fontSize: '4vh'}} content="Students:" />
         {this.props.errorMessage ?
           <Message success header={this.props.errorMessage} /> : null
         }
-        <div style={{paddingTop: '2%'}}>
           {this.props.students &&
             this.props.students.length > 0 ?
             this.props.students.map(student => {
               return (
-                <div className='studentList' key={student.id} >
+                <div className='studentList' key={student.id}>
                   <Button
-                    key={student.id}
                     inverted color='grey' fluid
-                    size='huge' 
+                    size='huge'
                     onClick={() => {
                       this.props.findStudent(student.id)
                         .then(this.props.history.push(`/students/${student.id}`))
-                      // this.props.history.push(`/students/${student.id}`)
                     }}
                     content={student.username}
                   />
                 </div>
               )
-            }) : null }
+            })
+            : null }
+            <div className='studentList'>
+              <Button inverted
+                color='grey' fluid size='huge'
+                onClick={() => this.props.history.push('/createstudent')}
+                content='Add Student' icon='add user'
+              />
+            </div>
             {this.props.students && this.props.students.length === 0 ?
               <Header as='h2' style={{textAlign: 'center', padding: '10%'}} inverted>
                 Welcome to Take Note! <br /><br /><br />
@@ -71,7 +72,6 @@ class TeacherDashboard extends Component {
             Try making a test student, creating some resources, writing an assignment - then log in as the student and see what they can do!
               </Header> : null
             }
-        </div>
       </div>
     )
   }

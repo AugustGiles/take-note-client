@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Button, Divider, Modal } from 'semantic-ui-react'
+import { Button, Divider, Modal, Header } from 'semantic-ui-react'
 import {stateToHTML} from 'draft-js-export-html';
 import { convertFromRaw } from 'draft-js';
 
@@ -57,10 +57,7 @@ class Practice extends Component {
     return (
       <div className='setup' style={{paddingLeft: '10%', paddingRight: '10%'}}>
 
-        <div>
-          <Stopwatch context={'practice'}/>
-        </div>
-
+        <Stopwatch context={'practice'}/>
         <Divider inverted />
 
         <div style={{textAlign: 'center'}}>
@@ -72,16 +69,20 @@ class Practice extends Component {
           <RecorderDevice assignmentId={this.props.recentAssignment && this.props.recentAssignment.id}/>
           <Modal basic size='small' onOpen={() => this.props.findStudent(this.props.id)}
             trigger={<Button icon='paperclip' inverted size='huge'/>}
-            content={<ResourceCards context="assignment" resources={this.props.resources}
-                        youtubes={this.props.youtubes} />
-                    }
+            content={this.props.resources &&
+              this.props.resources.length > 0 && this.props.youtubes.length > 0 ?
+                  <ResourceCards context="assignment" resources={this.props.resources}
+                    youtubes={this.props.youtubes} /> :
+                  <Header as='h2'style={{color: 'white', textAlign: 'center'}}
+                    content='No Resources Assigned' />
+            }
           />
         </div>
 
         <Divider inverted/>
 
         { this.props.assignmentText ?
-          <div style={{overflow: 'auto'}}>
+          <div style={{overflowY: 'scroll', height: '52%'}}>
             <p style={{color: 'white'}}
             dangerouslySetInnerHTML={{ __html: convertCommentFromJSONToHTML(this.props.assignmentText)}}
             />
