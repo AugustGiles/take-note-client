@@ -71,6 +71,7 @@ class AuthForm extends Component {
 
         <Form>
           <Input
+            aria-label='Username'
             placeholder='Username'
             value={this.state.username}
             size='huge' fluid
@@ -78,6 +79,7 @@ class AuthForm extends Component {
             onChange={(e) => this.setState({username: e.target.value})}
           />
           <Input
+            aria-label='Password'
             placeholder='Password'
             type="password"
             size='huge' fluid
