@@ -4,10 +4,10 @@ import { Route } from 'react-router';
 import './styles/App.css'
 import Practice from './containers/Practice'
 import StudentDashboard from './components/StudentDashboard'
-import TeacherDashboard from './components/TeacherDashboard'
+// import TeacherDashboard from './components/TeacherDashboard'
 import CreateAssignment from './containers/CreateAssignment'
 import StudentShow from './components/StudentShow'
-import AuthForm from './components/AuthForm'
+// import AuthForm from './components/AuthForm'
 import CreateStudent from './components/CreateStudent'
 import Archive from './components/Archive'
 import CreateResource from './components/CreateResource'
@@ -15,7 +15,19 @@ import ViewResources from './components/ViewResources'
 import { fetchUser } from './redux/actions/fetchActions'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
+import Loading from './components/Loading'
 
+import Loadable from 'react-loadable';
+
+const AuthForm = Loadable({
+  loader: () => import('./components/AuthForm'),
+  loading: Loading
+});
+
+const TeacherDashboard = Loadable({
+  loader: () => import ('./components/TeacherDashboard'),
+  loading: Loading
+})
 
 class App extends Component {
 
