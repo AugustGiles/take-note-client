@@ -4,7 +4,7 @@ import '../styles/App.css'
 import { handleLogin, handleSignUp, fetchUser } from '../redux/actions/fetchActions'
 import { validate, removeErrorMessage, addErrorMessage } from '../redux/actions/errorActions'
 import { connect } from 'react-redux'
-import registerServiceWorker from './registerServiceWorker';
+import registerServiceWorker from '../registerServiceWorker';
 
 
 class AuthForm extends Component {
