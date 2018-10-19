@@ -21,14 +21,14 @@ class ResourceCards extends Component {
     if (extension === 'jpeg' || extension === 'png' || extension === 'jpg' || extension === 'gif') {
       return (
         <Modal basic size='small'
-          trigger={<Button size='medium' content='Show Details' style={{display: 'inline-block', width: '48%'}}/>}
+          trigger={<Button size='medium' content='Preview' style={{display: 'inline-block', width: '48%'}}/>}
           content={<img alt={title} src={`https://take-note-server.herokuapp.com${file}`} width={'100%'} height={'auto'}/>}
         />
       )
     } else if (extension === 'pdf') {
       return (
         <Modal size='small'
-          trigger={<Button size='medium' style={{display: 'inline-block', width: '48%'}} content='Show Details' />}
+          trigger={<Button size='medium' style={{display: 'inline-block', width: '48%'}} content='Preview' />}
           content={
             <iframe
               title='pdf'
@@ -41,14 +41,14 @@ class ResourceCards extends Component {
     } else if (extension === 'mp3' || extension === 'wav') {
       return (
         <Modal basic size='mini'
-          trigger={<Button size='medium' content='Show Details' style={{display: 'inline-block', width: '48%'}}/>}
+          trigger={<Button size='medium' content='Preview' style={{display: 'inline-block', width: '48%'}}/>}
           content={<audio src={`https://take-note-server.herokuapp.com${file}`} controls />}
         />
       )
     } else if (extension === 'youtube') {
       return (
         <Modal basic size='small'
-          trigger={<Button size='medium' content='Show Details' style={{display: 'inline-block', width: '48%'}}/>}
+          trigger={<Button size='medium' content='Preview' style={{display: 'inline-block', width: '48%'}}/>}
           content={
             <iframe title='youtube' style={{width:'100%', height:'80vh'}} src={`${file}`} frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
           }
