@@ -2,16 +2,6 @@ import React, { Component } from 'react';
 import { Route } from 'react-router';
 
 import './styles/App.css'
-import Practice from './containers/Practice'
-import StudentDashboard from './components/StudentDashboard'
-// import TeacherDashboard from './components/TeacherDashboard'
-import CreateAssignment from './containers/CreateAssignment'
-import StudentShow from './components/StudentShow'
-// import AuthForm from './components/AuthForm'
-import CreateStudent from './components/CreateStudent'
-import Archive from './components/Archive'
-import CreateResource from './components/CreateResource'
-import ViewResources from './components/ViewResources'
 import { fetchUser } from './redux/actions/fetchActions'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
@@ -28,6 +18,46 @@ const TeacherDashboard = Loadable({
   loader: () => import ('./components/TeacherDashboard'),
   loading: Loading
 })
+
+const StudentDashboard = Loadable({
+  loader: () => import('./components/StudentDashboard'),
+  loading: Loading
+});
+
+const Practice = Loadable({
+  loader: () => import('./containers/Practice'),
+  loading: Loading
+});
+
+const StudentShow = Loadable({
+  loader: () => import('./components/StudentShow'),
+  loading: Loading
+});
+
+const CreateAssignment = Loadable({
+  loader: () => import('./containers/CreateAssignment'),
+  loading: Loading
+});
+
+const CreateStudent = Loadable({
+  loader: () => import('./components/CreateStudent'),
+  loading: Loading
+});
+
+const Archive = Loadable({
+  loader: () => import('./components/Archive'),
+  loading: Loading
+});
+
+const CreateResource = Loadable({
+  loader: () => import('./components/CreateResource'),
+  loading: Loading
+});
+
+const ViewResources = Loadable({
+  loader: () => import('./components/ViewResources'),
+  loading: Loading
+});
 
 class App extends Component {
 
