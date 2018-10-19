@@ -11,6 +11,8 @@ import HttpsRedirect from 'react-https-redirect'
 
 const store = configureStore()
 
+registerServiceWorker();
+
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
@@ -20,5 +22,3 @@ ReactDOM.render(
     </BrowserRouter>
   </Provider>,
     document.getElementById('root'))
-
-registerServiceWorker();
