@@ -4,7 +4,6 @@ import '../styles/App.css'
 import { handleLogin, handleSignUp, fetchUser } from '../redux/actions/fetchActions'
 import { validate, removeErrorMessage, addErrorMessage } from '../redux/actions/errorActions'
 import { connect } from 'react-redux'
-import registerServiceWorker from '../registerServiceWorker';
 
 
 class AuthForm extends Component {
@@ -16,7 +15,6 @@ class AuthForm extends Component {
   }
 
   componentDidMount() {
-    registerServiceWorker();
     if (localStorage.token && localStorage.role === 'teacher') {
       this.props.history.push('/teacherDashboard')
     } else if (localStorage.token && localStorage.role === 'student') {
