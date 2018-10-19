@@ -60,7 +60,6 @@ class AuthForm extends Component {
       <div className="auth" >
         <h1 className='featureText' >Take Note .</h1>
         <Header
-          defer
           size='huge'
           style={{color: 'white'}}
           content={this.props.context === 'signup' ? 'Create Studio Account' : 'Login'}
@@ -70,9 +69,8 @@ class AuthForm extends Component {
           <Message error header={this.props.errorMessage} /> : null
         }
 
-        <Form>
+        <Form >
           <Input
-            defer
             aria-label='Username'
             placeholder='Username'
             value={this.state.username}
@@ -81,7 +79,6 @@ class AuthForm extends Component {
             onChange={(e) => this.setState({username: e.target.value})}
           />
           <Input
-            defer
             aria-label='Password'
             placeholder='Password'
             type="password"
