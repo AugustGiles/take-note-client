@@ -1,0 +1,83 @@
+/* attempt to incorporate animation in loading screen */
+
+.shape {
+  width: 100px;
+  height: 100px;
+  border-width: 5px;
+  border-style: solid;
+  position: absolute;
+  border-radius: 50%;
+  border-color: #40798C;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+}
+
+.circle-left {
+  animation-name: left;
+  animation-duration: 6s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease;
+}
+
+@keyframes left {
+  0% {opacity: 0; transform: translate(-50%, -50%) scale(0)}
+  8% {opacity: 1; transform: translate(-50%, -50%) scale(1.1)}
+  12% {transform: translate(-50%, -50%) scale(0.95)}
+  15% {transform: translate(-50%, -50%) scale(1)}
+  22% {transform: translate(-50%, -50%) scale(1); width: 100px}
+  25% {transform: translate(-50%, -50%) scale(.4); width: 120px}
+  28% {transform: translate(-105%, -50%) scale(.7); width: 100px; height: 100px}
+  32% {transform: translate(-110%, -50%) scale(.8); height: 105px}
+  36% {transform: translate(-110%, -50%) scale(0.7); height: 100px}
+  39% {transform: translate(-110%, -50%) scale(.7)}
+  42% {transform: translate(-110%, -55%) scale(.7);}
+  44% {transform: translate(-110%, -50%) scale(.7);}
+  51% {transform: translate(-110%, -50%) scale(.7); height: 100px}
+  60% {transform: translate(-165%, -50%) scale(1); height: 115px}
+  70% {transform: translate(-100%, -50%) scale(.7); height: 100px}
+  75% {transform: translate(-250%, -50%) scale(1.3); height: 130px}
+  77% {transform: translate(-250%, -50%) scale(1.3); height: 130px}
+  79% {transform: translate(-55%, -50%) scale(.6); height: 100px; border-color: #40798C}
+  81% {transform: translate(-50%, -50%) scale(1.5); border-color: #A07178}
+  84% {transform: translate(-50%, -50%) scale(1.3); border-color: #A07178}
+  88% {transform: translate(-50%, -50%) scale(1.4); border-color: #A07178}
+  93% {transform: translate(-50%, -50%) scale(1.4); border-color: #A07178}
+  96% {transform: translate(-50%, -50%) scale(1.5); border-color: ##A07178}
+  97% {transform: translate(-50%, -50%) scale(0)}
+
+}
+
+.circle-right {
+  animation-name: right;
+  animation-duration: 6s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease;
+}
+
+@keyframes right {
+  0% {opacity: 0; transform: translate(-50%, -50%) scale(0)}
+  8% {opacity: 1; transform: translate(-50%, -50%) scale(1.1)}
+  12% {transform: translate(-50%, -50%) scale(0.95)}
+  15% {transform: translate(-50%, -50%) scale(1)}
+  22% {transform: translate(-50%, -50%) scale(1); width: 100px}
+  25% {transform: translate(-50%, -50%) scale(.4); width: 120px}
+  28% {transform: translate(5%, -50%) scale(.7); width: 100px; height: 100px}
+  32% {transform: translate(10%, -50%) scale(.8); height: 105px}
+  36% {transform: translate(10%, -50%) scale(.7); height: 100px}
+  39% {transform: translate(10%, -50%) scale(.7)}
+  44% {transform: translate(10%, -60%) scale(.7);}
+  46% {transform: translate(10%, -50%) scale(.7);}
+  51% {transform: translate(10%, -50%) scale(.7); height: 100px}
+  60% {transform: translate(65%, -50%) scale(1); height: 115px}
+  70% {transform: translate(0%, -50%) scale(.7); height: 100px}
+  75% {transform: translate(150%, -50%) scale(1.3); height: 130px}
+  77% {transform: translate(150%, -50%) scale(1.3);height: 130px}
+  79% {transform: translate(-55%, -50%) scale(.6); height: 100px; border-color: #40798C}
+  81% {transform: translate(-50%, -50%) scale(1.5); border-color: #A07178}
+  84% {transform: translate(-50%, -50%) scale(1.3); border-color: #A07178}
+  88% {transform: translate(-50%, -50%) scale(1.4); border-color: #A07178}
+  93% {transform: translate(-50%, -50%) scale(1.4); border-color: #A07178}
+  96% {transform: translate(-50%, -50%) scale(1.5); border-color: #A07178}
+  97% {transform: translate(-50%, -50%) scale(0)}
+}
