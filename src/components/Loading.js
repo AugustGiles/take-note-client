@@ -7,6 +7,7 @@ export default class Loading extends Component {
   render() {
     return(
       <div className='setup'>
+        // <p>loading...</p>
       </div>
     )
   }
